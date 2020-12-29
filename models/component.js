@@ -14,6 +14,10 @@ const componentSchema = new mongoose.Schema(
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Page',
     },
+    groups: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Group',
+    }],
     components: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Component',
