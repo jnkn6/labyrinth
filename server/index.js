@@ -3,6 +3,15 @@ import { ApolloServer } from 'apollo-server-express'
 
 import schema from './schema'
 import resolvers from './resolvers'
+import mongoose from 'mongoose'
+
+var db = mongoose.connection;
+db.once('open', function(){
+  console.log("DB open");
+});
+
+mongoose.connect('mongodb://localhost/labyrinth', {useNewUrlParser: true});
+
 
 const server = new ApolloServer({
   typeDefs: schema,
@@ -15,4 +24,4 @@ server.applyMiddleware({ app, path: '/graphql' });
 app.use('/', express.static('public'))
 
 app.listen({ port: 4000 }, () =>
-  console.log(`Server ready at http://localhost:3000${server.graphqlPath}`));
+  console.log('Server ready'));
