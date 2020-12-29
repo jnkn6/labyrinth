@@ -1,7 +1,6 @@
 import mongoose from 'mongoose'
 
-const groupSchema = new mongoose.Schema(
-  {
+const groupSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -10,9 +9,13 @@ const groupSchema = new mongoose.Schema(
         type: String,
         required: true,
     },
-    group: [{
+    groups: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Group',
+    }],
+    pages: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Page',
     }],
     components: [{
         type: mongoose.Schema.Types.ObjectId,
