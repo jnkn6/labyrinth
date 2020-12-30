@@ -1,6 +1,6 @@
 export default {
     Query: {
-        get_site: () => {
+        get_domain: () => {
             return {
                 id: "test123",
                 url: "www.example.com",

@@ -9,9 +9,9 @@ const pageSchema = new mongoose.Schema({
         type: String,
         required: true,    
     },
-    site: {
+    domain: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Site',
+        ref: 'Domain',
     },
     groups: [{
         type: mongoose.Schema.Types.ObjectId,

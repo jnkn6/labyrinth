@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const siteSchema = new mongoose.Schema({
+const domainSchema = new mongoose.Schema({
     url: {
         type: String,
         required: true,
@@ -14,6 +14,6 @@ const siteSchema = new mongoose.Schema({
     },
 });
 
-const Site = mongoose.model('Site', siteSchema, 'site');
+const Domain = mongoose.model('Domain', domainSchema, 'domain');
 
-export default Site;
+export default Domain;

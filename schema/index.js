@@ -1,5 +1,5 @@
-import siteSchema from './site'
+import domainSchema from './domain'
 
 export default [
-    siteSchema,
+    domainSchema,
 ];
