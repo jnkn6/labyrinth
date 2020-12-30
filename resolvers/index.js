@@ -1,7 +1,5 @@
-import componentResolvers from './component'
-// import pageResolvers from './page'
+import siteResolver from './site'
 
 export default [
-    componentResolvers,
-    // pageResolvers
+    siteResolver,
 ];
