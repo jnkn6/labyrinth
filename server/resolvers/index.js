@@ -1,5 +1,5 @@
-import siteResolver from './site'
+import domainResolver from './domain'
 
 export default [
-    siteResolver,
+    domainResolver,
 ];

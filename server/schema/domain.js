@@ -1,7 +1,7 @@
 import { gql } from 'apollo-server-express'
 
 export default gql`
-type Site {
+type Domain {
     id: ID!
     url: String!
     pages: [ID]!
@@ -9,6 +9,6 @@ type Site {
 }
 
 type Query {
-    get_site: Site!
+    get_domain: Domain!
 }
 `

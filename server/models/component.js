@@ -6,9 +6,9 @@ const componentSchema = new mongoose.Schema(
         type: String,
         required: true,
     },
-    site: {
+    domain: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Site',
+        ref: 'Domain',
     },
     page: {
         type: mongoose.Schema.Types.ObjectId,
