@@ -1,8 +1,5 @@
-import componentSchema from './component'
-// import pageSchema from './page'
-import { gql } from 'apollo-server-express';
+import siteSchema from './site'
 
 export default [
-    componentSchema,
-    // pageSchema
+    siteSchema,
 ];
