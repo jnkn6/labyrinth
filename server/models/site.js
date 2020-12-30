@@ -9,6 +9,9 @@ const siteSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Page',
     }],
+    memo: {
+        type: String
+    },
 });
 
 const Site = mongoose.model('Site', siteSchema, 'site');
