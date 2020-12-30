@@ -21,6 +21,9 @@ const pageSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Component',
     }],
+    memo: {
+        type: String
+    },
 });
 
 const Page = mongoose.model('Page', pageSchema, 'page');
