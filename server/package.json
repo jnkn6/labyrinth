@@ -16,7 +16,10 @@
     "@babel/preset-env": "^7.12.11",
     "apollo-server-express": "^2.19.1",
     "express": "^4.17.1",
+    "express-mongo-sanitize": "^2.0.1",
     "graphql": "^15.4.0",
-    "mongoose": "^5.11.9"
+    "mongoose": "^5.11.9",
+    "sanitize-html": "^2.3.0",
+    "validator": "^13.5.2"
   }
 }
