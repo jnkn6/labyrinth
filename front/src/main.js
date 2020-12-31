@@ -6,6 +6,7 @@ import 'vuetify/dist/vuetify.min.css'
 
 import App from './App'
 import router from './router'
+import store from './store'
 
 
 Vue.use(Vuetify)
@@ -18,6 +19,7 @@ new Vue({
   el: '#app',
   vuetify: new Vuetify(vuetifyOptions),
   router,
+  store,
   components: { App },
   template: '<App/>'
 })
