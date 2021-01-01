@@ -4,22 +4,43 @@ import Vue from 'vue'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 
+import VueApollo from 'vue-apollo'
+import { ApolloClient } from 'apollo-client'
+import { createHttpLink  } from 'apollo-link-http'
+import { InMemoryCache } from 'apollo-cache-inmemory'
+
 import App from './App'
 import router from './router'
 import store from './store'
-
 
 Vue.use(Vuetify)
 Vue.config.productionTip = false
 
 const vuetifyOptions = { }
 
-/* eslint-disable no-new */
+Vue.use(VueApollo)
+
+const httpLink = new createHttpLink ({
+    uri: "//localhost:3000/graphql"
+})
+
+// Create the apollo client
+export const apolloClient = new ApolloClient({
+    link: httpLink,
+    cache: new InMemoryCache(),
+    connectToDevTools: true
+})
+
+const apolloProvider = new VueApollo({
+    defaultClient: apolloClient,
+})
+
 new Vue({
-  el: '#app',
-  vuetify: new Vuetify(vuetifyOptions),
-  router,
-  store,
-  components: { App },
-  template: '<App/>'
+    el: '#app',
+    vuetify: new Vuetify(vuetifyOptions),
+    apolloProvider,
+    router,
+    store,
+    components: { App },
+    template: '<App/>'
 })
