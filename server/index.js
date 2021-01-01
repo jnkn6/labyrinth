@@ -1,9 +1,11 @@
 import express from 'express'
 import { ApolloServer } from 'apollo-server-express'
+import mongoose from 'mongoose'
+
+import history from 'connect-history-api-fallback'
 
 import schema from './schema'
 import resolvers from './resolvers'
-import mongoose from 'mongoose'
 
 var db = mongoose.connection;
 db.once('open', function(){
@@ -21,7 +23,9 @@ const server = new ApolloServer({
 
 const app = express();
 server.applyMiddleware({ app, path: '/graphql' });
-app.use('/', express.static('public'))
 
-app.listen({ port: 4000 }, () =>
+app.use(history());
+app.use(express.static('public'))
+
+app.listen({ port: 3000 }, () =>
   console.log('Server ready'));
