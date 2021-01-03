@@ -12,7 +12,9 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 import App from './App'
 import router from './router'
 import store from './store'
+import { VuePlugin } from 'vuera'
 
+Vue.use(VuePlugin)
 Vue.use(Vuetify)
 Vue.config.productionTip = false
 
