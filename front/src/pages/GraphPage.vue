@@ -1,9 +1,12 @@
 <template>
-    <div>{{domain}}</div>
+    <div >
+        <flow-graph :domain="domain"/>
+    </div>
 </template>
 
 <script>
 
+import FlowGraph from '@/components/FlowGraph'
 
 export default {
     name: "GraphPage",
@@ -12,5 +15,8 @@ export default {
             type: String
         }
     },
-
+    components: {
+        FlowGraph
+    },
+}
 </script>
