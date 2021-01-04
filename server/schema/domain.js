@@ -9,6 +9,6 @@ type Domain {
 }
 
 type Query {
-    get_domain: Domain!
+    domainInfo(url: String!): Domain
 }
 `
