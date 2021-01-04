@@ -8,6 +8,8 @@
 
 import ReactFlow from 'react-flow-renderer';
 
+import { DOMAININFO_QUERY } from '@/graphql/domain'
+
 export default {
     name: "FlowGraph",
     props: {
@@ -24,6 +26,14 @@ export default {
                 { id: 'e1-2', source: '1', target: '2', animated: true }
             ],
             graphStyles: { width: "100%", height: "500px" }
+        }
+    },
+    apollo: {
+        domainInfo: {
+            query: DOMAININFO_QUERY,
+            variables() {
+                return { url: this.domain }
+            }
         }
     },
 }
