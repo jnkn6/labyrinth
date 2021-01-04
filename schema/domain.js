@@ -2,9 +2,9 @@ import { gql } from 'apollo-server-express'
 
 export default gql`
 type Domain {
-    id: ID!
+    _id: ID!
     url: String!
-    pages: [ID]!
+    pages: [ID!]!
     memo: String
 }
 
