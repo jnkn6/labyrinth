@@ -24,3 +24,20 @@ export function DomainNode ({data}) {
         </div>
     );
 }
+
+export function PageNode ({data}) {
+    const pageNodeStyles = {
+        background: '#0FBDA3',
+        color: '#FFF',
+        padding: 10,
+    };
+
+    return (
+        <div style={pageNodeStyles}>
+            <Handle type="target" position="left"/>
+            <div>{data.name}</div>
+            <div>{data.path}</div>
+            <Handle type="source" position="right"/>
+        </div>
+    );
+};
