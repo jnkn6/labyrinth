@@ -12,6 +12,7 @@ const pageSchema = new mongoose.Schema({
     domain: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Domain',
+        required: true,
     },
     groups: [{
         type: mongoose.Schema.Types.ObjectId,

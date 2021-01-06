@@ -8,7 +8,7 @@ type Domain {
     memo: String
 }
 
-type Query {
+extend type Query {
     domainInfo(url: String!): Domain
 }
 `
