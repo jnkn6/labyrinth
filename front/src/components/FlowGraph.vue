@@ -1,6 +1,10 @@
 <template>
     <div>
-        <react-flow :elements="elements" :style="graphStyles" />
+        <react-flow
+            :elements="elements"
+            :nodeTypes="nodeTypes"
+            :style="graphStyles"
+        />
     </div>
 </template>
 
@@ -10,6 +14,8 @@ import ReactFlow from 'react-flow-renderer';
 
 import { DOMAININFO_QUERY } from '@/graphql/domain'
 
+import { DomainNode } from './react-flow-custom/FlowGraphNode'
+
 export default {
     name: "FlowGraph",
     props: {
@@ -18,23 +24,40 @@ export default {
         }
     },
     components: { ReactFlow },
+    computed: {
+        elements () {
+            return this.nodes;
+        },
+    },
     data () {
         return {
-            elements: [
-                { id: '1', type: 'input', data: { label: 'Node 1' }, position: { x: 250, y: 5 } },
-                { id: '2', data: { label: 'Node 2' }, position: { x: 100, y: 100 } },
-                { id: 'e1-2', source: '1', target: '2', animated: true }
-            ],
-            graphStyles: { width: "100%", height: "500px" }
+            nodeTypes: {
+                domain: DomainNode,
+                page: PageNode
+            },
+            graphStyles: { width: "100%", height: "500px" },
+            nodes: []
         }
     },
     apollo: {
+
+        // Init domain node
         domainInfo: {
             query: DOMAININFO_QUERY,
-            variables() {
-                return { url: this.domain }
-            }
-        }
-    },
+            variables () {
+                return { url: this.domain };
+            },
+            result ({ data, loading }) {
+                if (!loading) {
+                    this.nodes = [{
+                        id: data.domainInfo._id,
+                        type: 'domain',
+                        data: { ...data.domainInfo },
+                        position: {x:100, y:100}
+                    }];
+                }
+            },
+        },
+    }
 }
 </script>
