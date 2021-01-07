@@ -1,8 +1,6 @@
 import React from 'react';
 import { Handle } from 'react-flow-renderer';
 
-import validator from 'validator'
-
 export function DomainNode ({data}) {
 
     const domainNodeStyles = {
@@ -11,12 +9,10 @@ export function DomainNode ({data}) {
         padding: 10,
     };
 
-    // HTML encode
-    let url = validator.escape(data.url)
-
+    // input will be HTML encoded by react
     return (
         <div style={domainNodeStyles}>
-            <div>{url}</div>
+            <div>{data.url}</div>
             <Handle
                 type="source"
                 position="right"
@@ -32,6 +28,7 @@ export function PageNode ({data}) {
         padding: 10,
     };
 
+    // input will be HTML encoded by react
     return (
         <div style={pageNodeStyles}>
             <Handle type="target" position="left"/>
