@@ -26,7 +26,8 @@ export default {
     components: { ReactFlow },
     computed: {
         elements () {
-            return this.nodes;
+            let nodes = this.domainNodes;
+            return nodes;
         },
     },
     data () {
@@ -36,7 +37,9 @@ export default {
                 page: PageNode
             },
             graphStyles: { width: "100%", height: "500px" },
-            nodes: []
+
+            domainNodes: [],
+
         }
     },
     apollo: {
@@ -49,7 +52,7 @@ export default {
             },
             result ({ data, loading }) {
                 if (!loading) {
-                    this.nodes = [{
+                    this.domainNodes = [{
                         id: data.domainInfo._id,
                         type: 'domain',
                         data: { ...data.domainInfo },
