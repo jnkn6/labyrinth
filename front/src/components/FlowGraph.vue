@@ -5,6 +5,7 @@
             <react-flow-graph
                 :elements="elements"
                 :onElementClick="onElementClick"
+                :onDrop="onDrop"
             />
         </div>
     </v-container >
@@ -18,7 +19,7 @@ import ReactFlowGraph from './FlowGraphGraph'
 import { DOMAININFO_QUERY } from '@/graphql/domain'
 import { ALLPAGESINFO_QUERY } from '@/graphql/page'
 
-import { DomainNode, PageNode } from './react-flow-custom/FlowGraphNode'
+import { uuidv4 } from '@/utils/utils'
 
 
 async function fetchPages (apollo, domainId, domainNodeX, domainNodeY) {
@@ -94,6 +95,24 @@ export default {
     methods: {
         onDragTag (payload) {
             this.drag = payload.name
+        },
+        onDrop (event) {
+            let id = uuidv4() // this ID is temporary, real ID will be made by DB.
+            let data = {};
+
+            switch (this.drag){
+                case "page":
+                    data = { _id: id, name: "new_page", path: "" };
+                    break;
+            }
+
+            this.pageNodes.push({
+                id: id,
+                type: this.drag,
+                position: { x: event.clientX - this.sidebarSize, y: event.clientY},
+                data: data,
+            });
+
         },
         onElementClick(event, element){
             if (element.type === "domain"){

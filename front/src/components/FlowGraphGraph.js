@@ -12,12 +12,17 @@ export default (props) => {
         width: "100%",
         height: "500px",
     }
+    const onDragOver = (event) => {
+        event.preventDefault();
+    };
     return (
         <ReactFlow
             nodeTypes={nodeTypes}
             style={graphStyles}
             elements={props.elements}
             onElementClick={props.onElementClick}
+            onDrop={props.onDrop}
+            onDragOver={onDragOver}
         >
             <MiniMap />
             <Controls />
