@@ -1,9 +1,7 @@
 <template>
     <div>
-        <react-flow
+        <react-flow-graph
             :elements="elements"
-            :nodeTypes="nodeTypes"
-            :style="graphStyles"
             :onElementClick="onElementClick"
         />
     </div>
@@ -11,7 +9,7 @@
 
 <script>
 
-import ReactFlow from 'react-flow-renderer';
+import ReactFlowGraph from './FlowGraphGraph'
 
 import { DOMAININFO_QUERY } from '@/graphql/domain'
 import { ALLPAGESINFO_QUERY } from '@/graphql/page'
@@ -66,7 +64,9 @@ export default {
             type: String
         }
     },
-    components: { ReactFlow },
+    components: {
+        ReactFlowGraph,
+    },
     computed: {
         elements () {
             let nodes = this.domainNodes.concat(this.pageNodes);
@@ -77,12 +77,6 @@ export default {
     },
     data () {
         return {
-            nodeTypes: {
-                domain: DomainNode,
-                page: PageNode
-            },
-            graphStyles: { width: "100%", height: "500px" },
-
             domainNodes: [],
             pageNodes: [],
             edgeNodes: [],
