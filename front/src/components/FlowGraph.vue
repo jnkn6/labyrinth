@@ -1,14 +1,18 @@
 <template>
-    <div>
-        <react-flow-graph
-            :elements="elements"
-            :onElementClick="onElementClick"
-        />
-    </div>
+    <v-container fluid>
+        <flow-graph-sidebar :size="sidebarSize" @onDragTag="onDragTag" />
+        <div :style="{'padding-left': sidebarSize + 'px'}">
+            <react-flow-graph
+                :elements="elements"
+                :onElementClick="onElementClick"
+            />
+        </div>
+    </v-container >
 </template>
 
 <script>
 
+import FlowGraphSidebar from './FlowGraphSidebar'
 import ReactFlowGraph from './FlowGraphGraph'
 
 import { DOMAININFO_QUERY } from '@/graphql/domain'
@@ -65,6 +69,7 @@ export default {
         }
     },
     components: {
+        FlowGraphSidebar,
         ReactFlowGraph,
     },
     computed: {
@@ -81,10 +86,15 @@ export default {
             pageNodes: [],
             edgeNodes: [],
 
-            isPageOpened: false
+            isPageOpened: false,
+            drag: '',
+            sidebarSize: 200
         }
     },
     methods: {
+        onDragTag (payload) {
+            this.drag = payload.name
+        },
         onElementClick(event, element){
             if (element.type === "domain"){
                 this.onDomainClick(event, element);
