@@ -18,6 +18,47 @@ import { ALLPAGESINFO_QUERY } from '@/graphql/page'
 
 import { DomainNode, PageNode } from './react-flow-custom/FlowGraphNode'
 
+
+async function fetchPages (apollo, domainId, domainNodeX, domainNodeY) {
+    let pages = [];
+    let edges = [];
+
+    let result = apollo.query({
+        query: ALLPAGESINFO_QUERY,
+        variables : {
+            domain: domainId
+        },
+    })
+    .then(res => {
+        let x = domainNodeX + 200;
+        let y = domainNodeY;
+
+        res.data.allPagesInfo.forEach((page, index) => {
+
+            // Add node
+            pages.push({
+                id: page._id,
+                type: 'page',
+                data: { ...page },
+                position: { x: x, y: y },
+            });
+            y += 100;
+
+            // Add edge
+            edges.push({
+                id: "e" + domainId + "-" + page._id,
+                source: domainId,
+                target: page._id
+            });
+        });
+
+        return {pages: pages, edges: edges}
+    })
+    .catch(err => {console.log(err);})
+
+    return result;
+}
+
 export default {
     name: "FlowGraph",
     props: {
@@ -66,47 +107,15 @@ export default {
             }
 
             // Add page node
-            this.$apollo.query({
-                query: ALLPAGESINFO_QUERY,
-                variables : {
-                    domain: element.data._id
-                },
-            })
-            .then(res => {
-                let pages = [];
-                let edges = [];
-                
-                let x = element.position.x + 200;
-                let y = element.position.y;
-
-                res.data.allPagesInfo.forEach((page, index) => {
-
-                    // Add node
-                    pages.push({
-                        id: page._id,
-                        type: 'page',
-                        data: { ...page },
-                        position: { x: x, y: y },
-                    });
-
-                    y += 100;
-
-                    // Add edge
-                    edges.push({
-                        id: "e" + element.data._id + "-" + page._id,
-                        source: element.data._id,
-                        target: page._id
-                    });
-                });
-
-                this.pageNodes = this.pageNodes.concat(pages);
-                this.$nextTick(function () {
-                    this.edgeNodes = this.edgeNodes.concat(edges);
+            fetchPages(this.$apollo, element.data._id, element.position.x, element.position.y)
+                .then(res => {
+                    this.pageNodes = this.pageNodes.concat(res.pages)
+                    this.$nextTick(() => {
+                        this.edgeNodes = this.edgeNodes.concat(res.edges);
+                        this.isPageOpened = true;
+                    })
                 })
-
-                this.isPageOpened = true;
-            })
-            .catch(err => {console.log(err);})
+                .catch(err => {console.log(err)})
         }
     },
     apollo: {
