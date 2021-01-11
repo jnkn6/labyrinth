@@ -1,7 +1,17 @@
-import { CONCAT_EDGES, CONCAT_PAGE_NODES, FETCH_DOMAIN_NODES, EMPTY_PAGE_NODES, EMPTY_EDGES } from './mutations-types'
+import {
+    CONCAT_EDGES,
+    CONCAT_PAGE_NODES,
+    EMPTY_EDGES,
+    EMPTY_PAGE_NODES,
+    FETCH_DOMAIN_NODES,
+    PUSH_PAGE_NODE,
+} from './mutations-types'
 
 import { DOMAININFO_QUERY } from '@/graphql/domain'
 import { ALLPAGESINFO_QUERY } from '@/graphql/page'
+
+import { uuidv4 } from '@/utils/utils'
+
 
 export default {
     fetchDomainNodes({commit}, {vue, domain}){
@@ -69,5 +79,26 @@ export default {
     },
     concatEdges({commit}, edges){
         commit(CONCAT_EDGES, edges);
+    },
+    createTempNode({dispatch}, { type, position }){
+        switch(type){
+            case "page":
+                dispatch('createTempPageNode', position);
+                break;
+            case "domain":
+                console.log("createTempNode domain is not implemented")
+                break;
+        }
+    },
+    createTempPageNode({commit}, position){
+        let id = uuidv4() // this ID is temporary, real ID will be made by DB.
+        let data = data = { _id: id, name: "new_page", path: "new_path" };
+
+        commit(PUSH_PAGE_NODE, {
+            id: id,
+            type: 'page',
+            position: position,
+            data: data,
+        });
     }
 }
