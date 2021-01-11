@@ -3,7 +3,7 @@ import {
     CONCAT_PAGE_NODES,
     EMPTY_EDGES,
     EMPTY_PAGE_NODES,
-    FETCH_DOMAIN_NODES,
+    FETCH_DOMAIN_NODE,
     PUSH_PAGE_NODE,
     SET_DRAGGING_TAG,
 } from './mutations-types'
@@ -15,19 +15,19 @@ import { uuidv4 } from '@/utils/utils'
 
 
 export default {
-    fetchDomainNodes({commit}, {vue, domain}){
+    fetchDomainNode({commit}, {vue, domain}){
         vue.$apollo.query({
             query: DOMAININFO_QUERY,
                 variables : {
                     url: domain
                 },
         }).then(res => {
-            commit(FETCH_DOMAIN_NODES, [{
+            commit(FETCH_DOMAIN_NODE, {
                 id: res.data.domainInfo._id,
                 type: 'domain',
                 data: { ...res.data.domainInfo },
                 position: {x:100, y:100}
-            }]);
+            });
         })
     },
     fetchPageNodes({commit}, {vue, domainNode}){

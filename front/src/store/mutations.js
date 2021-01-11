@@ -3,14 +3,14 @@ import {
     CONCAT_PAGE_NODES,
     EMPTY_EDGES,
     EMPTY_PAGE_NODES,
-    FETCH_DOMAIN_NODES,
+    FETCH_DOMAIN_NODE,
     PUSH_PAGE_NODE,
     SET_DRAGGING_TAG,
 } from "./mutations-types";
 
 export default{
-    [FETCH_DOMAIN_NODES](state, domainNodes){
-        state.domainNodes = domainNodes;
+    [FETCH_DOMAIN_NODE](state, domainNode){
+        state.domainNode = domainNode;
     },
     [EMPTY_PAGE_NODES](state){
         state.pageNodes = [];

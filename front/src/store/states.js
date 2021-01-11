@@ -1,5 +1,5 @@
 export default{
-    domainNodes: [],
+    domainNode: null,
     pageNodes: [],
     edges: [],
 
