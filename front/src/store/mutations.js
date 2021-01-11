@@ -1,4 +1,11 @@
-import { CONCAT_EDGES, CONCAT_PAGE_NODES, EMPTY_EDGES, EMPTY_PAGE_NODES, FETCH_DOMAIN_NODES } from "./mutations-types";
+import {
+    CONCAT_EDGES,
+    CONCAT_PAGE_NODES,
+    EMPTY_EDGES,
+    EMPTY_PAGE_NODES,
+    FETCH_DOMAIN_NODES,
+    PUSH_PAGE_NODE,
+} from "./mutations-types";
 
 export default{
     [FETCH_DOMAIN_NODES](state, domainNodes){
@@ -15,5 +22,8 @@ export default{
     },
     [CONCAT_EDGES](state, edges){
         state.edges = state.edges.concat(edges);
+    },
+    [PUSH_PAGE_NODE](state, pageNode){
+        state.pageNodes.push(pageNode);
     }
 }
