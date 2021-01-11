@@ -16,8 +16,6 @@
 import Sidebar from './Sidebar'
 import ReactFlowGraph from './ReactFlowGraph'
 
-import { uuidv4 } from '@/utils/utils'
-
 import { mapState, mapActions } from 'vuex'
 
 export default {
@@ -41,13 +39,13 @@ export default {
         ...mapState([
             'domainNodes',
             'pageNodes',
-            'edges'
+            'edges',
+            'draggingTag',
         ]),
     },
     data () {
         return {
             isPageOpened: false,
-            drag: '',
             sidebarSize: 200
         }
     },
@@ -57,25 +55,12 @@ export default {
             'fetchPageNodes',
             'emptyPageNodes',
             'emptyEdges',
+            'createTempNode',
         ]),
-        onDragTag (payload) {
-            this.drag = payload.name
-        },
         onDrop (event) {
-            let id = uuidv4() // this ID is temporary, real ID will be made by DB.
-            let data = {};
-
-            switch (this.drag){
-                case "page":
-                    data = { _id: id, name: "new_page", path: "" };
-                    break;
-            }
-
-            this.pageNodes.push({
-                id: id,
-                type: this.drag,
-                position: { x: event.clientX - this.sidebarSize, y: event.clientY},
-                data: data,
+            this.createTempNode({
+                type: this.draggingTag,
+                position: {x: event.clientX-this.sidebarSize, y: event.clientY}
             });
 
         },
