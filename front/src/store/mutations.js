@@ -5,6 +5,7 @@ import {
     EMPTY_PAGE_NODES,
     FETCH_DOMAIN_NODES,
     PUSH_PAGE_NODE,
+    SET_DRAGGING_TAG,
 } from "./mutations-types";
 
 export default{
@@ -25,5 +26,8 @@ export default{
     },
     [PUSH_PAGE_NODE](state, pageNode){
         state.pageNodes.push(pageNode);
-    }
+    },
+    [SET_DRAGGING_TAG](state, name){
+        state.draggingTag = name;
+    },
 }
