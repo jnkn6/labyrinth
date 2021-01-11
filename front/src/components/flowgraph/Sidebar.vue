@@ -5,12 +5,16 @@
     </aside>
 </template>
 <script>
+import { mapActions } from 'vuex'
+
 export default {
-    name: "FlowGraphSidebar",
+    name: "Sidebar",
     methods: {
+        ...mapActions([
+            'setDraggingTag'
+        ]),
         onDrag(event){
-            const name = event.target.id
-            this.$emit('onDragTag', {name})
+            this.setDraggingTag(event.target.id)
         }
     }
 }

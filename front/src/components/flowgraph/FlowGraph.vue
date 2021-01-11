@@ -1,6 +1,6 @@
 <template>
     <v-container fluid>
-        <sidebar :size="sidebarSize" @onDragTag="onDragTag" />
+        <sidebar :size="sidebarSize" />
         <div :style="{'padding-left': sidebarSize + 'px'}">
             <react-flow-graph
                 :elements="elements"
