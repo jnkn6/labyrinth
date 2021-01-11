@@ -21,6 +21,7 @@ import { ALLPAGESINFO_QUERY } from '@/graphql/page'
 
 import { uuidv4 } from '@/utils/utils'
 
+import { mapState, mapActions } from 'vuex'
 
 async function fetchPages (apollo, domainId, domainNodeX, domainNodeY) {
     let pages = [];
@@ -80,10 +81,12 @@ export default {
 
             return nodes;
         },
+        ...mapState([
+            'domainNodes',
+        ]),
     },
     data () {
         return {
-            domainNodes: [],
             pageNodes: [],
             edgeNodes: [],
 
@@ -93,6 +96,9 @@ export default {
         }
     },
     methods: {
+        ...mapActions([
+            'fetchDomainNodes',
+        ]),
         onDragTag (payload) {
             this.drag = payload.name
         },
@@ -141,25 +147,8 @@ export default {
                 .catch(err => {console.log(err)})
         }
     },
-    apollo: {
-
-        // Init domain node
-        domainInfo: {
-            query: DOMAININFO_QUERY,
-            variables () {
-                return { url: this.domain };
-            },
-            result ({ data, loading }) {
-                if (!loading) {
-                    this.domainNodes = [{
-                        id: data.domainInfo._id,
-                        type: 'domain',
-                        data: { ...data.domainInfo },
-                        position: {x:100, y:100}
-                    }];
-                }
-            },
-        },
-    }
+    created(){
+        this.fetchDomainNodes({vue: this, domain: this.domain})
+    },
 }
 </script>
