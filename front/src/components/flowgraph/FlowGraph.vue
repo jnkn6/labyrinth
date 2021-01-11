@@ -1,6 +1,6 @@
 <template>
     <v-container fluid>
-        <flow-graph-sidebar :size="sidebarSize" @onDragTag="onDragTag" />
+        <sidebar :size="sidebarSize" @onDragTag="onDragTag" />
         <div :style="{'padding-left': sidebarSize + 'px'}">
             <react-flow-graph
                 :elements="elements"
@@ -13,8 +13,8 @@
 
 <script>
 
-import FlowGraphSidebar from './FlowGraphSidebar'
-import ReactFlowGraph from './FlowGraphGraph'
+import Sidebar from './Sidebar'
+import ReactFlowGraph from './ReactFlowGraph'
 
 import { DOMAININFO_QUERY } from '@/graphql/domain'
 import { ALLPAGESINFO_QUERY } from '@/graphql/page'
@@ -70,7 +70,7 @@ export default {
         }
     },
     components: {
-        FlowGraphSidebar,
+        Sidebar,
         ReactFlowGraph,
     },
     computed: {

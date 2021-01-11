@@ -6,7 +6,7 @@
 
 <script>
 
-import FlowGraph from '@/components/FlowGraph'
+import FlowGraph from '@/components/flowgraph/FlowGraph'
 
 export default {
     name: "GraphPage",

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactFlow, { MiniMap, Controls } from 'react-flow-renderer';
 
-import { DomainNode, PageNode } from './react-flow-custom/FlowGraphNode'
+import { DomainNode, PageNode } from './custom-node/FlowGraphNode'
 
 export default (props) => {
     const nodeTypes = {
