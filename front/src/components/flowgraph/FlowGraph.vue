@@ -16,52 +16,9 @@
 import Sidebar from './Sidebar'
 import ReactFlowGraph from './ReactFlowGraph'
 
-import { DOMAININFO_QUERY } from '@/graphql/domain'
-import { ALLPAGESINFO_QUERY } from '@/graphql/page'
-
 import { uuidv4 } from '@/utils/utils'
 
 import { mapState, mapActions } from 'vuex'
-
-async function fetchPages (apollo, domainId, domainNodeX, domainNodeY) {
-    let pages = [];
-    let edges = [];
-
-    let result = apollo.query({
-        query: ALLPAGESINFO_QUERY,
-        variables : {
-            domain: domainId
-        },
-    })
-    .then(res => {
-        let x = domainNodeX + 200;
-        let y = domainNodeY;
-
-        res.data.allPagesInfo.forEach((page, index) => {
-
-            // Add node
-            pages.push({
-                id: page._id,
-                type: 'page',
-                data: { ...page },
-                position: { x: x, y: y },
-            });
-            y += 100;
-
-            // Add edge
-            edges.push({
-                id: "e" + domainId + "-" + page._id,
-                source: domainId,
-                target: page._id
-            });
-        });
-
-        return {pages: pages, edges: edges}
-    })
-    .catch(err => {console.log(err);})
-
-    return result;
-}
 
 export default {
     name: "FlowGraph",
@@ -77,19 +34,18 @@ export default {
     computed: {
         elements () {
             let nodes = this.domainNodes.concat(this.pageNodes);
-            nodes = nodes.concat(this.edgeNodes);
+            nodes = nodes.concat(this.edges);
 
             return nodes;
         },
         ...mapState([
             'domainNodes',
+            'pageNodes',
+            'edges'
         ]),
     },
     data () {
         return {
-            pageNodes: [],
-            edgeNodes: [],
-
             isPageOpened: false,
             drag: '',
             sidebarSize: 200
@@ -98,6 +54,9 @@ export default {
     methods: {
         ...mapActions([
             'fetchDomainNodes',
+            'fetchPageNodes',
+            'emptyPageNodes',
+            'emptyEdges',
         ]),
         onDragTag (payload) {
             this.drag = payload.name
@@ -129,22 +88,19 @@ export default {
 
             // If already opened, close nodes
             if (this.isPageOpened) {
-                this.pageNodes = [];
-                this.edgeNodes = [];
+                this.emptyPageNodes();
+                this.emptyEdges();
                 this.isPageOpened = false;
                 return;
             }
 
-            // Add page node
-            fetchPages(this.$apollo, element.data._id, element.position.x, element.position.y)
-                .then(res => {
-                    this.pageNodes = this.pageNodes.concat(res.pages)
-                    this.$nextTick(() => {
-                        this.edgeNodes = this.edgeNodes.concat(res.edges);
-                        this.isPageOpened = true;
-                    })
-                })
-                .catch(err => {console.log(err)})
+            // Add page/edge
+            this.fetchPageNodes({
+                vue: this,
+                domainNode: element
+            }).then(() => {
+                this.isPageOpened = true;
+            })
         }
     },
     created(){
