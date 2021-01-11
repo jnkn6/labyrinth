@@ -3,7 +3,7 @@
         <sidebar :size="sidebarSize" />
         <div :style="{'padding-left': sidebarSize + 'px'}">
             <react-flow-graph
-                :elements="elements"
+                :elements="graphElements"
                 :onElementClick="onElementClick"
                 :onDrop="onDrop"
             />
@@ -16,7 +16,7 @@
 import Sidebar from './Sidebar'
 import ReactFlowGraph from './ReactFlowGraph'
 
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapGetters } from 'vuex'
 
 export default {
     name: "FlowGraph",
@@ -30,12 +30,9 @@ export default {
         ReactFlowGraph,
     },
     computed: {
-        elements () {
-            let nodes = this.domainNodes.concat(this.pageNodes);
-            nodes = nodes.concat(this.edges);
-
-            return nodes;
-        },
+        ...mapGetters ([
+            'graphElements',
+        ]),
         ...mapState([
             'domainNodes',
             'pageNodes',
