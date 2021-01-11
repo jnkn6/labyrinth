@@ -4,6 +4,7 @@ import {
     EMPTY_EDGES,
     EMPTY_PAGE_NODES,
     FETCH_DOMAIN_NODE,
+    PUSH_EDGE,
     PUSH_PAGE_NODE,
     SET_DRAGGING_TAG,
 } from './mutations-types'
@@ -81,17 +82,17 @@ export default {
     concatEdges({commit}, edges){
         commit(CONCAT_EDGES, edges);
     },
-    createTempNode({dispatch}, { type, position }){
+    createTempNode({dispatch}, {vue, type, position}){
         switch(type){
             case "page":
-                dispatch('createTempPageNode', position);
+                dispatch('createTempPageNode', {vue:vue, position: position});
                 break;
             case "domain":
                 console.log("createTempNode domain is not implemented")
                 break;
         }
     },
-    createTempPageNode({commit}, position){
+    createTempPageNode({state, commit}, {vue, position}){
         let id = uuidv4() // this ID is temporary, real ID will be made by DB.
         let data = data = { _id: id, name: "new_page", path: "new_path" };
 
@@ -100,6 +101,19 @@ export default {
             type: 'page',
             position: position,
             data: data,
+        });
+
+        if(state.domainNode === null){
+            return;
+        }
+
+        vue.$nextTick(() => {
+            // create new edge
+            commit(PUSH_EDGE, {
+                id: "e" + state.domainNode.data._id + "-" + id,
+                source: state.domainNode.data._id,
+                target: id
+            });
         });
     },
     setDraggingTag({commit}, name){

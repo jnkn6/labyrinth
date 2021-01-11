@@ -56,6 +56,7 @@ export default {
         ]),
         onDrop (event) {
             this.createTempNode({
+                vue: this,
                 type: this.draggingTag,
                 position: {x: event.clientX-this.sidebarSize, y: event.clientY}
             });
