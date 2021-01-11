@@ -5,6 +5,7 @@ import {
     EMPTY_PAGE_NODES,
     FETCH_DOMAIN_NODES,
     PUSH_PAGE_NODE,
+    SET_DRAGGING_TAG,
 } from './mutations-types'
 
 import { DOMAININFO_QUERY } from '@/graphql/domain'
@@ -100,5 +101,8 @@ export default {
             position: position,
             data: data,
         });
+    },
+    setDraggingTag({commit}, name){
+        commit(SET_DRAGGING_TAG, name);
     }
 }
