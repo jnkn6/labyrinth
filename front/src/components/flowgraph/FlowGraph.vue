@@ -38,12 +38,12 @@ export default {
             'pageNodes',
             'edges',
             'draggingTag',
+            'sidebarSize',
         ]),
     },
     data () {
         return {
             isPageOpened: false,
-            sidebarSize: 200
         }
     },
     methods: {
