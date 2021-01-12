@@ -24,6 +24,12 @@
                 </v-icon>
                 Edit
             </v-btn>
+            <v-btn v-if="isEditing" dark color="green" @click="onSave">
+                <v-icon dark>
+                    mdi-checkbox-marked-circle
+                </v-icon>
+                Save
+            </v-btn>
         </v-card-actions>
     </v-card>
 </template>
@@ -67,6 +73,15 @@ export default {
                 this.infoMode = modes.EDIT_PAGE;
             }
         },
+        onSave(){
+            this.isEditing = false;
+            if (modesCategory.DOMAIN.includes(this.mode)){
+                this.infoMode = modes.READ_DOMAIN_INFO;
+            }
+            else if (modesCategory.PAGE.includes(this.mode)){
+                this.infoMode = modes.READ_PAGE_INFO;
+            }
+        }
     }
 }
 </script>
