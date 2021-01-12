@@ -13,7 +13,7 @@
 
 <script>
 
-import Sidebar from './Sidebar'
+import Sidebar from '@/components/Sidebar'
 import ReactFlowGraph from './ReactFlowGraph'
 
 import { mapState, mapActions, mapGetters } from 'vuex'
