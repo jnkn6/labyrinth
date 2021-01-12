@@ -1,6 +1,5 @@
 <template>
     <v-container fluid>
-        <sidebar :size="sidebarSize" />
         <div :style="{'padding-left': sidebarSize + 'px'}">
             <react-flow-graph
                 :elements="graphElements"
@@ -13,7 +12,7 @@
 
 <script>
 
-import Sidebar from '@/components/Sidebar'
+
 import ReactFlowGraph from './ReactFlowGraph'
 
 import { mapState, mapActions, mapGetters } from 'vuex'
@@ -26,7 +25,6 @@ export default {
         }
     },
     components: {
-        Sidebar,
         ReactFlowGraph,
     },
     computed: {
