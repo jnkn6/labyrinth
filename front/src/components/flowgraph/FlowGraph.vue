@@ -73,11 +73,38 @@ export default {
 
         },
         onElementClick(event, element){
-            if (element.type === "domain"){
-                this.onDomainClick(event, element);
+            switch(element.type){
+                case "domain":
+                    this.onDomainClick(event, element);
+                    break;
+                case "page":
+                    this.onPageClick(event, element);
+                    break;
+            }
+        },
+        onPageClick(event, element){
+            if (!this.showInfo){
+                this.mode = modes.READ_PAGE_INFO;
+                this.selectedNode = element;
+                this.showInfo = true;
+            }
+            else {
+                this.mode = null;
+                this.selectedNode = null;
+                this.showInfo = false;
             }
         },
         onDomainClick(event, element){
+            if (!this.showInfo){
+                this.mode = modes.READ_DOMAIN_INFO;
+                this.selectedNode = element;
+                this.showInfo = true;
+            }
+            else {
+                this.mode = null;
+                this.selectedNode = null;
+                this.showInfo = false;
+            }
 
             // If already opened, close nodes
             if (this.isPageOpened) {
