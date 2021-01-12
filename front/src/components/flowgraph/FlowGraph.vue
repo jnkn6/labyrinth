@@ -6,16 +6,24 @@
                 :onElementClick="onElementClick"
                 :onDrop="onDrop"
             />
+            <info-card
+                v-if="showInfo"
+                :mode="mode" 
+                :node="selectedNode"
+                @onClose="onCloseInfo"
+            />
         </div>
     </v-container >
 </template>
 
 <script>
 
-
+import InfoCard from '@/components/InfoCard'
 import ReactFlowGraph from './ReactFlowGraph'
 
 import { mapState, mapActions, mapGetters } from 'vuex'
+
+import { modes } from '@/utils/const'
 
 export default {
     name: "FlowGraph",
@@ -26,6 +34,7 @@ export default {
     },
     components: {
         ReactFlowGraph,
+        InfoCard,
     },
     computed: {
         ...mapGetters ([
@@ -42,6 +51,9 @@ export default {
     data () {
         return {
             isPageOpened: false,
+            showInfo: false,
+            mode: null,
+            selectedNode: null,
         }
     },
     methods: {
@@ -82,6 +94,11 @@ export default {
             }).then(() => {
                 this.isPageOpened = true;
             })
+        },
+        onCloseInfo(){
+            this.showInfo = false;
+            this.mode = null;
+            this.selectedNode = null;
         }
     },
     created(){
