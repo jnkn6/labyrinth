@@ -10,7 +10,7 @@ export default (props) => {
     };
     const graphStyles = {
         width: "100%",
-        height: "500px",
+        height: (window.innerHeight*(0.6)).toString() + "px",
     }
     const onDragOver = (event) => {
         event.preventDefault();
