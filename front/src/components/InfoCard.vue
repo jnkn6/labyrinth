@@ -16,11 +16,20 @@
             :mode="infoMode"
             :node="node"
         />
+        <v-card-actions>
+            <v-spacer />
+            <v-btn v-if="!isEditing" dark @click="onEdit">
+                <v-icon dark>
+                    mdi-pencil
+                </v-icon>
+                Edit
+            </v-btn>
+        </v-card-actions>
     </v-card>
 </template>
 <script>
 
-import { modes } from '@/utils/const'
+import { modes, modesCategory } from '@/utils/const'
 
 import DomainInfoCard from './DomainInfoCard'
 import PageInfoCard from './PageInfoCard'
@@ -41,12 +50,22 @@ export default {
     },
     data(){
         return {
+            isEditing: modesCategory.EDIT.includes(this.mode),
             infoMode: this.mode,
         }
     },
     methods: {
         onClose(){
             this.$emit('onClose')
+        },
+        onEdit(){
+            this.isEditing = true;
+            if (modesCategory.DOMAIN.includes(this.mode)){
+                this.infoMode = modes.EDIT_DOMAIN;
+            }
+            else if (modesCategory.PAGE.includes(this.mode)){
+                this.infoMode = modes.EDIT_PAGE;
+            }
         },
     }
 }
