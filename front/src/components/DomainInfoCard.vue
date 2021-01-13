@@ -49,6 +49,20 @@ export default {
     components: {
         InfoCardSlot
     },
+    watch: {
+        mode:{
+            handler(next, prev){
+                this.infoMode = next;
+            }
+        },
+        node: {
+            handler(next, prev){
+                this.url = next.data.url;
+                this.memo = next.data.memo;
+
+            }
+        },
+    },
     data(){
         return {
             url: this.node.data.url,
