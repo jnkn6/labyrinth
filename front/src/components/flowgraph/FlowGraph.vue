@@ -73,6 +73,16 @@ export default {
 
         },
         onElementClick(event, element){
+
+            // if clicked same node, close info card
+            if (this.showInfo && element.id === this.selectedNode.id){
+                this.mode = null;
+                this.selectedNode = null;
+                this.showInfo = false;
+
+                return;
+            }
+
             switch(element.type){
                 case "domain":
                     this.onDomainClick(event, element);
@@ -83,28 +93,14 @@ export default {
             }
         },
         onPageClick(event, element){
-            if (!this.showInfo){
-                this.mode = modes.READ_PAGE_INFO;
-                this.selectedNode = element;
-                this.showInfo = true;
-            }
-            else {
-                this.mode = null;
-                this.selectedNode = null;
-                this.showInfo = false;
-            }
+            this.mode = modes.READ_PAGE_INFO;
+            this.selectedNode = element;
+            this.showInfo = true;
         },
         onDomainClick(event, element){
-            if (!this.showInfo){
-                this.mode = modes.READ_DOMAIN_INFO;
-                this.selectedNode = element;
-                this.showInfo = true;
-            }
-            else {
-                this.mode = null;
-                this.selectedNode = null;
-                this.showInfo = false;
-            }
+            this.mode = modes.READ_DOMAIN_INFO;
+            this.selectedNode = element;
+            this.showInfo = true;
 
             // If already opened, close nodes
             if (this.isPageOpened) {
