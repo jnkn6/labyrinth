@@ -54,7 +54,6 @@ export default {
             url: this.node.data.url,
             memo: this.node.data.memo,
             infoMode: this.mode,
-            isEditing: modesCategory.EDIT.includes(this.mode),
         }
     },
     computed: {
@@ -66,17 +65,18 @@ export default {
                     return 'Edit domain information';
             }
         },
+        isEditing() {
+            return modesCategory.EDIT.includes(this.infoMode)
+        },
     },
     methods: {
         onClose(){
             this.$emit('onClose')
         },
         onEdit(){
-            this.isEditing = true;
             this.infoMode = modes.EDIT_DOMAIN;
         },
         onSave(){
-            this.isEditing = false;
             this.infoMode = modes.READ_DOMAIN_INFO;
 
         },
