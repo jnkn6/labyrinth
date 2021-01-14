@@ -9,29 +9,48 @@
         <div slot="readInfo">
             <p>name: {{name}}</p>
             <p>path: {{path}}</p>
-            <p>memo: {{memo}}</p>
+            <v-card>
+                <v-card-title>Memo</v-card-title>
+                <v-card-text id="editorResult" v-html="compiledMarkdown" />
+            </v-card>
         </div>
         <div slot="editInfo">
-            <v-text-field
-                v-model="name"
-                label="Page name"
-            />
-            <v-text-field
-                v-model="path"
-                label="Page path"
-            />
-            <v-textarea
-                v-model="memo"
-                label="Memo"
-                auto-grow
-                outlined
-            >
-                <template v-slot:label>
-                    <div>
-                        Memo<small>(optional)</small>
-                    </div>
-                </template>
-            </v-textarea>
+            <v-row>
+                <v-col>
+                    <v-text-field
+                        v-model="name"
+                        label="Page name"
+                    />
+                    <v-text-field
+                        v-model="path"
+                        label="Page path"
+                    />
+
+                    <v-row>
+                        <v-col cols="6">
+                            <v-textarea
+                                :value="memo"
+                                id="editor"
+                                label="Memo"
+                                outlined
+                                @input="update"
+                            >
+                                <template v-slot:label>
+                                    <div>
+                                        Memo<small>(optional)</small>
+                                    </div>
+                                </template>
+                            </v-textarea>
+                        </v-col>
+                        <v-col cols="6">
+                            <v-card>
+                                <v-card-title>Memo preview</v-card-title>
+                                <v-card-text id="editorResult" v-html="compiledMarkdown" />
+                            </v-card>
+                        </v-col>
+                    </v-row>
+                </v-col>
+            </v-row>
         </div>
     </info-card-slot>
 </template>
@@ -39,6 +58,10 @@
 
 import { modes, modesCategory } from '@/utils/const'
 import InfoCardSlot from './InfoCardSlot'
+
+import marked from 'marked'
+import _ from 'lodash'
+import validator from 'validator'
 
 export default {
     name: "PageInfoCard",
@@ -72,7 +95,7 @@ export default {
         return {
             name: this.node.data.name,
             path: this.node.data.path,
-            memo: this.node.data.memo,
+            memo: (this.node.data.memo === null) ? "" : this.node.data.memo,
 
             infoMode: this.mode,
         }
@@ -91,6 +114,9 @@ export default {
         isEditing() {
             return modesCategory.EDIT.includes(this.infoMode)
         },
+        compiledMarkdown() {
+            return marked(validator.escape(this.memo));
+        }
     },
     methods: {
         onClose(){
@@ -103,6 +129,9 @@ export default {
             this.infoMode = modes.READ_PAGE_INFO;
 
         },
+        update: _.debounce(function(e) {
+                    this.memo = e
+                }, 300)
     },
 }
 </script>
