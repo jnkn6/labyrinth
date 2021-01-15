@@ -23,12 +23,20 @@
                 </v-icon>
                 Edit
             </v-btn>
-            <v-btn v-else dark color="green" @click="$emit('onSave')">
-                <v-icon dark>
-                    mdi-checkbox-marked-circle
-                </v-icon>
-                Save
-            </v-btn>
+            <div v-else>
+                <v-btn dark color="red" @click="$emit('onCancel')">
+                    <v-icon dark>
+                        mdi-cancel
+                    </v-icon>
+                    Cancel
+                </v-btn>
+                <v-btn dark color="green" @click="$emit('onSave')">
+                    <v-icon dark>
+                        mdi-checkbox-marked-circle
+                    </v-icon>
+                    Save
+                </v-btn>
+            </div>
         </v-card-actions>
     </v-card>
 </template>
