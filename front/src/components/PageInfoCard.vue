@@ -3,6 +3,7 @@
         @onClose="onClose"
         @onSave="onSave"
         @onEdit="onEdit"
+        @onCancel="onCancel"
         :isEditing="isEditing"
     >
         <div slot="title">{{title}}</div>
@@ -128,6 +129,9 @@ export default {
         onSave(){
             this.infoMode = modes.READ_PAGE_INFO;
 
+        },
+        onCancel(){
+            this.infoMode = modes.READ_PAGE_INFO;
         },
         update: _.debounce(function(e) {
                     this.memo = e
