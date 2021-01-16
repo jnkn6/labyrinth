@@ -4,6 +4,7 @@ import Vue from 'vue'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import '@mdi/font/css/materialdesignicons.css'
+import 'highlight.js/styles/github.css'
 
 import VueApollo from 'vue-apollo'
 import { ApolloClient } from 'apollo-client'
