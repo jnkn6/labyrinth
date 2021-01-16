@@ -12,7 +12,7 @@
             <p>path: {{path}}</p>
             <v-card>
                 <v-card-title>Memo</v-card-title>
-                <v-card-text id="editorResult" v-html="compiledMarkdown" />
+                <v-card-text id="editorResult" v-html="compiledMemo" />
             </v-card>
         </div>
         <div slot="editInfo">
@@ -26,30 +26,12 @@
                         v-model="path"
                         label="Page path"
                     />
-
-                    <v-row>
-                        <v-col cols="6">
-                            <v-textarea
-                                :value="memo"
-                                id="editor"
-                                label="Memo"
-                                outlined
-                                @input="update"
-                            >
-                                <template v-slot:label>
-                                    <div>
-                                        Memo<small>(optional)</small>
-                                    </div>
-                                </template>
-                            </v-textarea>
-                        </v-col>
-                        <v-col cols="6">
-                            <v-card>
-                                <v-card-title>Memo preview</v-card-title>
-                                <v-card-text id="editorResult" v-html="compiledMarkdown" />
-                            </v-card>
-                        </v-col>
-                    </v-row>
+                    <v-card>
+                        <v-card-title>Memo</v-card-title>
+                        <v-card-text>
+                        <memo-editor :value="memoModified" @input="onMemoInput" @blur="onMemoBlur"/>
+                        </v-card-text>
+                    </v-card>
                 </v-col>
             </v-row>
         </div>
@@ -61,8 +43,7 @@ import { modes, modesCategory } from '@/utils/const'
 import InfoCardSlot from './InfoCardSlot'
 
 import marked from 'marked'
-import _ from 'lodash'
-import validator from 'validator'
+import MemoEditor from './MemoEditor'
 
 export default {
     name: "PageInfoCard",
@@ -94,7 +75,8 @@ export default {
         },
     },
     components: {
-        InfoCardSlot
+        InfoCardSlot,
+        MemoEditor,
     },
     data(){
         return {
@@ -104,6 +86,7 @@ export default {
 
             workMode: this.mode,
 
+            memoModified: (this.node.data.memo === null) ? "" : this.node.data.memo,
         }
     },
     computed: {
@@ -120,8 +103,8 @@ export default {
         isEditing() {
             return modesCategory.EDIT.includes(this.workMode)
         },
-        compiledMarkdown() {
-            return marked(validator.escape(this.memo));
+        compiledMemo() {
+            return marked(this.memo);
         }
     },
     methods: {
@@ -138,9 +121,12 @@ export default {
         onCancel(){
             this.workMode = modes.READ_PAGE_INFO;
         },
-        update: _.debounce(function(e) {
-                    this.memo = e
-                }, 300)
+        onMemoInput(val){
+            this.memoModified = val;
+        },
+        onMemoBlur(val){
+            this.memoModified = val;
+        },
     },
 }
 </script>
