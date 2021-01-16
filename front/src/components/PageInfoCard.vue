@@ -43,6 +43,7 @@ import { modes, modesCategory } from '@/utils/const'
 import InfoCardSlot from './InfoCardSlot'
 
 import marked from 'marked'
+import DOMPurify from 'dompurify'
 import MemoEditor from './MemoEditor'
 
 export default {
@@ -110,7 +111,10 @@ export default {
             return modesCategory.EDIT.includes(this.workMode)
         },
         compiledMemo() {
-            return marked(this.memo);
+            let renderedHTML = marked(this.memo);
+            return DOMPurify.sanitize(renderedHTML, {
+                USE_PROFILES: {html: true}
+            });
         }
     },
     methods: {
