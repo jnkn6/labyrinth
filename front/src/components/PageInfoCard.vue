@@ -123,6 +123,10 @@ export default {
         onSave(){
             this.workMode = modes.READ_PAGE_INFO;
 
+            this.name = this.nameModified;
+            this.path = this.pathModified;
+            this.memo = this.memoModified;
+
         },
         onCancel(){
             this.nameModified = this.name;
