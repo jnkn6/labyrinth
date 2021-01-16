@@ -77,7 +77,7 @@ export default {
     watch: {
         mode:{
             handler(next, prev){
-                this.infoMode = next;
+                this.workMode = next;
             }
         },
         node: {
@@ -86,6 +86,10 @@ export default {
                 this.path = next.data.path;
                 this.memo = next.data.memo;
 
+                // If mode watcher not triggerd
+                if (this.mode !== this.workMode){
+                    this.workMode = this.mode;
+                }
             }
         },
     },
@@ -98,12 +102,13 @@ export default {
             path: this.node.data.path,
             memo: (this.node.data.memo === null) ? "" : this.node.data.memo,
 
-            infoMode: this.mode,
+            workMode: this.mode,
+
         }
     },
     computed: {
         title() {
-            switch(this.infoMode){
+            switch(this.workMode){
                 case modes.CREATE_NEW_PAGE:
                     return 'Create new page';
                 case modes.EDIT_PAGE:
@@ -113,7 +118,7 @@ export default {
             }
         },
         isEditing() {
-            return modesCategory.EDIT.includes(this.infoMode)
+            return modesCategory.EDIT.includes(this.workMode)
         },
         compiledMarkdown() {
             return marked(validator.escape(this.memo));
@@ -124,14 +129,14 @@ export default {
             this.$emit('onClose')
         },
         onEdit(){
-            this.infoMode = modes.EDIT_PAGE;
+            this.workMode = modes.EDIT_PAGE;
         },
         onSave(){
-            this.infoMode = modes.READ_PAGE_INFO;
+            this.workMode = modes.READ_PAGE_INFO;
 
         },
         onCancel(){
-            this.infoMode = modes.READ_PAGE_INFO;
+            this.workMode = modes.READ_PAGE_INFO;
         },
         update: _.debounce(function(e) {
                     this.memo = e
