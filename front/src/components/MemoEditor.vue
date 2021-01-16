@@ -20,6 +20,29 @@ export default {
             easymde: null,
         }
     },
+    methods: {
+        bindingEvents() {
+            this.easymde.codemirror.on('change', (instance, changeObj) => {
+                if (changeObj.origin === 'setValue') {
+                    return;
+                }
+                const val = this.easymde.value();
+                this.handleInput(val);
+            });
+            this.easymde.codemirror.on('blur', () => {
+                const val = this.easymde.value();
+                this.handleBlur(val);
+            });
+        },
+        handleInput(val) {
+            this.isUpdated = true;
+            this.$emit('input', val);
+        },
+        handleBlur(val) {
+            this.isUpdated = true;
+            this.$emit('blur', val);
+        },
+    },
     mounted(){
         this.config = {
             element: this.$el.firstElementChild,
@@ -31,6 +54,7 @@ export default {
         }
         this.easymde = new EasyMDE(this.config);
 
+        this.bindingEvents();
     },
 }
 </script>
