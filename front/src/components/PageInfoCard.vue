@@ -125,6 +125,10 @@ export default {
 
         },
         onCancel(){
+            this.nameModified = this.name;
+            this.pathModified = this.path;
+            this.memoModified = this.memo;
+
             this.workMode = modes.READ_PAGE_INFO;
         },
         onMemoInput(val){
