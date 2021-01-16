@@ -6,6 +6,9 @@ import pageSchema from './page'
 const linkSchema = gql`
     type Query {
         _empty: String
+    },
+    type Mutation {
+        _: Boolean
     }
 `;
 
