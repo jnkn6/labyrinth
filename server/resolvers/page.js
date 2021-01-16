@@ -42,5 +42,16 @@ export default {
 
             return await getPagesInfo(domain.pages)
         },
+    Mutation:{
+        /**
+         * @param args \{ page: PageInput! \}
+         */
+        modifyPage: async (root, args, context) => {
+            return await pageModel.findByIdAndUpdate(
+                args.page._id,
+                args.page,
+                {new: true},
+            );
+        },
     },
 }
