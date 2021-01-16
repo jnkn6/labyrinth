@@ -8,6 +8,7 @@
 import EasyMDE from 'easymde'
 import 'easymde/dist/easymde.min.css'
 
+import DOMPurify from 'dompurify'
 
 export default {
     name: 'MemoEditor',
@@ -49,6 +50,11 @@ export default {
             renderingConfig: {
                 singleLineBreaks: false,
                 codeSyntaxHighlighting: true,
+                sanitizerFunction: (renderedHTML) => {
+                    return DOMPurify.sanitize(renderedHTML, {
+                        USE_PROFILES: {html: true}
+                    });
+                }
             },
             initialValue: this.value,
         }
