@@ -19,11 +19,11 @@
             <v-row>
                 <v-col>
                     <v-text-field
-                        v-model="name"
+                        v-model="nameModified"
                         label="Page name"
                     />
                     <v-text-field
-                        v-model="path"
+                        v-model="pathModified"
                         label="Page path"
                     />
                     <v-card>
@@ -65,7 +65,11 @@ export default {
             handler(next, prev){
                 this.name = next.data.name;
                 this.path = next.data.path;
-                this.memo = next.data.memo;
+                this.memo = (next.data.memo === null) ? "" : next.data.memo;
+
+                this.nameModified = next.data.name;
+                this.pathModified = next.data.path;
+                this.memoModified = (next.data.memo === null) ? "" : next.data.memo;
 
                 // If mode watcher not triggerd
                 if (this.mode !== this.workMode){
@@ -86,6 +90,8 @@ export default {
 
             workMode: this.mode,
 
+            nameModified: this.node.data.name,
+            pathModified: this.node.data.path,
             memoModified: (this.node.data.memo === null) ? "" : this.node.data.memo,
         }
     },
