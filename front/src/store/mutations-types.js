@@ -6,6 +6,8 @@ export const EMPTY_EDGES = 'EMPTY_EDGES'
 export const CONCAT_PAGE_NODES = 'CONCAT_PAGE_NODES'
 export const CONCAT_EDGES = 'CONCAT_EDGES'
 
+export const DELETE_PAGE_NODE = 'DELETE_PAGE_NODE'
+
 export const PUSH_EDGE = 'PUSH_EDGE'
 export const PUSH_PAGE_NODE = 'PUSH_PAGE_NODE'
 

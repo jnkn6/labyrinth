@@ -1,6 +1,7 @@
 import {
     CONCAT_EDGES,
     CONCAT_PAGE_NODES,
+    DELETE_PAGE_NODE,
     EMPTY_EDGES,
     EMPTY_PAGE_NODES,
     FETCH_DOMAIN_NODE,
@@ -25,6 +26,26 @@ export default{
     },
     [CONCAT_EDGES](state, edges){
         state.edges = state.edges.concat(edges);
+    },
+    [DELETE_PAGE_NODE](state, id){
+        //delete page node
+        for (let i = 0; i< state.pageNodes.length; i++){
+            if (state.pageNodes[i].id === id){
+                state.pageNodes.splice(i, 1);
+                break;
+            }
+        }
+
+        // delete edges concatenated with this node
+        for (let i = 0; i< state.edges.length; i++){
+            if (state.edges[i].target === id){
+                state.edges.splice(i, 1);
+            }
+            else if (state.edges[i].source === id){
+                state.edges.splice(i, 1);
+            }
+        }
+
     },
     [PUSH_PAGE_NODE](state, pageNode){
         state.pageNodes.push(pageNode);
