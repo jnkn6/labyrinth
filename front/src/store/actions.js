@@ -7,10 +7,14 @@ import {
     PUSH_EDGE,
     PUSH_PAGE_NODE,
     SET_DRAGGING_TAG,
+    UPDATE_PAGE_NODE,
 } from './mutations-types'
 
 import { DOMAININFO_QUERY } from '@/graphql/domain'
-import { ALLPAGESINFO_QUERY } from '@/graphql/page'
+import {
+    ALLPAGESINFO_QUERY,
+    MODIFYPAGE_MUTATION,
+} from '@/graphql/page'
 
 import { uuidv4 } from '@/utils/utils'
 
@@ -115,6 +119,24 @@ export default {
                 target: id
             });
         });
+    },
+    modifyPageNode({commit}, {vue, oldNode, newPageData}){
+
+        // save Data at DB
+        vue.$apollo.mutate({
+            mutation: MODIFYPAGE_MUTATION,
+                variables : {
+                    page: newPageData
+                },
+        }).then(res => {
+            let newPageNode = {
+                ...oldNode,
+                data: res.data.modifyPage,
+            };
+
+            // update graph
+            commit(UPDATE_PAGE_NODE, newPageNode)
+        })
     },
     setDraggingTag({commit}, name){
         commit(SET_DRAGGING_TAG, name);
