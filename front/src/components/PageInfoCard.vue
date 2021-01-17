@@ -110,7 +110,10 @@ export default {
             }
         },
         isEditing() {
-            return modesCategory.EDIT.includes(this.workMode)
+            return modesCategory.EDIT.includes(this.workMode) || this.isCreating;
+        },
+        isCreating() {
+            return modesCategory.CREATE.includes(this.workMode);
         },
         compiledMemo() {
             let renderedHTML = marked(this.memo);
