@@ -1,6 +1,7 @@
 import {
     CONCAT_EDGES,
     CONCAT_PAGE_NODES,
+    DELETE_PAGE_NODE,
     EMPTY_EDGES,
     EMPTY_PAGE_NODES,
     FETCH_DOMAIN_NODE,
@@ -126,6 +127,19 @@ export default {
         });
 
         return pageNode;
+    },
+    deleteTempNode({dispatch}, {type, id}){
+        switch(type){
+            case "page":
+                dispatch('deleteTempPageNode', id);
+                break;
+            case "domain":
+                console.log("deleteTempNode domain is not implemented")
+                break;
+        }
+    },
+    deleteTempPageNode({commit}, id){
+        commit(DELETE_PAGE_NODE, id)
     },
     modifyPageNode({commit}, {vue, oldNode, newPageData}){
 
