@@ -5,6 +5,7 @@
         @onEdit="onEdit"
         @onCancel="onCancel"
         :isEditing="isEditing"
+        :isCreating="isCreating"
     >
         <div slot="title">{{title}}</div>
         <div slot="readInfo">
@@ -151,6 +152,10 @@ export default {
             }).then(() => {
                 this.workMode = modes.READ_PAGE_INFO;
             });
+        },
+        onCreate(){
+
+
         },
         onCancel(){
             this.nameModified = this.name;
