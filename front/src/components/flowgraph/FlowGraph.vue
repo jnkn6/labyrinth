@@ -68,7 +68,8 @@ export default {
             this.createTempNode({
                 vue: this,
                 type: this.draggingTag,
-                position: {x: event.clientX-this.sidebarSize, y: event.clientY}
+                position: {x: event.clientX - this.sidebarSize, y: event.clientY}
+            }).then((newNode) => {
             });
 
         },

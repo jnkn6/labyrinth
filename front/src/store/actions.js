@@ -89,27 +89,32 @@ export default {
     createTempNode({dispatch}, {vue, type, position}){
         switch(type){
             case "page":
-                dispatch('createTempPageNode', {vue:vue, position: position});
-                break;
+                return dispatch('createTempPageNode', {vue:vue, position: position});
             case "domain":
                 console.log("createTempNode domain is not implemented")
-                break;
+                return undefined;
         }
     },
     createTempPageNode({state, commit}, {vue, position}){
         let id = uuidv4() // this ID is temporary, real ID will be made by DB.
-        let data = data = { _id: id, name: "new_page", path: "new_path" };
-
-        commit(PUSH_PAGE_NODE, {
+        let data = {
+            _id: id,
+            name: "new_page",
+            path: "new_path",
+            domain: state.domainNode.data._id,
+            groups: [],
+            components: [],
+            memo: ""
+        };
+        
+        let pageNode = {
             id: id,
             type: 'page',
             position: position,
             data: data,
-        });
-
-        if(state.domainNode === null){
-            return;
         }
+
+        commit(PUSH_PAGE_NODE, pageNode);
 
         vue.$nextTick(() => {
             // create new edge
@@ -119,6 +124,8 @@ export default {
                 target: id
             });
         });
+
+        return pageNode;
     },
     modifyPageNode({commit}, {vue, oldNode, newPageData}){
 
