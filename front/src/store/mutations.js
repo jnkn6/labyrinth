@@ -7,6 +7,7 @@ import {
     PUSH_EDGE,
     PUSH_PAGE_NODE,
     SET_DRAGGING_TAG,
+    UPDATE_PAGE_NODE,
 } from "./mutations-types";
 
 export default{
@@ -34,4 +35,13 @@ export default{
     [SET_DRAGGING_TAG](state, name){
         state.draggingTag = name;
     },
+    [UPDATE_PAGE_NODE](state, newPageNode){
+        for (let i = 0; i< state.pageNodes.length; i++){
+            if (state.pageNodes[i].id === newPageNode.id){
+                state.pageNodes.splice(i, 1);
+                state.pageNodes.push(newPageNode);
+                break;
+            }
+        }
+    }
 }

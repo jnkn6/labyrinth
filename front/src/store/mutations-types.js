@@ -10,3 +10,5 @@ export const PUSH_EDGE = 'PUSH_EDGE'
 export const PUSH_PAGE_NODE = 'PUSH_PAGE_NODE'
 
 export const SET_DRAGGING_TAG = 'SET_DRAGGING_TAG'
+
+export const UPDATE_PAGE_NODE = 'UPDATE_PAGE_NODE'
