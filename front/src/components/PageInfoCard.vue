@@ -46,6 +46,8 @@ import marked from 'marked'
 import DOMPurify from 'dompurify'
 import MemoEditor from './MemoEditor'
 
+import { mapActions } from 'vuex'
+
 export default {
     name: "PageInfoCard",
     props: {
@@ -118,6 +120,9 @@ export default {
         }
     },
     methods: {
+        ...mapActions([
+            'modifyPageNode',
+        ]),
         onClose(){
             this.$emit('onClose')
         },
@@ -125,12 +130,24 @@ export default {
             this.workMode = modes.EDIT_PAGE;
         },
         onSave(){
-            this.workMode = modes.READ_PAGE_INFO;
-
             this.name = this.nameModified;
             this.path = this.pathModified;
             this.memo = this.memoModified;
 
+            let newPageData = {
+                ...this.node.data,
+                name: this.name,
+                path: this.path,
+                memo: this.memo,
+            };
+
+            this.modifyPageNode({
+                vue: this, 
+                oldNode: this.node,
+                newPageData: newPageData,
+            }).then(() => {
+                this.workMode = modes.READ_PAGE_INFO;
+            });
         },
         onCancel(){
             this.nameModified = this.name;
