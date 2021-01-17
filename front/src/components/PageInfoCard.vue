@@ -125,9 +125,16 @@ export default {
     },
     methods: {
         ...mapActions([
+            'deleteTempNode',
             'modifyPageNode',
         ]),
         onClose(){
+            if (this.isCreating) {
+                this.deleteTempNode({
+                    type: this.node.type,
+                    id: this.node.id
+                });
+            }
             this.$emit('onClose')
         },
         onEdit(){
@@ -158,6 +165,11 @@ export default {
 
         },
         onCancel(){
+            if (this.isCreating) {
+                this.onClose();
+                return;
+            }
+
             this.nameModified = this.name;
             this.pathModified = this.path;
             this.memoModified = this.memo;
