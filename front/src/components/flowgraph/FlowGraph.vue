@@ -70,6 +70,14 @@ export default {
                 type: this.draggingTag,
                 position: {x: event.clientX - this.sidebarSize, y: event.clientY}
             }).then((newNode) => {
+                // Open editor to set info
+                switch(this.draggingTag){
+                    case "page":
+                        this.mode = modes.CREATE_PAGE;
+                }
+
+                this.selectedNode = newNode;
+                this.showInfo = true;
             });
 
         },
