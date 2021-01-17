@@ -101,7 +101,7 @@ export default {
     computed: {
         title() {
             switch(this.workMode){
-                case modes.CREATE_NEW_PAGE:
+                case modes.CREATE_PAGE:
                     return 'Create new page';
                 case modes.EDIT_PAGE:
                     return "Edit page information";

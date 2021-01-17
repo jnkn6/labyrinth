@@ -1,5 +1,5 @@
 export const modes = {
-    CREATE_NEW_PAGE: 'CREATE_NEW_PAGE',
+    CREATE_PAGE: 'CREATE_PAGE',
     EDIT_DOMAIN: 'EDIT_DOMAIN',
     EDIT_PAGE: 'EDIT_PAGE',
     READ_DOMAIN_INFO: 'READ_DOMAIN_INFO',
@@ -12,13 +12,15 @@ export const modesCategory = {
         modes.EDIT_DOMAIN,
     ],
     PAGE: [
-        modes.CREATE_NEW_PAGE,
+        modes.CREATE_PAGE,
         modes.EDIT_PAGE,
         modes.READ_PAGE_INFO,
     ],
     EDIT: [
-        modes.CREATE_NEW_PAGE,
         modes.EDIT_PAGE,
         modes.EDIT_DOMAIN,
+    ],
+    CREATE: [
+        modes.CREATE_PAGE,
     ]
 }
