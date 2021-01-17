@@ -28,13 +28,25 @@ const httpLink = new createHttpLink ({
     uri: "//localhost:3000/graphql"
 })
 
+const defaultOptions = {
+    watchQuery: {
+        fetchPolicy: 'no-cache',
+        errorPolicy: 'ignore',
+    },
+    query: {
+        fetchPolicy: 'no-cache',
+        errorPolicy: 'all',
+    },
+}
+
 // Create the apollo client
 export const apolloClient = new ApolloClient({
     link: httpLink,
     cache: new InMemoryCache({
         addTypename: false
     }),
-    connectToDevTools: true
+    connectToDevTools: true,
+    defaultOptions: defaultOptions,
 })
 
 const apolloProvider = new VueApollo({
