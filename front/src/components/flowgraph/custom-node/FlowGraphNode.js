@@ -1,18 +1,12 @@
 import React from 'react';
 import { Handle } from 'react-flow-renderer';
+import styles from './FlowGraphNode.css';
 
 export function DomainNode ({data}) {
 
-    const domainNodeStyles = {
-        background: '#9CA8B3',
-        color: '#FFF',
-        padding: 10,
-    };
-
     // input will be HTML encoded by react
     return (
-        <div style={domainNodeStyles}>
-            <div>{data.url}</div>
+        <div className='node domainNode'>
             <Handle
                 type="source"
                 position="right"
@@ -22,15 +16,10 @@ export function DomainNode ({data}) {
 }
 
 export function PageNode ({data}) {
-    const pageNodeStyles = {
-        background: '#0FBDA3',
-        color: '#FFF',
-        padding: 10,
-    };
 
     // input will be HTML encoded by react
     return (
-        <div style={pageNodeStyles}>
+        <div className="node pageNode">
             <Handle type="target" position="left"/>
             <div>{data.name}</div>
             <div>{data.path}</div>

@@ -1,0 +1,24 @@
+.node {
+    background: white;
+    border: 1px solid lightgrey;
+    padding: 0px;
+    box-shadow: 3px 3px 15px lightgrey;
+}
+
+.titleBox {
+    padding: 8px;
+    border-bottom: 1px solid lightgrey;
+}
+
+.infoBox {
+    padding: 10px;
+    display:inline-block;
+}
+
+.domainNode .titleBox {
+    background: #e5effc;
+}
+
+.pageNode .titleBox {
+    background: #fbfce5;
+}
