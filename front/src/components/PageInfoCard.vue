@@ -5,7 +5,6 @@
         @onEdit="onEdit"
         @onCancel="onCancel"
         :isEditing="isEditing"
-        :isCreating="isCreating"
     >
         <div slot="title">{{title}}</div>
         <div slot="readInfo">
@@ -102,8 +101,6 @@ export default {
     computed: {
         title() {
             switch(this.workMode){
-                case modes.CREATE_PAGE:
-                    return 'Create new page';
                 case modes.EDIT_PAGE:
                     return "Edit page information";
                 case modes.READ_PAGE_INFO:
@@ -111,10 +108,7 @@ export default {
             }
         },
         isEditing() {
-            return modesCategory.EDIT.includes(this.workMode) || this.isCreating;
-        },
-        isCreating() {
-            return modesCategory.CREATE.includes(this.workMode);
+            return modesCategory.EDIT.includes(this.workMode);
         },
         compiledMemo() {
             let renderedHTML = marked(this.memo);
@@ -125,16 +119,9 @@ export default {
     },
     methods: {
         ...mapActions([
-            'deleteTempNode',
             'modifyPageNode',
         ]),
         onClose(){
-            if (this.isCreating) {
-                this.deleteTempNode({
-                    type: this.node.type,
-                    id: this.node.id
-                });
-            }
             this.$emit('onClose')
         },
         onEdit(){
@@ -160,16 +147,7 @@ export default {
                 this.workMode = modes.READ_PAGE_INFO;
             });
         },
-        onCreate(){
-
-
-        },
         onCancel(){
-            if (this.isCreating) {
-                this.onClose();
-                return;
-            }
-
             this.nameModified = this.name;
             this.pathModified = this.path;
             this.memoModified = this.memo;
