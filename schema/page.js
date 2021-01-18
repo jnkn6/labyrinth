@@ -26,7 +26,7 @@ extend type Query {
 }
 
 extend type Mutation {
-    # createPage(page: Page!): Page!
+    createPage(page: PageInput!): Page!
     modifyPage(page: PageInput!): Page!
 }
 `;
