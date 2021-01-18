@@ -62,10 +62,10 @@ export default {
             'fetchPageNodes',
             'emptyPageNodes',
             'emptyEdges',
-            'createTempNode',
+            'createNode',
         ]),
         onDrop (event) {
-            this.createTempNode({
+            this.createNode({
                 vue: this,
                 type: this.draggingTag,
                 position: {x: event.clientX - this.sidebarSize, y: event.clientY}
@@ -73,7 +73,7 @@ export default {
                 // Open editor to set info
                 switch(this.draggingTag){
                     case "page":
-                        this.mode = modes.CREATE_PAGE;
+                        this.mode = modes.EDIT_PAGE;
                 }
 
                 this.selectedNode = newNode;

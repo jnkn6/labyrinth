@@ -14,10 +14,9 @@ import {
 import { DOMAININFO_QUERY } from '@/graphql/domain'
 import {
     ALLPAGESINFO_QUERY,
+    CREATEPAGE_MUTATION,
     MODIFYPAGE_MUTATION,
 } from '@/graphql/page'
-
-import { uuidv4 } from '@/utils/utils'
 
 
 export default {
@@ -87,46 +86,53 @@ export default {
     concatEdges({commit}, edges){
         commit(CONCAT_EDGES, edges);
     },
-    createTempNode({dispatch}, {vue, type, position}){
+    createNode({dispatch}, {vue, type, position}){
         switch(type){
             case "page":
-                return dispatch('createTempPageNode', {vue:vue, position: position});
+                return dispatch('createPageNode', {vue:vue, position: position});
             case "domain":
-                console.log("createTempNode domain is not implemented")
+                console.log("createNode domain is not implemented")
                 return undefined;
         }
     },
-    createTempPageNode({state, commit}, {vue, position}){
-        let id = uuidv4() // this ID is temporary, real ID will be made by DB.
-        let data = {
-            _id: id,
-            name: "new_page",
-            path: "new_path",
-            domain: state.domainNode.data._id,
-            groups: [],
-            components: [],
-            memo: ""
-        };
-        
-        let pageNode = {
-            id: id,
-            type: 'page',
-            position: position,
-            data: data,
-        }
+    createPageNode({state, commit}, {vue, position}){
 
-        commit(PUSH_PAGE_NODE, pageNode);
+        // save Data at DB
+        return vue.$apollo.mutate({
+            mutation: CREATEPAGE_MUTATION,
+            variables : {
+                page: {
+                    _id: "new_id",
+                    name: "new_page",
+                    path: "new_path",
+                    domain: state.domainNode.data._id,
+                    groups: [],
+                    components: [],
+                    memo: ""
+                },
+            },
+        }).then(res => {
+            // add to node
+            let pageNode = {
+                id: res.data.createPage._id,
+                type: 'page',
+                position: position,
+                data: res.data.createPage,
+            };
 
-        vue.$nextTick(() => {
+            commit(PUSH_PAGE_NODE, pageNode);
+
+            vue.$nextTick(() => {
             // create new edge
-            commit(PUSH_EDGE, {
-                id: "e" + state.domainNode.data._id + "-" + id,
-                source: state.domainNode.data._id,
-                target: id
+                commit(PUSH_EDGE, {
+                    id: "e" + state.domainNode.data._id + "-" + pageNode.id,
+                    source: state.domainNode.data._id,
+                    target: pageNode.id
+                });
             });
-        });
 
-        return pageNode;
+            return pageNode;
+        });
     },
     deleteTempNode({dispatch}, {type, id}){
         switch(type){
