@@ -30,17 +30,11 @@
                     </v-icon>
                     Cancel
                 </v-btn>
-                <v-btn v-if="!isCreating" dark color="green" @click="$emit('onSave')">
+                <v-btn dark color="green" @click="$emit('onSave')">
                     <v-icon dark>
                         mdi-checkbox-marked-circle
                     </v-icon>
                     Save
-                </v-btn>
-                <v-btn v-else dark color="green" @click="$emit('onCreate')">
-                    <v-icon dark>
-                        mdi-checkbox-marked-circle
-                    </v-icon>
-                    Create
                 </v-btn>
             </div>
         </v-card-actions>
@@ -52,9 +46,6 @@ export default {
     name: "InfoCardSlot",
     props: {
         isEditing: {
-            type: Boolean
-        },
-        isCreating: {
             type: Boolean
         },
     },
