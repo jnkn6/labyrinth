@@ -42,7 +42,36 @@ export default {
 
             return await getPagesInfo(domain.pages)
         },
+    },
     Mutation:{
+        /**
+         * @param args \{ page: PageInput! \}
+         */
+        createPage: async (root, args, context) => {
+            delete args.page._id; // ID will be created by DB
+
+            let domain = await domainModel.findOne({_id: args.page.domain}, (err, res) => {
+                if(err){
+                    console.log(err);
+                    return null;
+                }
+                else{
+                    return res;
+                }
+            });
+
+            if (!domain){
+                return null; // change: send error
+            }
+
+            let page = await pageModel.create(args.page);
+
+            domain.pages.push(page);
+            domain.save()
+
+            return page;
+
+        },
         /**
          * @param args \{ page: PageInput! \}
          */
