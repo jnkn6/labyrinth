@@ -9,16 +9,20 @@ import resolvers from './resolvers'
 
 var db = mongoose.connection;
 db.once('open', function(){
-  console.log("DB open");
+    console.log("DB open");
 });
 
-mongoose.connect('mongodb://localhost/labyrinth', {useNewUrlParser: true});
+mongoose.connect('mongodb://localhost/labyrinth', {
+    useNewUrlParser: true,
+    useFindAndModify: false
+});
+
 
 
 const server = new ApolloServer({
-  typeDefs: schema,
-  resolvers: resolvers,
-  // playground: false
+    typeDefs: schema,
+    resolvers: resolvers,
+    // playground: false
 });
 
 const app = express();
@@ -28,4 +32,5 @@ app.use(history());
 app.use(express.static('public'))
 
 app.listen({ port: 3000 }, () =>
-  console.log('Server ready'));
+    console.log('Server ready')
+);
