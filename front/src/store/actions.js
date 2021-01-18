@@ -134,19 +134,6 @@ export default {
             return pageNode;
         });
     },
-    deleteTempNode({dispatch}, {type, id}){
-        switch(type){
-            case "page":
-                dispatch('deleteTempPageNode', id);
-                break;
-            case "domain":
-                console.log("deleteTempNode domain is not implemented")
-                break;
-        }
-    },
-    deleteTempPageNode({commit}, id){
-        commit(DELETE_PAGE_NODE, id)
-    },
     modifyPageNode({commit}, {vue, oldNode, newPageData}){
 
         // save Data at DB
