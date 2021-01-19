@@ -4,7 +4,7 @@ import {
     DELETE_PAGE_NODE,
     EMPTY_EDGES,
     EMPTY_PAGE_NODES,
-    FETCH_DOMAIN_NODE,
+    SET_DOMAIN_NODE,
     PUSH_EDGE,
     PUSH_PAGE_NODE,
     SET_DRAGGING_TAG,
@@ -27,7 +27,7 @@ export default {
                     url: domain
                 },
         }).then(res => {
-            commit(FETCH_DOMAIN_NODE, {
+            commit(SET_DOMAIN_NODE, {
                 id: res.data.domainInfo._id,
                 type: 'domain',
                 data: { ...res.data.domainInfo },

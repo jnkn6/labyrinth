@@ -4,7 +4,7 @@ import {
     DELETE_PAGE_NODE,
     EMPTY_EDGES,
     EMPTY_PAGE_NODES,
-    FETCH_DOMAIN_NODE,
+    SET_DOMAIN_NODE,
     PUSH_EDGE,
     PUSH_PAGE_NODE,
     SET_DRAGGING_TAG,
@@ -12,7 +12,7 @@ import {
 } from "./mutations-types";
 
 export default{
-    [FETCH_DOMAIN_NODE](state, domainNode){
+    [SET_DOMAIN_NODE](state, domainNode){
         state.domainNode = domainNode;
     },
     [EMPTY_PAGE_NODES](state){

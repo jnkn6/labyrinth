@@ -1,4 +1,4 @@
-export const FETCH_DOMAIN_NODE = 'FETCH_DOMAIN_NODE'
+export const SET_DOMAIN_NODE = 'SET_DOMAIN_NODE'
 
 export const EMPTY_PAGE_NODES = 'EMPTY_PAGE_NODES'
 export const EMPTY_EDGES = 'EMPTY_EDGES'
