@@ -3,6 +3,7 @@
         @onClose="onClose"
         @onSave="onSave"
         @onEdit="onEdit"
+        @onCancel="onCancel"
         :isEditing="isEditing"
     >
         <div slot="title">{{title}}</div>
@@ -109,6 +110,11 @@ export default {
         onSave(){
             this.workMode = modes.READ_DOMAIN_INFO;
 
+        },
+        onCancel(){
+            this.memoModified = this.memo;
+
+            this.workMode = modes.READ_DOMAIN_INFO;
         },
         onMemoInput(val){
             this.memoModified = val;
