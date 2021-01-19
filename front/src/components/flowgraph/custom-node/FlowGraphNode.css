@@ -1,6 +1,6 @@
 .node {
     background: white;
-    border: 1px solid lightgrey;
+    border: 1px solid rgb(175, 159, 159);
     padding: 0px;
     box-shadow: 3px 3px 15px lightgrey;
 }
@@ -16,9 +16,9 @@
 }
 
 .domainNode .titleBox {
-    background: #e5effc;
+    background: #ff2a6d;
 }
 
 .pageNode .titleBox {
-    background: #fbfce5;
+    background: #d1f7ff;
 }
