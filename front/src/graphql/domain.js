@@ -9,3 +9,14 @@ export const DOMAININFO_QUERY = gql`
             memo
         }
 }`
+
+export const MODIFYDOMAIN_MUTATION = gql`
+    mutation modifyDomain ($domain: DomainInput!) {
+        modifyDomain (domain: $domain) {
+            _id
+            url
+            pages
+            memo
+        }
+    }
+`
