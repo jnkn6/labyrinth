@@ -5,7 +5,16 @@
                 :elements="graphElements"
                 :onElementClick="onElementClick"
                 :onDrop="onDrop"
+                :onNodeContextMenu="onNodeContextMenu"
             />
+            <v-menu
+                v-model="showNodeMenu"
+                :position-x="nodeMenuX"
+                :position-y="nodeMenuY"
+                absolute
+            >
+                <node-menu :selectedMenuNode="selectedMenuNode"/>
+            </v-menu>
             <info-card
                 v-if="showInfo"
                 :mode="mode" 
@@ -20,6 +29,7 @@
 
 import InfoCard from '@/components/InfoCard'
 import ReactFlowGraph from './ReactFlowGraph'
+import NodeMenu from './NodeMenu'
 
 import { mapState, mapActions, mapGetters } from 'vuex'
 
@@ -35,6 +45,7 @@ export default {
     components: {
         ReactFlowGraph,
         InfoCard,
+        NodeMenu,
     },
     computed: {
         ...mapGetters ([
@@ -49,18 +60,19 @@ export default {
     },
     data () {
         return {
-            isPageOpened: false,
             showInfo: false,
             mode: null,
             selectedNode: null,
+
+            showNodeMenu: false,
+            nodeMenuX: 0,
+            nodeMenuY: 0,
+            selectedMenuNode: null,
         }
     },
     methods: {
         ...mapActions([
             'fetchDomainNode',
-            'fetchPageNodes',
-            'emptyPageNodes',
-            'emptyEdges',
             'createNode',
         ]),
         onDrop (event) {
@@ -79,6 +91,13 @@ export default {
                 this.showInfo = true;
             });
 
+        },
+        onNodeContextMenu(event, element){
+            event.preventDefault();
+            this.nodeMenuX = event.clientX;
+            this.nodeMenuY = event.clientY;
+            this.selectedMenuNode = element;
+            this.showNodeMenu = true;
         },
         onElementClick(event, element){
 
@@ -109,22 +128,6 @@ export default {
             this.mode = modes.READ_DOMAIN_INFO;
             this.selectedNode = element;
             this.showInfo = true;
-
-            // If already opened, close nodes
-            if (this.isPageOpened) {
-                this.emptyPageNodes();
-                this.emptyEdges();
-                this.isPageOpened = false;
-                return;
-            }
-
-            // Add page/edge
-            this.fetchPageNodes({
-                vue: this,
-                domainNode: element
-            }).then(() => {
-                this.isPageOpened = true;
-            })
         },
         onCloseInfo(){
             this.showInfo = false;

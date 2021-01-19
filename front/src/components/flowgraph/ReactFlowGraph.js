@@ -23,6 +23,7 @@ export default (props) => {
             onElementClick={props.onElementClick}
             onDrop={props.onDrop}
             onDragOver={onDragOver}
+            onNodeContextMenu={props.onNodeContextMenu}
         >
             <MiniMap />
             <Controls />
