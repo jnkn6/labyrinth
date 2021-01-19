@@ -43,6 +43,7 @@ import marked from 'marked'
 import DOMPurify from 'dompurify'
 import MemoEditor from './MemoEditor'
 
+import { mapActions } from 'vuex'
 
 export default {
     name: "DomainInfoCard",
@@ -101,6 +102,9 @@ export default {
         },
     },
     methods: {
+        ...mapActions([
+            'modifyDomainNode'
+        ]),
         onClose(){
             this.$emit('onClose')
         },
@@ -108,8 +112,19 @@ export default {
             this.workMode = modes.EDIT_DOMAIN;
         },
         onSave(){
-            this.workMode = modes.READ_DOMAIN_INFO;
+            this.memo = this.memoModified;
+            let newDomainData = {
+                ...this.node.data,
+                memo: this.memo,
+            };
 
+            this.modifyDomainNode({
+                vue: this, 
+                oldNode: this.node,
+                newDomainData: newDomainData,
+            }).then(() => {
+                this.workMode = modes.READ_DOMAIN_INFO;
+            });
         },
         onCancel(){
             this.memoModified = this.memo;
