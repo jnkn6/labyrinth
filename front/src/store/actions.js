@@ -11,7 +11,11 @@ import {
     UPDATE_PAGE_NODE,
 } from './mutations-types'
 
-import { DOMAININFO_QUERY } from '@/graphql/domain'
+import {
+    DOMAININFO_QUERY,
+    MODIFYDOMAIN_MUTATION,
+} from '@/graphql/domain'
+
 import {
     ALLPAGESINFO_QUERY,
     CREATEPAGE_MUTATION,
@@ -133,6 +137,23 @@ export default {
 
             return pageNode;
         });
+    },
+    modifyDomainNode({commit}, {vue, oldNode, newDomainData}){
+        // save Data at DB
+        vue.$apollo.mutate({
+            mutation: MODIFYDOMAIN_MUTATION,
+                variables : {
+                    domain: newDomainData
+                },
+        }).then(res => {
+            let newDomainNode = {
+                ...oldNode,
+                data: res.data.modifyDomain,
+            };
+
+            // update graph
+            commit(SET_DOMAIN_NODE, newDomainNode)
+        })
     },
     modifyPageNode({commit}, {vue, oldNode, newPageData}){
 
