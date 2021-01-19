@@ -12,7 +12,7 @@ import DOMPurify from 'dompurify'
 import hljs from 'highlight.js'
 
 export default {
-    name: 'MemoEditor',
+    name: 'Editor',
     props:{
         value: String,
     },

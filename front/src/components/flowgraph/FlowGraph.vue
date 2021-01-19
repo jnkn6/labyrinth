@@ -27,7 +27,7 @@
 
 <script>
 
-import InfoCard from '@/components/InfoCard'
+import InfoCard from '@/components/infocard/InfoCard'
 import ReactFlowGraph from './ReactFlowGraph'
 import NodeMenu from './NodeMenu'
 

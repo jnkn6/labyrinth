@@ -26,7 +26,7 @@
                     <v-card>
                         <v-card-title>Memo</v-card-title>
                         <v-card-text>
-                        <memo-editor :value="memoModified" @input="onMemoInput" @blur="onMemoBlur"/>
+                        <editor :value="memoModified" @input="onMemoInput" @blur="onMemoBlur"/>
                         </v-card-text>
                     </v-card>
                 </v-col>
@@ -41,7 +41,7 @@ import InfoCardSlot from './InfoCardSlot'
 
 import marked from 'marked'
 import DOMPurify from 'dompurify'
-import MemoEditor from './MemoEditor'
+import Editor from '@/components/Editor'
 
 import { mapActions } from 'vuex'
 
@@ -57,7 +57,7 @@ export default {
     },
     components: {
         InfoCardSlot,
-        MemoEditor,
+        Editor,
     },
     watch: {
         mode:{
