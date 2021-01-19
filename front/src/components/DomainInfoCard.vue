@@ -52,7 +52,7 @@ export default {
     watch: {
         mode:{
             handler(next, prev){
-                this.infoMode = next;
+                this.workMode = next;
             }
         },
         node: {
@@ -66,13 +66,13 @@ export default {
     data(){
         return {
             url: this.node.data.url,
-            memo: this.node.data.memo,
-            infoMode: this.mode,
+            workMode: this.mode,
+
         }
     },
     computed: {
         title() {
-            switch(this.infoMode){
+            switch(this.workMode){
                 case modes.READ_DOMAIN_INFO:
                     return 'Domain infomation';
                 case modes.EDIT_DOMAIN:
@@ -80,7 +80,7 @@ export default {
             }
         },
         isEditing() {
-            return modesCategory.EDIT.includes(this.infoMode)
+            return modesCategory.EDIT.includes(this.workMode)
         },
     },
     methods: {
@@ -88,10 +88,10 @@ export default {
             this.$emit('onClose')
         },
         onEdit(){
-            this.infoMode = modes.EDIT_DOMAIN;
+            this.workMode = modes.EDIT_DOMAIN;
         },
         onSave(){
-            this.infoMode = modes.READ_DOMAIN_INFO;
+            this.workMode = modes.READ_DOMAIN_INFO;
 
         },
     }
