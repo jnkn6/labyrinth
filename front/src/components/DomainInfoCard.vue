@@ -9,25 +9,27 @@
         <div slot="readInfo">
             <p>url: {{url}}</p>
             <p>memo: {{memo}}</p>
+            <v-card>
+                <v-card-title>Memo</v-card-title>
+                <v-card-text v-html="compiledMemo" />
+            </v-card>
         </div>
         <div slot="editInfo">
-            <v-text-field
-                v-model="url"
-                label="Domain URL"
-                disabled
-            />
-            <v-textarea
-                v-model="memo"
-                label="Memo"
-                auto-grow
-                outlined
-            >
-                <template v-slot:label>
-                    <div>
-                        Memo<small>(optional)</small>
-                    </div>
-                </template>
-            </v-textarea>
+            <v-row>
+                <v-col>
+                    <v-text-field
+                        v-model="url"
+                        label="Domain URL"
+                        disabled
+                    />
+                    <v-card>
+                        <v-card-title>Memo</v-card-title>
+                        <v-card-text>
+                        <memo-editor :value="memoModified" @input="onMemoInput" @blur="onMemoBlur"/>
+                        </v-card-text>
+                    </v-card>
+                </v-col>
+            </v-row>
         </div>
     </info-card-slot>
 </template>
@@ -35,6 +37,11 @@
 
 import { modes, modesCategory } from '@/utils/const'
 import InfoCardSlot from './InfoCardSlot'
+
+import marked from 'marked'
+import DOMPurify from 'dompurify'
+import MemoEditor from './MemoEditor'
+
 
 export default {
     name: "DomainInfoCard",
@@ -47,7 +54,8 @@ export default {
         }
     },
     components: {
-        InfoCardSlot
+        InfoCardSlot,
+        MemoEditor,
     },
     watch: {
         mode:{
@@ -66,8 +74,10 @@ export default {
     data(){
         return {
             url: this.node.data.url,
+            memo: (this.node.data.memo === null) ? "" : this.node.data.memo,
             workMode: this.mode,
 
+            memoModified: (this.node.data.memo === null) ? "" : this.node.data.memo,
         }
     },
     computed: {
@@ -82,6 +92,12 @@ export default {
         isEditing() {
             return modesCategory.EDIT.includes(this.workMode)
         },
+        compiledMemo() {
+            let renderedHTML = marked(this.memo);
+            return DOMPurify.sanitize(renderedHTML, {
+                USE_PROFILES: {html: true}
+            });
+        },
     },
     methods: {
         onClose(){
@@ -93,6 +109,12 @@ export default {
         onSave(){
             this.workMode = modes.READ_DOMAIN_INFO;
 
+        },
+        onMemoInput(val){
+            this.memoModified = val;
+        },
+        onMemoBlur(val){
+            this.memoModified = val;
         },
     }
 }
