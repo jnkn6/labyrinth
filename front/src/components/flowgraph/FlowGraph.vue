@@ -1,6 +1,6 @@
 <template>
     <v-container fluid>
-        <div :style="{'padding-left': sidebarSize + 'px'}">
+        <div>
             <react-flow-graph
                 :elements="graphElements"
                 :onElementClick="onElementClick"
@@ -45,7 +45,6 @@ export default {
             'pageNodes',
             'edges',
             'draggingTag',
-            'sidebarSize',
         ]),
     },
     data () {
@@ -68,7 +67,7 @@ export default {
             this.createNode({
                 vue: this,
                 type: this.draggingTag,
-                position: {x: event.clientX - this.sidebarSize, y: event.clientY}
+                position: {x: event.clientX, y: event.clientY - 48 /* app bar size */}
             }).then((newNode) => {
                 // Open editor to set info
                 switch(this.draggingTag){

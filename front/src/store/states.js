@@ -4,6 +4,4 @@ export default{
     edges: [],
 
     draggingTag: '',
-
-    sidebarSize: 200,
 }

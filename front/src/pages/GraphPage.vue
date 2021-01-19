@@ -1,7 +1,6 @@
 <template>
     <div>
         <app-header />
-        <sidebar :size="sidebarSize" />
         <flow-graph :domain="domain"/>
     </div>
 </template>
@@ -21,14 +20,8 @@ export default {
         }
     },
     components: {
-        Sidebar,
         AppHeader,
         FlowGraph
     },
-    computed: {
-        ...mapState([
-            'sidebarSize'
-        ])
-    }
 }
 </script>
