@@ -1,5 +1,6 @@
 <template>
     <div>
+        <app-header />
         <sidebar :size="sidebarSize" />
         <flow-graph :domain="domain"/>
     </div>
@@ -7,7 +8,7 @@
 
 <script>
 
-import Sidebar from '@/components/Sidebar'
+import AppHeader from '@/components/AppHeader'
 import FlowGraph from '@/components/flowgraph/FlowGraph'
 
 import { mapState } from 'vuex'
@@ -21,6 +22,7 @@ export default {
     },
     components: {
         Sidebar,
+        AppHeader,
         FlowGraph
     },
     computed: {
