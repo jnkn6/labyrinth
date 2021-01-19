@@ -8,7 +8,18 @@ type Domain {
     memo: String
 }
 
+input DomainInput {
+    _id: ID!
+    url: String!
+    pages: [ID!]!
+    memo: String
+}
+
 extend type Query {
     domainInfo(url: String!): Domain
+}
+
+extend type Mutation {
+    modifyDomain(domain: DomainInput!): Domain!
 }
 `

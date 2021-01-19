@@ -17,4 +17,18 @@ export default {
             });
         }
     },
+    Mutation: {
+        /**
+         * @param args \{ domain: DomainInput! \}
+         */
+        modifyDomain: async (root, args, context) => {
+            delete args.domain.url;
+
+            return await domainModel.findByIdAndUpdate(
+                args.domain._id,
+                args.domain,
+                {new: true},
+            );
+        },
+    }
 }
