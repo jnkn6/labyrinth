@@ -14,6 +14,17 @@
         <v-card-text>
             <slot name="readInfo" v-if="!isEditing"></slot>
             <slot name="editInfo" v-else></slot>
+
+            <file-pond
+                v-if="isEditing"
+                name="filepond"
+                ref="pond"
+                label-idle="Drop files here..."
+                v-bind:allow-multiple="true"
+                accepted-file-types="image/png"
+                server="http://127.0.0.1:3000/upload/img"
+                v-bind:files="images"
+            />
         </v-card-text>
 
         <v-card-actions>
@@ -43,6 +54,11 @@
 </template>
 <script>
 
+import vueFilePond from 'vue-filepond'
+import 'filepond/dist/filepond.min.css'
+
+const FilePond = vueFilePond();
+
 export default {
     name: "InfoCardSlot",
     props: {
@@ -50,5 +66,13 @@ export default {
             type: Boolean
         },
     },
+    data() {
+        return {
+            images: []
+        };
+    },
+    components: {
+        FilePond
+    }
 }
 </script>
