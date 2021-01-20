@@ -7,6 +7,8 @@ import history from 'connect-history-api-fallback'
 import schema from './schema'
 import resolvers from './resolvers'
 
+import routes from './routes'
+
 var db = mongoose.connection;
 db.once('open', function(){
     console.log("DB open");
@@ -30,6 +32,8 @@ server.applyMiddleware({ app, path: '/graphql' });
 
 app.use(history());
 app.use(express.static('public'))
+
+app.use('/', routes)
 
 app.listen({ port: 3000 }, () =>
     console.log('Server ready')
