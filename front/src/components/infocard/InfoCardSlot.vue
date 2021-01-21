@@ -20,10 +20,11 @@
                 name="filepond"
                 ref="pond"
                 label-idle="Drop files here..."
-                v-bind:allow-multiple="true"
+                :allow-multiple="true"
                 accepted-file-types="image/png"
                 server="http://127.0.0.1:3000/upload/img"
-                v-bind:files="images"
+                :files="images"
+                :fileRenameFunction="fileRenameFunction"
             />
         </v-card-text>
 
@@ -57,22 +58,36 @@
 import vueFilePond from 'vue-filepond'
 import 'filepond/dist/filepond.min.css'
 
-const FilePond = vueFilePond();
+import FilePondPluginFileRename from 'filepond-plugin-file-rename';
+
+const FilePond = vueFilePond(
+    FilePondPluginFileRename,
+);
 
 export default {
     name: "InfoCardSlot",
+    components: {
+        FilePond
+    },
     props: {
         isEditing: {
             type: Boolean
         },
+        node: {
+            type: Object
+        }
+    },
+    methods: {
+        async fileRenameFunction(file){
+            let name = window.prompt('Enter new filename')
+            return this.node.id + '_' + name + file.extension;
+        }
     },
     data() {
         return {
             images: []
         };
     },
-    components: {
-        FilePond
-    }
 }
+
 </script>

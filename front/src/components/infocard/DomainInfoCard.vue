@@ -5,6 +5,7 @@
         @onEdit="onEdit"
         @onCancel="onCancel"
         :isEditing="isEditing"
+        :node="node"
     >
         <div slot="title">{{title}}</div>
         <div slot="readInfo">
