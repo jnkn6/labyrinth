@@ -21,7 +21,7 @@ let upload = multer({
 const router = express.Router();
 
 router.post('/img', upload.single('filepond'), (req, res) => {
-    return res.send(req.file)
+    return res.send(req.file.filename)
 });
 
 router.delete('/img', textParser, async (req, res) => {
@@ -29,12 +29,7 @@ router.delete('/img', textParser, async (req, res) => {
         return res.status(404).send("Image Not found.");
     }
 
-    let item = JSON.parse(req.body)
-    if (!item.filename){
-        return res.status(404).send("Image Not found.");
-    }
-
-    let path = uploadPath + item.filename;
+    let path = uploadPath + req.body;
     fs.unlink(path, (err) => {
         if(err){
             console.log(err)
