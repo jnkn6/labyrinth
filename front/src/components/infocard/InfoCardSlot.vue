@@ -31,6 +31,7 @@
                 }"
                 :files="images"
                 :fileRenameFunction="fileRenameFunction"
+                @init="handleFilePondInit"
             />
         </v-card-text>
 
@@ -69,6 +70,8 @@ import FilePondPluginFileRename from 'filepond-plugin-file-rename'
 import FilePondPluginImagePreview  from 'filepond-plugin-image-preview'
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css'
 
+import { ALLIMAGE_QUERY } from '@/graphql/image'
+
 const FilePond = vueFilePond(
     FilePondPluginFileRename,
     FilePondPluginImagePreview,
@@ -87,17 +90,37 @@ export default {
             type: Object
         }
     },
+    data() {
+        return {
+            images: [],
+        };
+    },
     methods: {
         async fileRenameFunction(file){
             let name = window.prompt('Enter new filename')
-            return this.node.id + '_' + name + file.extension;
-        }
-    },
-    data() {
-        return {
-            images: []
-        };
+        },
+        handleFilePondInit: function() {
+            let images = [];
+
+            // get uploaded file list
+            this.$apollo.query({
+            query: ALLIMAGE_QUERY,
+                variables : {
+                    id: this.node.data._id
+                },
+            }).then(res => {
+                res.data.allImages.forEach(element => {
+                    images.push({
+                        source: element.source,
+                        options: {
+                            type: 'limbo',
+                        },
+                    });
+                });
+
+                this.images = images;
+            });
+        },
     },
 }
-
 </script>
