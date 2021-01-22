@@ -22,7 +22,13 @@
                 label-idle="Drop files here..."
                 :allow-multiple="true"
                 accepted-file-types="image/png"
-                server="http://127.0.0.1:3000/upload/img"
+                :server="{
+                    url: 'http://127.0.0.1:3000',
+                    process: '/upload/img',
+                    revert: '/upload/img',
+                    restore: '/upload/',
+                    load: '/upload/',
+                }"
                 :files="images"
                 :fileRenameFunction="fileRenameFunction"
             />
@@ -58,10 +64,14 @@
 import vueFilePond from 'vue-filepond'
 import 'filepond/dist/filepond.min.css'
 
-import FilePondPluginFileRename from 'filepond-plugin-file-rename';
+import FilePondPluginFileRename from 'filepond-plugin-file-rename'
+
+import FilePondPluginImagePreview  from 'filepond-plugin-image-preview'
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css'
 
 const FilePond = vueFilePond(
     FilePondPluginFileRename,
+    FilePondPluginImagePreview,
 );
 
 export default {
