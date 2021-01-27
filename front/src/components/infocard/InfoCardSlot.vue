@@ -102,8 +102,9 @@ export default {
         };
     },
     methods: {
-        async fileRenameFunction(file){
+        fileRenameFunction(file){
             let name = window.prompt('Enter new filename')
+            return this.node.data._id + '_' + name + file.extension;
         },
         handleFilePondInit: function() {
             let images = [];
