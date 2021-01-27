@@ -31,6 +31,8 @@
                 }"
                 :files="images"
                 :fileRenameFunction="fileRenameFunction"
+                :copyRelativePath="true"
+                :alertCopyPath="true"
                 @init="handleFilePondInit"
             />
         </v-card-text>
@@ -70,11 +72,15 @@ import FilePondPluginFileRename from 'filepond-plugin-file-rename'
 import FilePondPluginImagePreview  from 'filepond-plugin-image-preview'
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css'
 
+import FilePondPluginCopyPath from 'filepond-plugin-copy-path'
+import 'filepond-plugin-copy-path/dist/filepond-plugin-copy-path.min.css'
+
 import { ALLIMAGE_QUERY } from '@/graphql/image'
 
 const FilePond = vueFilePond(
     FilePondPluginFileRename,
     FilePondPluginImagePreview,
+    FilePondPluginCopyPath,
 );
 
 export default {
