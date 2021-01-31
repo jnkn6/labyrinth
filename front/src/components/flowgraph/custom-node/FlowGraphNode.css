@@ -5,6 +5,10 @@
     box-shadow: 3px 3px 15px lightgrey;
 }
 
+.react-flow__node.selected {
+    box-shadow: 3px 3px 15px grey;
+}
+
 .titleBox {
     padding: 8px;
     border-bottom: 1px solid lightgrey;
