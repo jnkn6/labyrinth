@@ -25,7 +25,7 @@
     "marked": "^1.2.7",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-flow-renderer": "^8.3.2",
+    "react-flow-renderer": "^8.7.0",
     "validator": "^13.5.2",
     "vue": "^2.5.2",
     "vue-apollo": "^3.0.5",
