@@ -5,7 +5,6 @@ import {
     EMPTY_EDGES,
     EMPTY_PAGE_NODES,
     SET_DOMAIN_NODE,
-    PUSH_EDGE,
     PUSH_PAGE_NODE,
     SET_DRAGGING_TAG,
     UPDATE_PAGE_NODE,
@@ -128,7 +127,7 @@ export default {
 
             vue.$nextTick(() => {
             // create new edge
-                commit(PUSH_EDGE, {
+                commit(CONCAT_EDGES, {
                     id: "e" + state.domainNode.data._id + "-" + pageNode.id,
                     source: state.domainNode.data._id,
                     target: pageNode.id

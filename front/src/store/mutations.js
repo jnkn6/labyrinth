@@ -5,7 +5,6 @@ import {
     EMPTY_EDGES,
     EMPTY_PAGE_NODES,
     SET_DOMAIN_NODE,
-    PUSH_EDGE,
     PUSH_PAGE_NODE,
     SET_DRAGGING_TAG,
     UPDATE_PAGE_NODE,
@@ -49,9 +48,6 @@ export default{
     },
     [PUSH_PAGE_NODE](state, pageNode){
         state.pageNodes.push(pageNode);
-    },
-    [PUSH_EDGE](state, edge){
-        state.edges.push(edge);
     },
     [SET_DRAGGING_TAG](state, name){
         state.draggingTag = name;
