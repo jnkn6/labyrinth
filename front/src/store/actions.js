@@ -8,6 +8,7 @@ import {
     PUSH_PAGE_NODE,
     SET_DRAGGING_TAG,
     UPDATE_PAGE_NODE,
+    UPDATE_COMPONENT_NODE,
     PUSH_COMPONENT_NODE,
 } from './mutations-types'
 
@@ -24,6 +25,7 @@ import {
 
 import {
     CREATECOMPONENT_MUTATION,
+    MODIFYCOMPONENT_MUTATION,
 } from '@/graphql/component'
 
 export default {
@@ -234,6 +236,23 @@ export default {
 
             // update graph
             commit(UPDATE_PAGE_NODE, newPageNode)
+        })
+    },
+    modifyComponentNode({commit}, {vue, oldNode, newComponentData}){
+        // save Data at DB
+        vue.$apollo.mutate({
+            mutation: MODIFYCOMPONENT_MUTATION,
+            variables : {
+                component: newComponentData
+            },
+        }).then(res => {
+            let newComponentNode = {
+                ...oldNode,
+                data: res.data.modifyComponent,
+            };
+
+            // update graph
+            commit(UPDATE_COMPONENT_NODE, newComponentNode)
         })
     },
     setDraggingTag({commit}, name){
