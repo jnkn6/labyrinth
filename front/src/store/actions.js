@@ -8,6 +8,7 @@ import {
     PUSH_PAGE_NODE,
     SET_DRAGGING_TAG,
     UPDATE_PAGE_NODE,
+    PUSH_COMPONENT_NODE,
 } from './mutations-types'
 
 import {
@@ -21,6 +22,9 @@ import {
     MODIFYPAGE_MUTATION,
 } from '@/graphql/page'
 
+import {
+    CREATECOMPONENT_MUTATION,
+} from '@/graphql/component'
 
 export default {
     fetchDomainNode({commit}, {vue, domain}){
@@ -97,6 +101,56 @@ export default {
                 console.log("createNode domain is not implemented")
                 return undefined;
         }
+    },
+    createComponentNode({state, commit}, {vue, position, pageId, parentId}){
+         // save Data at DB
+         return vue.$apollo.mutate({
+            mutation: CREATECOMPONENT_MUTATION,
+            variables : {
+                component: {
+                    _id: "new_id",
+                    name: "new_component",
+                    domain: state.domainNode.data._id,
+                    page: pageId,
+                    parent: parentId,
+                    groups: [],
+                    components: [],
+                    memo: ""
+                },
+            },
+        }).then(res => {
+            // add to node
+            let componentNode = {
+                id: res.data.createComponent._id,
+                type: 'component',
+                position: position,
+                data: res.data.createComponent,
+            };
+
+            commit(PUSH_COMPONENT_NODE, componentNode);
+
+            // create new edge
+            let edgeSource = pageId;
+
+            if(parentId !== null){
+                edgeSource = parentId;
+            }
+
+            let newEdge = {
+                [componentNode.id]: [{
+                    id: "e" + edgeSource + "-" + componentNode.id,
+                    source: edgeSource,
+                    target: componentNode.id,
+                    type: "step"
+                }]
+            };
+
+            vue.$nextTick(() => {
+                commit(CONCAT_EDGES, newEdge)
+            });
+
+            return componentNode;
+        });
     },
     createPageNode({state, commit}, {vue, position}){
 
