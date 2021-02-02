@@ -44,7 +44,7 @@ export default {
     },
     fetchPageNodes({commit}, {vue, domainNode}){
         let pages = [];
-        let edges = [];
+        let edges = {};
 
         vue.$apollo.query({
             query: ALLPAGESINFO_QUERY,
@@ -64,13 +64,18 @@ export default {
                     data: { ...page },
                     position: { x: x, y: y },
                 });
-                y += 100;
-    
+                y += 130;
+                
+                if (!(page._id in edges))
+                {
+                    edges[page._id] = [];
+                }
                 // Add edge
-                edges.push({
+                edges[page._id].push({
                     id: "e" + domainNode.data._id + "-" + page._id,
                     source: domainNode.data._id,
-                    target: page._id
+                    target: page._id,
+                    type: "step"
                 });
             });
 
@@ -179,13 +184,18 @@ export default {
 
             commit(PUSH_PAGE_NODE, pageNode);
 
-            vue.$nextTick(() => {
             // create new edge
-                commit(CONCAT_EDGES, {
+            let newEdge = {
+                [pageNode.id]: [{
                     id: "e" + state.domainNode.data._id + "-" + pageNode.id,
                     source: state.domainNode.data._id,
-                    target: pageNode.id
-                });
+                    target: pageNode.id,
+                    type: "step"
+                }]
+            };
+
+            vue.$nextTick(() => {
+                commit(CONCAT_EDGES, newEdge);
             });
 
             return pageNode;
