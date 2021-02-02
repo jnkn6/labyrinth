@@ -13,7 +13,11 @@
                 :position-y="nodeMenuY"
                 absolute
             >
-                <node-menu :selectedMenuNode="selectedMenuNode"/>
+                <node-menu
+                    :selectedMenuNode="selectedMenuNode"
+                    :positionX="nodeMenuX"
+                    :positionY="nodeMenuY"
+                />
             </v-menu>
             <info-card
                 v-if="showInfo"
