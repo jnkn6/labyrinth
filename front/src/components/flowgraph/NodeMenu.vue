@@ -56,6 +56,7 @@ export default {
     },
     methods: {
         ...mapActions([
+            'createNode',
             'fetchPageNodes',
             'emptyPageNodes',
             'emptyEdges',
