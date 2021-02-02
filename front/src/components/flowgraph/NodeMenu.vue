@@ -29,6 +29,14 @@
                 Open components
                 </v-list-item-title>
             </v-list-item>
+        <v-list-item @click="onClickAddComponent">
+            <v-list-item-avatar>
+                <v-icon >mdi-file-plus</v-icon>
+            </v-list-item-avatar>
+            <v-list-item-content>
+                Add Component
+            </v-list-item-content>
+        </v-list-item>
     </v-list>
 </div>
 </template>
@@ -57,6 +65,7 @@ export default {
     methods: {
         ...mapActions([
             'createNode',
+            'createComponentNode',
             'fetchPageNodes',
             'emptyPageNodes',
             'emptyEdges',
@@ -86,7 +95,31 @@ export default {
             }).then((newNode) => {
 
             });
-        }
+        },
+        onClickAddComponent(){
+            const isParentComponent = (this.selectedMenuNode.type === 'component');
+            let pageId = null;
+            let parentId = null;
+
+            if (!isParentComponent){
+                pageId = this.selectedMenuNode.id;
+            }
+            else{
+                // If it's nested component
+                pageId = this.selectedMenuNode.data.page;
+                parentId = this.selectedMenuNode.id;
+            }
+
+            this.createComponentNode({
+                vue: this,
+                type: 'component',
+                position: {x: this.positionX, y: this.positionY},
+                pageId: pageId,
+                parentId: parentId
+            }).then((newNode) => {
+
+            });
+        },
     }
 }
 </script>
