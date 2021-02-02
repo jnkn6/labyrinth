@@ -1,7 +1,7 @@
 export default{
     domainNode: null,
     pageNodes: [],
-    edges: [],
+    edges: {}, // {"targetid":[Edge, Edge, ...], "targetid": [Edge, Edge,...]}
 
     draggingTag: '',
 }

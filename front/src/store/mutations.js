@@ -10,6 +10,8 @@ import {
     UPDATE_PAGE_NODE,
 } from "./mutations-types";
 
+import Vue from 'vue'
+
 export default{
     [SET_DOMAIN_NODE](state, domainNode){
         state.domainNode = domainNode;
@@ -18,13 +20,21 @@ export default{
         state.pageNodes = [];
     },
     [EMPTY_EDGES](state){
-        state.edges = [];
+        state.edges = {};
     },
     [CONCAT_PAGE_NODES](state, pageNodes){
         state.pageNodes = state.pageNodes.concat(pageNodes);
     },
     [CONCAT_EDGES](state, edges){
-        state.edges = state.edges.concat(edges);
+        for (const nodeId in edges){
+            // Add new node's edge
+            if (!(nodeId in state.edges)){
+                Vue.set(state.edges, nodeId, edges[nodeId])
+                continue;
+            }
+ 
+            // If node is not new
+        }
     },
     [DELETE_PAGE_NODE](state, id){
         //delete page node

@@ -7,7 +7,11 @@ export default{
         }
 
         graphElements = graphElements.concat(state.pageNodes);
-        graphElements = graphElements.concat(state.edges);
+
+        for (const key in state.edges){
+            graphElements = graphElements.concat(state.edges[key]);
+        }
+
         return graphElements;
     },
 }
