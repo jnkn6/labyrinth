@@ -8,6 +8,7 @@ import {
     PUSH_PAGE_NODE,
     SET_DRAGGING_TAG,
     UPDATE_PAGE_NODE,
+    PUSH_COMPONENT_NODE,
 } from "./mutations-types";
 
 import Vue from 'vue'
@@ -58,6 +59,17 @@ export default{
     },
     [PUSH_PAGE_NODE](state, pageNode){
         state.pageNodes.push(pageNode);
+    },
+    [PUSH_COMPONENT_NODE](state, componentNode){
+        // If page already opend component node
+        const pageId = componentNode.data.page;
+        if (pageId in state.componentNodes){
+            state.componentNodes[pageId].push(componentNode);
+            return;
+        }
+
+        // If first open
+        Vue.set(state.componentNodes, pageId, [componentNode]);
     },
     [SET_DRAGGING_TAG](state, name){
         state.draggingTag = name;
