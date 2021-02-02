@@ -9,6 +9,7 @@ import {
     SET_DRAGGING_TAG,
     UPDATE_PAGE_NODE,
     PUSH_COMPONENT_NODE,
+    UPDATE_COMPONENT_NODE,
 } from "./mutations-types";
 
 import Vue from 'vue'
@@ -82,5 +83,20 @@ export default{
                 break;
             }
         }
-    }
+    },
+    [UPDATE_COMPONENT_NODE](state, newComponentNode){
+        const pageId = newComponentNode.data.page;
+        if (!(pageId in state.componentNodes)){
+            console.log("No node to update. Please add node first.")
+            return;
+        }
+
+        for (let i = 0; i< state.componentNodes[pageId].length; i++){
+            if (state.componentNodes[pageId][i].id === newComponentNode.id){
+                state.componentNodes[pageId].splice(i, 1);
+                state.componentNodes[pageId].push(newComponentNode);
+                break;
+            }
+        }
+    },
 }
