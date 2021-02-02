@@ -14,3 +14,18 @@ export const CREATECOMPONENT_MUTATION = gql`
         }
     }
 `
+
+export const MODIFYCOMPONENT_MUTATION = gql`
+    mutation modifyComponent ($component: ComponentInput!) {
+        modifyComponent (component: $component) {
+            _id
+            name
+            domain
+            page
+            parent
+            groups
+            components
+            memo
+        }
+    }
+`
