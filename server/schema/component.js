@@ -1,7 +1,29 @@
 import { gql } from 'apollo-server-express'
 
 export default gql`
-    type Query {
-        hello: String
-    }
+type Component {
+    _id: ID!
+    name: String!
+    domain: ID!
+    page: ID!
+    parent: ID
+    groups: [ID!]!
+    components: [ID!]!
+    memo: String
+}
+
+input ComponentInput {
+    _id: ID!
+    name: String!
+    domain: ID!
+    page: ID!
+    parent: ID
+    groups: [ID!]!
+    components: [ID!]!
+    memo: String
+}
+extend type Mutation {
+    createComponent(component: ComponentInput!): Component!
+    modifyComponent(component: ComponentInput!): Component!
+}
 `;
