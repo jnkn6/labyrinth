@@ -48,3 +48,25 @@ export function PageNode ({data}) {
         </div>
     );
 };
+
+
+export function ComponentNode ({data}) {
+
+    // input will be HTML encoded by react
+    return (
+        <div className="node componentNode">
+            <Handle type="target" position="left"/>
+            <div className="titleBox">
+                <i className="mdi mdi-file"></i>
+                Component
+            </div>
+            <div className="infoBox">
+                <div>
+                    <b>Name </b>
+                    {data.name}
+                </div>
+            </div>
+            <Handle type="source" position="right"/>
+        </div>
+    );
+};

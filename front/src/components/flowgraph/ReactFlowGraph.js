@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactFlow, { MiniMap, Controls } from 'react-flow-renderer';
 
-import { DomainNode, PageNode } from './custom-node/FlowGraphNode'
+import { DomainNode, PageNode, ComponentNode } from './custom-node/FlowGraphNode'
 
 export default (props) => {
     const nodeTypes = {
         domain: DomainNode,
-        page: PageNode
+        page: PageNode,
+        component: ComponentNode,
     };
     const graphStyles = {
         width: "100%",

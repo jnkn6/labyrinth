@@ -26,3 +26,7 @@
 .pageNode .titleBox {
     background: #d1f7ff;
 }
+
+.componentNode .titleBox {
+    background: #05d9e8;
+}
