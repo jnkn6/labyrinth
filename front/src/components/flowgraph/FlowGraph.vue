@@ -121,6 +121,9 @@ export default {
                 case "page":
                     this.onPageClick(event, element);
                     break;
+                case "component":
+                    this.onComponentClick(event, element);
+                    break;
             }
         },
         onPageClick(event, element){
@@ -130,6 +133,11 @@ export default {
         },
         onDomainClick(event, element){
             this.mode = modes.READ_DOMAIN_INFO;
+            this.selectedNode = element;
+            this.showInfo = true;
+        },
+        onComponentClick(event, element){
+            this.mode = modes.READ_COMPONENT_INFO;
             this.selectedNode = element;
             this.showInfo = true;
         },
