@@ -12,6 +12,12 @@
             :node="node"
             @onClose="$emit('onClose')"
         />
+        <component-info-card 
+            v-if="node.type === 'component'"
+            :mode="mode"
+            :node="node"
+            @onClose="$emit('onClose')"
+        />
     </div>
 </template>
 <script>
@@ -20,12 +26,14 @@ import { modes, modesCategory } from '@/utils/const'
 
 import DomainInfoCard from './DomainInfoCard'
 import PageInfoCard from './PageInfoCard'
+import ComponentInfoCard from './ComponentInfoCard'
 
 export default {
     name: "InfoCard",
     components: {
         DomainInfoCard,
         PageInfoCard,
+        ComponentInfoCard,
     },
     props: {
         mode: {
