@@ -13,6 +13,14 @@
                 Close pages
             </v-list-item-content>
         </v-list-item>
+        <v-list-item @click="onClickAddPage">
+            <v-list-item-avatar>
+                <v-icon >mdi-file-plus</v-icon>
+            </v-list-item-avatar>
+            <v-list-item-content>
+                Add page
+            </v-list-item-content>
+        </v-list-item>
     </v-list>
     <v-list v-else-if="selectedMenuNode.type === 'page'">
         <v-subheader>Page Menu</v-subheader>
@@ -33,7 +41,13 @@ export default {
     props: {
         selectedMenuNode : {
             type: Object
-        }
+        },
+        positionX : {
+            type: Number
+        },
+        positionY : {
+            type: Number
+        },
     },
     data(){
         return {
@@ -62,6 +76,15 @@ export default {
             }).then(() => {
                 this.isPageOpened = true;
             })
+        },
+        onClickAddPage(){
+            this.createNode({
+                vue: this,
+                type: 'page',
+                position: {x: this.positionX, y: this.positionY}
+            }).then((newNode) => {
+
+            });
         }
     }
 }
