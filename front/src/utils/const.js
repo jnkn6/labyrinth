@@ -1,9 +1,10 @@
 export const modes = {
-    CREATE_PAGE: 'CREATE_PAGE',
+    EDIT_COMPONENT: 'EDIT_COMPONENT',
     EDIT_DOMAIN: 'EDIT_DOMAIN',
     EDIT_PAGE: 'EDIT_PAGE',
     READ_DOMAIN_INFO: 'READ_DOMAIN_INFO',
     READ_PAGE_INFO: 'READ_PAGE_INFO',
+    READ_COMPONENT_INFO: 'READ_COMPONENT_INFO',
 }
 
 export const modesCategory = {
@@ -12,15 +13,16 @@ export const modesCategory = {
         modes.EDIT_DOMAIN,
     ],
     PAGE: [
-        modes.CREATE_PAGE,
         modes.EDIT_PAGE,
         modes.READ_PAGE_INFO,
+    ],
+    COMPONENT: [
+        modes.EDIT_COMPONENT,
+        modes.READ_COMPONENT_INFO,
     ],
     EDIT: [
         modes.EDIT_PAGE,
         modes.EDIT_DOMAIN,
+        modes.EDIT_COMPONENT,
     ],
-    CREATE: [
-        modes.CREATE_PAGE,
-    ]
 }
