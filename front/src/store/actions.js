@@ -11,6 +11,7 @@ import {
     UPDATE_PAGE_NODE,
     UPDATE_COMPONENT_NODE,
     PUSH_COMPONENT_NODE,
+    CLOSE_COMPONENT_NODES,
 } from './mutations-types'
 
 import {
@@ -155,6 +156,9 @@ export default {
     },
     emptyEdges({commit}){
         commit(EMPTY_EDGES)
+    },
+    closeComponentNodes({commit}, pageId){
+        commit(CLOSE_COMPONENT_NODES, pageId);
     },
     concatPageNodes({commit}, pageNodes){
         commit(CONCAT_PAGE_NODES, pageNodes);
