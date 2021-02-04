@@ -10,6 +10,17 @@ export const DOMAININFO_QUERY = gql`
         }
 }`
 
+export const CREATEDOMAIN_MUTATION = gql`
+    mutation createDomain ($domain: DomainInput!) {
+        createDomain (domain: $domain) {
+            _id
+            url
+            pages
+            memo
+        }
+    }
+`
+
 export const MODIFYDOMAIN_MUTATION = gql`
     mutation modifyDomain ($domain: DomainInput!) {
         modifyDomain (domain: $domain) {
