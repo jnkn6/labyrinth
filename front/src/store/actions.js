@@ -17,6 +17,7 @@ import {
 
 import {
     DOMAININFO_QUERY,
+    CREATEDOMAIN_MUTATION,
     MODIFYDOMAIN_MUTATION,
 } from '@/graphql/domain'
 
@@ -235,6 +236,32 @@ export default {
             return componentNode;
         });
     },
+    createDomainNode({state, commit}, {vue, url}){
+        // save Data at DB
+        return vue.$apollo.mutate({
+            mutation: CREATEDOMAIN_MUTATION,
+            variables : {
+                domain: {
+                    _id: "new_id",
+                    url: url,
+                    pages: [],
+                    memo: ""
+                },
+            },
+        }).then(res => {
+            // add to node
+            let domainNode = {
+                id: res.data.createDomain._id,
+                type: 'domain',
+                position: {x:100, y:100},
+                data: res.data.createDomain,
+            };
+
+            commit(SET_DOMAIN_NODE, domainNode);
+
+            return domainNode;
+        });
+    },
     createPageNode({state, commit}, {vue, position}){
 
         // save Data at DB
@@ -283,9 +310,9 @@ export default {
         // save Data at DB
         vue.$apollo.mutate({
             mutation: MODIFYDOMAIN_MUTATION,
-                variables : {
-                    domain: newDomainData
-                },
+            variables : {
+                domain: newDomainData
+            },
         }).then(res => {
             let newDomainNode = {
                 ...oldNode,
@@ -301,9 +328,9 @@ export default {
         // save Data at DB
         vue.$apollo.mutate({
             mutation: MODIFYPAGE_MUTATION,
-                variables : {
-                    page: newPageData
-                },
+            variables : {
+                page: newPageData
+            },
         }).then(res => {
             let newPageNode = {
                 ...oldNode,
