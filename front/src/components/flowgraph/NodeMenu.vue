@@ -87,12 +87,14 @@ export default {
             'fetchPageNodes',
             'fetchComponentNodes',
             'emptyPageNodes',
+            'emptyComponentNodes',
             'emptyEdges',
             'closeComponentNodes',
         ]),
         onClickOpenPages(){
             // If already opened, close nodes
             if (this.isPageOpened) {
+                this.emptyComponentNodes();
                 this.emptyPageNodes();
                 this.emptyEdges();
                 this.isPageOpened = false;
