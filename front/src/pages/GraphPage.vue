@@ -1,7 +1,13 @@
 <template>
     <div>
         <app-header />
-        <flow-graph :domain="domain"/>
+        <v-container fluid>
+            <v-row>
+                <v-col v-if="graphElements.length !== 0">
+                    <flow-graph :domain="domain"/>
+                </v-col>
+            </v-row>
+        </v-container>
     </div>
 </template>
 
@@ -10,7 +16,7 @@
 import AppHeader from '@/components/AppHeader'
 import FlowGraph from '@/components/flowgraph/FlowGraph'
 
-import { mapState } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
     name: "GraphPage",
@@ -22,6 +28,19 @@ export default {
     components: {
         AppHeader,
         FlowGraph
+    },
+    computed: {
+        ...mapGetters ([
+            'graphElements',
+        ]),
+    },
+    methods: {
+        ...mapActions([
+            'fetchDomainNode',
+        ]),
+    },
+    created(){
+        this.fetchDomainNode({vue: this, domain: this.domain})
     },
 }
 </script>

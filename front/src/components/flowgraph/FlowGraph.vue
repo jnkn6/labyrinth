@@ -56,9 +56,6 @@ export default {
             'graphElements',
         ]),
         ...mapState([
-            'domainNode',
-            'pageNodes',
-            'edges',
             'draggingTag',
         ]),
     },
@@ -76,7 +73,6 @@ export default {
     },
     methods: {
         ...mapActions([
-            'fetchDomainNode',
             'createNode',
         ]),
         onDrop (event) {
@@ -147,8 +143,6 @@ export default {
             this.selectedNode = null;
         }
     },
-    created(){
-        this.fetchDomainNode({vue: this, domain: this.domain})
-    },
+
 }
 </script>
