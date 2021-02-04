@@ -40,12 +40,18 @@ export default {
                     url: domain
                 },
         }).then(res => {
-            commit(SET_DOMAIN_NODE, {
-                id: res.data.domainInfo._id,
-                type: 'domain',
-                data: { ...res.data.domainInfo },
-                position: {x:100, y:100}
-            });
+            if (res.data.domainInfo != null){
+                commit(SET_DOMAIN_NODE, {
+                    id: res.data.domainInfo._id,
+                    type: 'domain',
+                    data: { ...res.data.domainInfo },
+                    position: {x:100, y:100}
+                });
+            }
+            else{
+                commit(SET_DOMAIN_NODE, null);
+            }
+
         })
     },
     fetchPageNodes({commit}, {vue, domainNode}){
