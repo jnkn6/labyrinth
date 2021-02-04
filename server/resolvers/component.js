@@ -1,5 +1,40 @@
 import componentModel from '../models/component'
+import pageModel from '../models/page'
+
+async function getComponentInfo (ids) {
+    let components = []
+
+    if (ids <= 0) {
+        return components;
+    }
+
+    for (let index=0; index < ids.length; index++) {
+        await componentModel.findOne({_id: ids[index]}, (err, res) => {
+            if(err){
+                console.log(err);
+            }
+            else{
+                components.push(res)
+            }
+        });
+    }
+
+    return components;
+}
+
+
 export default {
+    Query: {
+        /**
+         * @param args \{ page: ID! \}
+         */
+        allComponentsInfo: async (root, args, context) => {
+
+            let page = await pageModel.findOne({_id: args.page});
+
+            return await getComponentInfo(page.components)
+        },
+    },
     Mutation:{
         /**
          * @param args \{ component: ComponentInput! \}

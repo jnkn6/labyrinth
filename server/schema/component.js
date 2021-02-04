@@ -22,6 +22,10 @@ input ComponentInput {
     components: [ID!]!
     memo: String
 }
+extend type Query {
+    allComponentsInfo(page: ID!): [Component!]!
+}
+
 extend type Mutation {
     createComponent(component: ComponentInput!): Component!
     modifyComponent(component: ComponentInput!): Component!
