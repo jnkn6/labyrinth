@@ -57,7 +57,7 @@ export function ComponentNode ({data}) {
         <div className="node componentNode">
             <Handle type="target" position="left"/>
             <div className="titleBox">
-                <i className="mdi mdi-file"></i>
+                <i className="mdi mdi-view-grid"></i>
                 Component
             </div>
             <div className="infoBox">

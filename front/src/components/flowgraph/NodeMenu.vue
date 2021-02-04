@@ -31,7 +31,7 @@
             </v-list-item>
         <v-list-item @click="onClickAddComponent">
             <v-list-item-avatar>
-                <v-icon >mdi-file-plus</v-icon>
+                <v-icon >mdi-view-grid-plus</v-icon>
             </v-list-item-avatar>
             <v-list-item-content>
                 Add Component
@@ -42,7 +42,7 @@
         <v-subheader>Component Menu</v-subheader>
         <v-list-item @click="onClickAddComponent">
             <v-list-item-avatar>
-                <v-icon >mdi-file-plus</v-icon>
+                <v-icon >mdi-view-grid-plus</v-icon>
             </v-list-item-avatar>
             <v-list-item-content>
                 Add Component
