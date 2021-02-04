@@ -9,11 +9,13 @@ import {
     PUSH_PAGE_NODE,
     SET_DRAGGING_TAG,
     UPDATE_PAGE_NODE,
+    CLOSE_COMPONENT_NODES,
     PUSH_COMPONENT_NODE,
     UPDATE_COMPONENT_NODE,
 } from "./mutations-types";
 
 import Vue from 'vue'
+import _ from "lodash"
 
 export default{
     [SET_DOMAIN_NODE](state, domainNode){
@@ -24,6 +26,21 @@ export default{
     },
     [EMPTY_EDGES](state){
         state.edges = {};
+    },
+    [CLOSE_COMPONENT_NODES](state, pageID){
+        if (!state.componentNodes[pageID]){
+            return;
+        }
+
+        // remove edge
+        state.componentNodes[pageID].forEach(element => {
+            if (state.edges[element.data._id]){
+                Vue.delete(state.edges, element.data._id);
+            }
+        });
+
+        // remove node
+        Vue.delete(state.componentNodes, pageID);
     },
     [CONCAT_PAGE_NODES](state, pageNodes){
         state.pageNodes = state.pageNodes.concat(pageNodes);
