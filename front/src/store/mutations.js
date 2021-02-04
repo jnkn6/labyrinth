@@ -68,6 +68,8 @@ export default{
             }
  
             // If node is not new
+            let newEdge = _.differenceBy(state.edges[nodeId], edges[nodeId], 'id');
+            state.edges[nodeId] = state.edges[nodeId].concat(newEdge);
         }
     },
     [DELETE_PAGE_NODE](state, id){
