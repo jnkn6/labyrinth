@@ -24,11 +24,17 @@
     </v-list>
     <v-list v-else-if="selectedMenuNode.type === 'page'">
         <v-subheader>Page Menu</v-subheader>
-            <v-list-item>
-                <v-list-item-title>
+        <v-list-item @click="onClickOpenComponents">
+            <v-list-item-avatar>
+                <v-icon >mdi-view-grid</v-icon>
+            </v-list-item-avatar>
+            <v-list-item-content v-if="!componentOpendPages.includes(selectedMenuNode.id)">
                 Open components
-                </v-list-item-title>
-            </v-list-item>
+            </v-list-item-content>
+            <v-list-item-content v-else>
+                Close components
+            </v-list-item-content>
+        </v-list-item>
         <v-list-item @click="onClickAddComponent">
             <v-list-item-avatar>
                 <v-icon >mdi-view-grid-plus</v-icon>
@@ -71,6 +77,7 @@ export default {
     data(){
         return {
             isPageOpened: false,
+            componentOpendPages: [],
         }
     },
     methods: {
@@ -78,8 +85,10 @@ export default {
             'createNode',
             'createComponentNode',
             'fetchPageNodes',
+            'fetchComponentNodes',
             'emptyPageNodes',
             'emptyEdges',
+            'closeComponentNodes',
         ]),
         onClickOpenPages(){
             // If already opened, close nodes
@@ -106,6 +115,23 @@ export default {
             }).then((newNode) => {
 
             });
+        },
+        onClickOpenComponents(){
+            // If already opened, close nodes
+            const index = this.componentOpendPages.indexOf(this.selectedMenuNode.id)
+            if (index > -1){
+                this.componentOpendPages.splice(index, 1)
+                this.closeComponentNodes(this.selectedMenuNode.id);
+                return;
+            }
+
+            // Add Component/edge
+            this.fetchComponentNodes({
+                vue: this,
+                pageNode: this.selectedMenuNode
+            }).then(() => {
+                this.componentOpendPages.push(this.selectedMenuNode.id)
+            })
         },
         onClickAddComponent(){
             const isParentComponent = (this.selectedMenuNode.type === 'component');
