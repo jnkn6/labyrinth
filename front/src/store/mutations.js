@@ -12,6 +12,7 @@ import {
     CLOSE_COMPONENT_NODES,
     PUSH_COMPONENT_NODE,
     UPDATE_COMPONENT_NODE,
+    EMPTY_COMPONENT_NODES,
 } from "./mutations-types";
 
 import Vue from 'vue'
@@ -23,6 +24,9 @@ export default{
     },
     [EMPTY_PAGE_NODES](state){
         state.pageNodes = [];
+    },
+    [EMPTY_COMPONENT_NODES](state){
+        state.componentNodes = {};
     },
     [EMPTY_EDGES](state){
         state.edges = {};
