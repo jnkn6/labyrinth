@@ -6,6 +6,9 @@
                 <v-col v-if="graphElements.length !== 0">
                     <flow-graph :domain="domain"/>
                 </v-col>
+                <v-col v-else align="center">
+                    <domain-add-button :domain="domain"/>
+                </v-col>
             </v-row>
         </v-container>
     </div>
@@ -15,6 +18,7 @@
 
 import AppHeader from '@/components/AppHeader'
 import FlowGraph from '@/components/flowgraph/FlowGraph'
+import DomainAddButton from '@/components/DomainAddButton'
 
 import { mapGetters, mapActions } from 'vuex'
 
@@ -27,7 +31,8 @@ export default {
     },
     components: {
         AppHeader,
-        FlowGraph
+        FlowGraph,
+        DomainAddButton,
     },
     computed: {
         ...mapGetters ([
