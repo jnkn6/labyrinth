@@ -1,6 +1,7 @@
 import {
     CONCAT_EDGES,
     CONCAT_PAGE_NODES,
+    CONCAT_COMPONENT_NODES,
     DELETE_PAGE_NODE,
     EMPTY_EDGES,
     EMPTY_PAGE_NODES,
@@ -24,6 +25,7 @@ import {
 } from '@/graphql/page'
 
 import {
+    ALLCOMPONENTSINFO_QUERY,
     CREATECOMPONENT_MUTATION,
     MODIFYCOMPONENT_MUTATION,
 } from '@/graphql/component'
@@ -82,6 +84,66 @@ export default {
             });
 
             commit(CONCAT_PAGE_NODES, pages);
+            vue.$nextTick(() => {
+                commit(CONCAT_EDGES, edges);
+            })
+        })
+        .catch(err => {console.log(err);})
+    },
+    fetchComponentNodes({commit}, {vue, pageNode} ){
+        let components = {};
+        let edges = {};
+
+        vue.$apollo.query({
+            query: ALLCOMPONENTSINFO_QUERY,
+            variables : {
+                page: pageNode.data._id
+            },
+        }).then(res => {
+            let x = pageNode.position.x + 200;
+            let y = pageNode.position.y;
+    
+            res.data.allComponentsInfo.forEach((component, index) => {
+
+                let source = pageNode.data._id;
+                let x_modify = x;
+                let y_modify = y;
+
+                // if nested node
+                if (component.parent !== null){
+                    source = component.parent;
+                    x_modify = x + 200;
+                }
+
+                if (!(component.page in components))
+                {
+                    components[component.page] = [];
+                }
+
+                // Add node
+                components[component.page].push({
+                    id: component._id,
+                    type: 'component',
+                    data: { ...component },
+                    position: { x: x_modify, y: y_modify },
+                });
+                y += 130;
+                
+                // Add edge
+                if (!(component._id in edges))
+                {
+                    edges[component._id] = [];
+                }
+
+                edges[component._id].push({
+                    id: "e" + source + "-" + component._id,
+                    source: source,
+                    target: component._id,
+                    type: "step"
+                });
+            });
+
+            commit(CONCAT_COMPONENT_NODES, components);
             vue.$nextTick(() => {
                 commit(CONCAT_EDGES, edges);
             })
