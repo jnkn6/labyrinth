@@ -1,6 +1,7 @@
 import {
     CONCAT_EDGES,
     CONCAT_PAGE_NODES,
+    CONCAT_COMPONENT_NODES,
     DELETE_PAGE_NODE,
     EMPTY_EDGES,
     EMPTY_PAGE_NODES,
@@ -26,6 +27,20 @@ export default{
     },
     [CONCAT_PAGE_NODES](state, pageNodes){
         state.pageNodes = state.pageNodes.concat(pageNodes);
+    },
+    [CONCAT_COMPONENT_NODES](state, componentNodes){
+        
+        for (const parentId in componentNodes){
+            // Add new node's edge
+            if (!(parentId in state.componentNodes)){
+                Vue.set(state.componentNodes, parentId, componentNodes[parentId])
+                continue;
+            }
+
+            // If node is not new
+            let newNode = _.differenceBy(componentNodes[parentId], state.componentNodes[parentId], 'id');
+            state.componentNodes[parentId] = state.componentNodes[parentId].concat(newNode);
+        }
     },
     [CONCAT_EDGES](state, edges){
         for (const nodeId in edges){
