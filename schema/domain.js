@@ -20,6 +20,7 @@ extend type Query {
 }
 
 extend type Mutation {
+    createDomain(domain: DomainInput!): Domain!
     modifyDomain(domain: DomainInput!): Domain!
 }
 `

@@ -21,6 +21,19 @@ export default {
         /**
          * @param args \{ domain: DomainInput! \}
          */
+        createDomain: async (root, args, context) => {
+            delete args.domain._id; // ID will be created by DB
+
+            const oldDomain = await domainModel.findOne({url: args.domain.url});
+            if (oldDomain){
+                return oldDomain;
+            }
+
+            return await domainModel.create(args.domain);
+        },
+        /**
+         * @param args \{ domain: DomainInput! \}
+         */
         modifyDomain: async (root, args, context) => {
             delete args.domain.url;
 
