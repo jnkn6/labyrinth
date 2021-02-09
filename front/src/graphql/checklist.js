@@ -10,3 +10,8 @@ export const CHECKLIST_QUERY = gql`
     }
 `
 
+export const CHECK_MUTATION = gql`
+    mutation check ($done: ChecklistInput!) {
+        check (done: $done)
+    }
+`
