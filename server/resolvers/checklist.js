@@ -36,7 +36,7 @@ export default {
             }
 
             // You can't update check state if it's deactivated
-            if (args.done.code in checklist.deactivated){
+            if (checklist.deactivated.includes(args.done.code)){
                 return false;
             }
 
