@@ -6,6 +6,7 @@ type Domain {
     url: String!
     pages: [ID!]!
     memo: String
+    checklist: ID!
 }
 
 input DomainInput {
@@ -13,6 +14,7 @@ input DomainInput {
     url: String!
     pages: [ID!]!
     memo: String
+    checklist: ID # temp
 }
 
 extend type Query {
