@@ -1,5 +1,6 @@
 import pageModel from '../models/page'
 import domainModel from '../models/domain'
+import checklistModel from '../models/checklist'
 
 async function getPagesInfo (ids) {
     let pages = []
@@ -63,6 +64,10 @@ export default {
             if (!domain){
                 return null; // change: send error
             }
+
+            // add checklist reference
+            const checklist = await checklistModel.create({})
+            args.page.checklist = checklist._id
 
             let page = await pageModel.create(args.page);
 

@@ -12,6 +12,10 @@ const domainSchema = new mongoose.Schema({
     memo: {
         type: String
     },
+    checklist: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Checklist',
+    },
 });
 
 const Domain = mongoose.model('Domain', domainSchema, 'domain');

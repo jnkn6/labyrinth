@@ -24,8 +24,7 @@ const groupSchema = new mongoose.Schema({
     memo: {
         type: String
     },
-  },
-);
+});
 
 const Group = mongoose.model('Group', groupSchema, 'group');
 
