@@ -4,6 +4,7 @@ import domainSchema from './domain'
 import pageSchema from './page'
 import componentSchema from './component'
 import imageSchema from './image'
+import checklistSchema from './checklist'
 
 const linkSchema = gql`
     type Query {
@@ -20,4 +21,5 @@ export default [
     pageSchema,
     componentSchema,
     imageSchema,
+    checklistSchema,
 ];
