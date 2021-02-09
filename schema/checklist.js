@@ -11,4 +11,12 @@ extend type Query {
     checklist(id: ID!): Checklist
 }
 
+input ChecklistInput {
+    _id: ID!
+    code: String!
+}
+
+extend type Mutation {
+    check(done: ChecklistInput!): Boolean!
+}
 `;
