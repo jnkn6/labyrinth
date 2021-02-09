@@ -10,6 +10,7 @@ type Component {
     groups: [ID!]!
     components: [ID!]!
     memo: String
+    checklist: ID!
 }
 
 input ComponentInput {
@@ -21,6 +22,7 @@ input ComponentInput {
     groups: [ID!]!
     components: [ID!]!
     memo: String
+    checklist: ID # temp
 }
 extend type Query {
     allComponentsInfo(page: ID!): [Component!]!

@@ -9,6 +9,7 @@ type Page {
     groups: [ID!]!
     components: [ID!]!
     memo: String
+    checklist: ID!
 }
 
 input PageInput {
@@ -19,6 +20,7 @@ input PageInput {
     groups: [ID!]!
     components: [ID!]!
     memo: String
+    checklist: ID # temp
 }
 
 extend type Query {
