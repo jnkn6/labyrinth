@@ -10,6 +10,7 @@ export const ALLPAGESINFO_QUERY = gql`
             groups
             components
             memo
+            checklist
         }
     }
 `
@@ -24,6 +25,7 @@ export const CREATEPAGE_MUTATION = gql`
             groups
             components
             memo
+            checklist
         }
     }
 `
@@ -38,6 +40,7 @@ export const MODIFYPAGE_MUTATION = gql`
             groups
             components
             memo
+            checklist
         }
     }
 `

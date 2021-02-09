@@ -7,6 +7,7 @@ export const DOMAININFO_QUERY = gql`
             url
             pages
             memo
+            checklist
         }
 }`
 
@@ -17,6 +18,7 @@ export const CREATEDOMAIN_MUTATION = gql`
             url
             pages
             memo
+            checklist
         }
     }
 `
@@ -28,6 +30,7 @@ export const MODIFYDOMAIN_MUTATION = gql`
             url
             pages
             memo
+            checklist
         }
     }
 `
