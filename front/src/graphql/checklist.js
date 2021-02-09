@@ -15,3 +15,15 @@ export const CHECK_MUTATION = gql`
         check (done: $done)
     }
 `
+
+export const DEACTIVATE_MUTATION = gql`
+    mutation deactivate ($deactivate: ChecklistInput!) {
+        deactivate (deactivate: $deactivate)
+    }
+`
+
+export const ACTIVATE_MUTATION = gql`
+    mutation activate ($activate: ChecklistInput!) {
+        activate (activate: $activate)
+    }
+`
