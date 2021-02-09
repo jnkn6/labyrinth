@@ -1,7 +1,6 @@
 import mongoose from 'mongoose'
 
-const componentSchema = new mongoose.Schema(
-  {
+const componentSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -29,8 +28,11 @@ const componentSchema = new mongoose.Schema(
     memo: {
         type: String
     },
-  },
-);
+    checklist: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Checklist',
+    },
+});
 
 const Component = mongoose.model('Component', componentSchema, 'component');
 

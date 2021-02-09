@@ -25,6 +25,10 @@ const pageSchema = new mongoose.Schema({
     memo: {
         type: String
     },
+    checklist: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Checklist',
+    },
 });
 
 const Page = mongoose.model('Page', pageSchema, 'page');

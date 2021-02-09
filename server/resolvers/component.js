@@ -1,5 +1,6 @@
 import componentModel from '../models/component'
 import pageModel from '../models/page'
+import checklistModel from '../models/checklist'
 
 async function getComponentInfo (ids) {
     let components = []
@@ -47,6 +48,10 @@ export default {
             if (!page){
                 return null; // change: send error
             }
+
+            // add checklist reference
+            const checklist = await checklistModel.create({})
+            args.component.checklist = checklist._id
 
             let component = await componentModel.create(args.component);
 

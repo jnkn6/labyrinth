@@ -1,4 +1,5 @@
 import domainModel from '../models/domain'
+import checklistModel from '../models/checklist'
 
 export default {
     Query: {
@@ -28,6 +29,10 @@ export default {
             if (oldDomain){
                 return oldDomain;
             }
+
+            // add checklist reference
+            const checklist = await checklistModel.create({})
+            args.domain.checklist = checklist._id
 
             return await domainModel.create(args.domain);
         },
