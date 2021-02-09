@@ -24,4 +24,27 @@ export default {
             return checklist_object;
         },
     },
+    Mutation:{
+        /**
+         * @param args \{ done: ChecklistInput! \}
+         */
+        check: async (root, args, context) => {
+            let checklist = await checklistModel.findOne({_id: args.done._id});
+
+            if (!checklist){
+                return false; // change: send error
+            }
+
+            // You can't update check state if it's deactivated
+            if (args.done.code in checklist.deactivated){
+                return false;
+            }
+
+            // Update timestamp
+            checklist.done.set(args.done.code, Date());
+            checklist.save()
+  
+            return true;
+        },
+    },
 }
