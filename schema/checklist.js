@@ -7,4 +7,8 @@ type Checklist {
     deactivated: [String!]!
 }
 
+extend type Query {
+    checklist(id: ID!): Checklist
+}
+
 `;
