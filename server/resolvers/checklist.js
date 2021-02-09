@@ -46,5 +46,46 @@ export default {
   
             return true;
         },
+        /**
+         * @param args \{ deactivate: ChecklistInput! \}
+         */
+        deactivate: async (root, args, context) => {
+            let checklist = await checklistModel.findOne({_id: args.deactivate._id});
+
+            if (!checklist){
+                return false; // change: send error
+            }
+
+            // if already deactivated
+            if (checklist.deactivated.includes(args.deactivate.code)){
+                return true;
+            }
+
+            checklist.deactivated.push(args.deactivate.code)
+            checklist.save()
+
+            return true;
+        },
+        /**
+         * @param args \{ activate: ChecklistInput! \}
+         */
+        activate: async (root, args, context) => {
+            let checklist = await checklistModel.findOne({_id: args.activate._id});
+
+            if (!checklist){
+                return false; // change: send error
+            }
+
+            // if it's not deactivated
+            if (!(checklist.deactivated.includes(args.activate.code))){
+                return true;
+            }
+
+            checklist.deactivated.pull(args.activate.code)
+            checklist.save()
+
+            return true;
+
+        },
     },
 }

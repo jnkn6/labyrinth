@@ -18,5 +18,7 @@ input ChecklistInput {
 
 extend type Mutation {
     check(done: ChecklistInput!): Boolean!
+    deactivate(deactivate: ChecklistInput!): Boolean!
+    activate(activate: ChecklistInput!): Boolean!
 }
 `;
