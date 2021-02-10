@@ -81,7 +81,7 @@ function getExpandList(element, type){
         return result;
     }
 
-    result.children = parseChildred(children, type);
+    result.children = parseChildred(children, type, element.code);
     return result;
 }
 
@@ -102,19 +102,19 @@ function findChildren(parents, codes){
     }
 }
 
-function parseChildred(children, type){
+function parseChildred(children, type, code){
     let result = [];
 
     children.forEach(child => {
+        const newCode = code + "_" + child.code;
         let parsed = {};
         if(child.scope.includes(type)){
-            parsed.code = child.code;
+            parsed.code = newCode;
             parsed.name = child.name;
         }
 
         if(child.children){
-            
-            parsed.children = parseChildred(child.children, type);
+            parsed.children = parseChildred(child.children, type, newCode);
         }
         result.push(parsed);
     });
