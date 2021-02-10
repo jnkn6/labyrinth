@@ -37,7 +37,10 @@
         </v-toolbar>
 
         <v-card-text>
-            <v-treeview v-if="!isEditing"
+            <v-treeview
+                v-if="!isEditing"
+                :key="Math.random()"
+                open-all
                 :items="checklist"
                 item-key="code"
                 selectable
