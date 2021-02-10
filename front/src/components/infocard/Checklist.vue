@@ -28,7 +28,7 @@
                     <v-list-item
                         v-for="(item, i) in checkMenu"
                         :key="i"
-                        @click="name = item.code"
+                        @click="selectedMenu = item.code"
                     >
                     <v-list-item-content>{{ item.name }}</v-list-item-content>
                     </v-list-item>
@@ -74,7 +74,7 @@ export default {
                 this.fetchChecklist();
             }
         },
-        name: {
+        selectedMenu: {
             handler(next, prev){
                 this.getChecklistFormat();
             }
@@ -87,7 +87,7 @@ export default {
     },
     data(){
         return {
-            name: "wstg",
+            selectedMenu: "wstg",
             checkMenu: [],
             expand: 1,
 
@@ -99,7 +99,7 @@ export default {
     methods: {
         getChecklistFormat(){
             const payload = {
-                name: this.name,
+                name: this.selectedMenu,
                 expand: this.expand
             }
 
