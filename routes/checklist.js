@@ -9,6 +9,7 @@ const router = express.Router();
 
 router.post('/domain', parser, (req, res) => {
     const name = req.body.name;
+    const expand = req.body.expand;
 
     if (!name){
         return res.status(404).send("Checklist not found.");
@@ -20,12 +21,19 @@ router.post('/domain', parser, (req, res) => {
 
     let result = {};
 
+    if (expand){
+        result = JSON.stringify(checklist.domainChecklist[name + "_expand"])
+    }
+    else{
         result = JSON.stringify(checklist.domainChecklist[name])
+    }
+
     return res.send(result)
 });
 
 router.post('/page', parser, (req, res) => {
     const name = req.body.name;
+    const expand = req.body.expand;
 
     if (!name){
         return res.status(404).send("Checklist not found.");
@@ -37,13 +45,19 @@ router.post('/page', parser, (req, res) => {
 
     let result = {};
 
+    if (expand){
+        result = JSON.stringify(checklist.pageChecklist[name + "_expand"])
+    }
+    else{
         result = JSON.stringify(checklist.pageChecklist[name])
+    }
 
     return res.send(result)
 });
 
 router.post('/component', parser, (req, res) => {
     const name = req.body.name;
+    const expand = req.body.expand;
 
     if (!name){
         return res.status(404).send("Checklist not found.");
@@ -55,7 +69,13 @@ router.post('/component', parser, (req, res) => {
 
     let result = {};
 
+    if (expand){
+        result = JSON.stringify(checklist.componentChecklist[name + "_expand"])
+    }
+    else{
         result = JSON.stringify(checklist.componentChecklist[name])
+    }
+
     return res.send(result)
 });
 
