@@ -1,0 +1,63 @@
+[
+    {
+        "code": "input",
+        "name": "Vulnerability from lack of client input validation",
+        "scope": "page, component",
+        "children": [
+            {
+                "code": "xss",
+                "name": "Check XSS",
+                "scope": "page, component",
+                "children": [
+                    {
+                        "code": "filter-check",
+                        "name": "Check XSS defense",
+                        "scope": "page, component"
+                    },
+                    {
+                        "code": "filter-bypass",
+                        "name": "Find the way to bypass XSS defense",
+                        "scope": "page, component"
+                    },
+                    {
+                        "code": "reflected",
+                        "name": "Check Refelcted XSS",
+                        "scope": "page, component"
+                    },
+                    {
+                        "code": "stored",
+                        "name": "Check Stored XSS",
+                        "scope": "page, component"
+                    }
+                ]
+            },
+            {
+                "code": "sqli",
+                "name": "Check SQL injection",
+                "scope": "page, component",
+                "children": [
+                    {
+                        "code": "filter-check",
+                        "name": "Check SQL injection defense",
+                        "scope": "page, component"
+                    },
+                    {
+                        "code": "filter-bypass",
+                        "name": "Find the way to bypass SQL injection defense",
+                        "scope": "page, component"
+                    },
+                    {
+                        "code": "oracle",
+                        "name": "Check Oracle DB SQL injection",
+                        "scope": "page, component"
+                    },
+                    {
+                        "code": "mysql",
+                        "name": "Check MySQL DB SQL injection",
+                        "scope": "page, component"
+                    }
+                ]
+            }
+        ]
+    }
+]
