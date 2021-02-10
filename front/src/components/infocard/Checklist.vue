@@ -13,6 +13,27 @@
                 <v-btn>Expand</v-btn>
             </v-btn-toggle>
 
+            <v-menu bottom left>
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                        icon
+                        v-bind="attrs"
+                        v-on="on"
+                    >
+                        <v-icon>mdi-dots-vertical</v-icon>
+                    </v-btn>
+                </template>
+
+                <v-list>
+                    <v-list-item
+                        v-for="(item, i) in checkMenu"
+                        :key="i"
+                        @click="name = item.code"
+                    >
+                    <v-list-item-content>{{ item.name }}</v-list-item-content>
+                    </v-list-item>
+                </v-list>
+            </v-menu>
         </v-toolbar>
 
         <v-card-text>
@@ -67,6 +88,7 @@ export default {
     data(){
         return {
             name: "wstg",
+            checkMenu: [],
             expand: 1,
 
             checklist: [],
@@ -86,6 +108,12 @@ export default {
                     this.checklist = res.data;
                 });
         },
+        getChecklistMenu(){
+            api.get('/checklist/conf.json')
+                .then(res => {
+                    this.checkMenu = res.data;
+                });
+        },
         fetchChecklist(){
 
             // get done/deactivated list
@@ -101,6 +129,7 @@ export default {
         },
     },
     created(){
+        this.getChecklistMenu();
         this.getChecklistFormat();
         this.fetchChecklist();
     },
