@@ -3,6 +3,16 @@
         <v-toolbar flat>
             <v-toolbar-title>Checklist</v-toolbar-title>
 
+            <v-spacer></v-spacer>
+            <v-btn-toggle
+                v-model="expand"
+                rounded
+                dense
+            >
+                <v-btn>Simple</v-btn>
+                <v-btn>Expand</v-btn>
+            </v-btn-toggle>
+
         </v-toolbar>
 
         <v-card-text>
@@ -57,7 +67,8 @@ export default {
     data(){
         return {
             name: "wstg",
-            expand: true,
+            expand: 1,
+
             checklist: [],
             done: {},
             deactivated: [],
