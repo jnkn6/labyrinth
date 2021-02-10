@@ -79,4 +79,8 @@ router.post('/component', parser, (req, res) => {
     return res.send(result)
 });
 
+router.get('/conf.json', (req, res) => {
+    return res.send(checklist.configure)
+});
+
 export default router;
