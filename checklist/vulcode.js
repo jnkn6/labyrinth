@@ -49,6 +49,7 @@ function parseVulcode(element, parentsCode){
  * }
  */
 export default {
+    vulcode,
     domainVulcode,
     pageVulcode,
     componentVulcode,
