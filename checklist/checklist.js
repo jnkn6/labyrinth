@@ -1,8 +1,6 @@
 import vulcode from './vulcode'
 
-const paths = [
-    './wstg.json'
-]
+let configure = require('./conf.json');
 
 let temp = {};
 
@@ -10,7 +8,10 @@ let domainChecklist = {};
 let pageChecklist = {};
 let componentChecklist = {};
 
-paths.forEach(path => {
+configure.forEach(conf => {
+    const path = conf.path;
+    delete conf.path;
+
     const name = path.split('\/').pop().split('.')[0];
     const expandName = name + "_expand";
     
@@ -156,4 +157,5 @@ export default {
     domainChecklist,
     pageChecklist,
     componentChecklist,
+    configure,
 };
