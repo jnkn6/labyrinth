@@ -15,6 +15,11 @@
             <slot name="readInfo" v-if="!isEditing"></slot>
             <slot name="editInfo" v-else></slot>
 
+            <checklist
+                :isEditing="isEditing"
+                :node="node"
+            />
+
             <file-pond
                 v-if="isEditing"
                 name="filepond"
@@ -77,6 +82,8 @@ import 'filepond-plugin-copy-path/dist/filepond-plugin-copy-path.min.css'
 
 import { ALLIMAGE_QUERY } from '@/graphql/image'
 
+import Checklist from './Checklist'
+
 const FilePond = vueFilePond(
     FilePondPluginFileRename,
     FilePondPluginImagePreview,
@@ -86,7 +93,8 @@ const FilePond = vueFilePond(
 export default {
     name: "InfoCardSlot",
     components: {
-        FilePond
+        Checklist,
+        FilePond,
     },
     props: {
         isEditing: {
