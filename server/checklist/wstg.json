@@ -1,0 +1,14 @@
+[
+    {
+        "name": "WSTG-INPV-01 Testing for Reflected Cross Site Scripting",
+        "code": "input_xss_reflected"
+    },
+    {
+        "name": "WSTG-INPV-02 Testing for Stored Cross Site Scripting",
+        "code": "input_xss_stored"
+    },
+    {
+        "name": "WSTG-INPV-05 Testing for SQL Injection",
+        "code": "input_sqli"
+    }
+]
