@@ -1,0 +1,88 @@
+<template>
+    <v-treeview v-if="!isEditing"
+        :items="checklist"
+        item-key="code"
+        selectable
+        selected-color="#ff2a6d"
+        selection-type="leaf"
+        dense
+        shaped
+        hoverable
+    ></v-treeview>
+</template>
+<script>
+
+import api from '@/api'
+
+import {
+    CHECKLIST_QUERY,
+} from '@/graphql/checklist'
+
+export default {
+    name: "Checklist",
+    props: {
+        isEditing: {
+            type: Boolean
+        },
+        node: {
+            type: Object
+        }
+    },
+    watch: {
+        node: {
+            handler(next, prev){
+                this.fetchChecklist();
+            }
+        },
+        name: {
+            handler(next, prev){
+                this.getChecklistFormat();
+            }
+        },
+        expand: {
+            handler(next, prev){
+                this.getChecklistFormat();
+            }
+        },
+    },
+    data(){
+        return {
+            name: "wstg",
+            expand: true,
+            checklist: [],
+            done: {},
+            deactivated: [],
+        }
+    },
+    methods: {
+        getChecklistFormat(){
+            const payload = {
+                name: this.name,
+                expand: this.expand
+            }
+
+            api.post(`/checklist/${this.node.type}`, payload)
+                .then(res => {
+                    this.checklist = res.data;
+                });
+        },
+        fetchChecklist(){
+
+            // get done/deactivated list
+            this.$apollo.query({
+                query: CHECKLIST_QUERY,
+                variables : {
+                    id: this.node.data.checklist,
+                },
+            }).then(res => {
+                this.done = JSON.parse(res.data.checklist.done);
+                this.deactivated = res.data.checklist.deactivated;
+            });
+        },
+    },
+    created(){
+        this.getChecklistFormat();
+        this.fetchChecklist();
+    },
+}
+</script>
