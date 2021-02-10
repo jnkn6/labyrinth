@@ -1,14 +1,23 @@
 <template>
-    <v-treeview v-if="!isEditing"
-        :items="checklist"
-        item-key="code"
-        selectable
-        selected-color="#ff2a6d"
-        selection-type="leaf"
-        dense
-        shaped
-        hoverable
-    ></v-treeview>
+    <v-card>
+        <v-toolbar flat>
+            <v-toolbar-title>Checklist</v-toolbar-title>
+
+        </v-toolbar>
+
+        <v-card-text>
+            <v-treeview v-if="!isEditing"
+                :items="checklist"
+                item-key="code"
+                selectable
+                selected-color="#ff2a6d"
+                selection-type="leaf"
+                dense
+                shaped
+                hoverable
+            ></v-treeview>
+        </v-card-text>
+    </v-card>
 </template>
 <script>
 
