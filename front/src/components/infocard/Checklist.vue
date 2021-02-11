@@ -49,6 +49,8 @@
                 dense
                 shaped
                 hoverable
+                v-model="done"
+                return-object
             ></v-treeview>
         </v-card-text>
     </v-card>
@@ -56,6 +58,10 @@
 <script>
 
 import api from '@/api'
+import _ from 'lodash'
+
+import moment from 'moment'
+import 'moment-timezone'
 
 import {
     CHECKLIST_QUERY,
@@ -95,7 +101,7 @@ export default {
             expand: 1,
 
             checklist: [],
-            done: {},
+            done: [],
             deactivated: [],
         }
     },
@@ -127,8 +133,33 @@ export default {
                 },
             }).then(res => {
                 this.done = JSON.parse(res.data.checklist.done);
+
+                this.done.forEach(element => {
+                    this.addDoneDate(this.checklist, element.code, element.date);
+                });
+
                 this.deactivated = res.data.checklist.deactivated;
             });
+        },
+        addDoneDate(parent, code, date){
+            let child = _.filter(parent, {children: [{code: code}]});
+
+            if (child.length !== 0){
+                child.forEach(element => {
+                    if (element.children){
+                        this.addDoneDate(element.children, code, date)
+                    }
+                });
+            }
+            else{
+                let child = _.filter(parent, {code: code});
+                child.forEach(element => {
+                    element.date = moment(date);
+
+                    const dateStr =element.date.format('YYYY-MM-DD HH:mm:ss');
+                    element.name = element.name + " (Last: " + dateStr + ")"
+                });
+            }
         },
     },
     created(){
