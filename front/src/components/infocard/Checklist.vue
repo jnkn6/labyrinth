@@ -78,20 +78,14 @@ export default {
         }
     },
     watch: {
-        node: {
-            handler(next, prev){
-                this.fetchChecklist();
-            }
+        node: function(){
+            this.fetchChecklist();
         },
-        selectedMenu: {
-            handler(next, prev){
-                this.getChecklistFormat();
-            }
+        selectedMenu: function(){
+            this.getChecklistFormat();
         },
-        expand: {
-            handler(next, prev){
-                this.getChecklistFormat();
-            }
+        expand: function(){
+            this.getChecklistFormat();
         },
     },
     data(){
