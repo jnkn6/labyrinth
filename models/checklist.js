@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 
 const checklistSchema = new mongoose.Schema({
-    done: {
+    timestamp: {
         type: Map,
         of: Date,
         default: {},
