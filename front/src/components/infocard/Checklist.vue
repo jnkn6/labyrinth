@@ -106,7 +106,7 @@ export default {
         }
     },
     methods: {
-        getChecklistFormat(){
+        async getChecklistFormat(){
             const payload = {
                 name: this.selectedMenu,
                 expand: this.expand
@@ -164,8 +164,10 @@ export default {
     },
     created(){
         this.getChecklistMenu();
-        this.getChecklistFormat();
-        this.fetchChecklist();
+        this.getChecklistFormat()
+            .then(() => {
+                this.fetchChecklist();
+            })
     },
 }
 </script>
