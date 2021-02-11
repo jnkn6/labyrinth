@@ -81,14 +81,21 @@ export default {
     watch: {
         node: function(){
             this.fetchChecklist();
+            this.doneFirstWatch = false;
         },
         selectedMenu: function(){
             this.getChecklistFormat();
+            this.doneFirstWatch = false;
         },
         expand: function(){
             this.getChecklistFormat();
+            this.doneFirstWatch = false;
         },
         done: function(next, prev){
+            if(!this.doneFirstWatch){
+                this.doneFirstWatch = true;
+                return;
+            }
             if (next.length > prev.length){
                 // If Check
 
@@ -125,6 +132,7 @@ export default {
 
             checklist: [],
             done: [],
+            doneFirstWatch: false,
             deactivated: [],
         }
     },
