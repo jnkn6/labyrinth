@@ -90,7 +90,7 @@ export default {
     },
     data(){
         return {
-            selectedMenu: "wstg",
+            selectedMenu: "wstg_v4_2",
             checkMenu: [],
             expand: 1,
 
