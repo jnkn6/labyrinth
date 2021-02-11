@@ -125,7 +125,7 @@ function parseChildred(children, type, code){
 
 /** Result Example
  * {
- *      wstg: [
+ *      wstg_v4_2: [
  *          {
  *              code: "input_sqli",
  *              name: "WSTG-INPV-05 Testing for SQL Injection"
