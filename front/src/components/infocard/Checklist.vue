@@ -148,12 +148,20 @@ export default {
             else{
                 let child = _.filter(parent, {code: code});
                 child.forEach(element => {
-                    element.date = moment(date);
-
-                    const dateStr =element.date.format('YYYY-MM-DD HH:mm:ss');
-                    element.name = element.name + " (Last: " + dateStr + ")"
+                    this.setElementDate(element, date)
                 });
             }
+        },
+        setElementDate(element, date){
+            // If first done
+            if(element.date === undefined){
+                element.originalName = element.name;
+            }
+
+            element.date = moment(date);
+
+            const dateStr = element.date.format('YYYY-MM-DD HH:mm:ss');
+            element.name = element.originalName + " (Last: " + dateStr + ")"
         },
     },
     created(){
