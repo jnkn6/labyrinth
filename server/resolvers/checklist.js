@@ -12,19 +12,19 @@ export default {
                 return false; // change: send error
             }
 
-            let checklist_object = checklist.toObject();
+            let checklistObject = checklist.toObject();
 
-            // change done type (Map to JSON)
-            let done = [];
-            checklist_object.done.forEach((date, code) => {
-                done.push({
+            // change timestamp type (Map to JSON)
+            let timestamp = [];
+            checklistObject.timestamp.forEach((date, code) => {
+                timestamp.push({
                     code: code,
                     date: date
                 })
             });
-            checklist_object.done = JSON.stringify(done);
+            checklistObject.timestamp = JSON.stringify(timestamp);
 
-            return checklist_object;
+            return checklistObject;
         },
     },
     Mutation:{
@@ -43,7 +43,7 @@ export default {
             args.done.codes.forEach(code => {
                 // Update if it's not deactivated
                 if (!(checklist.deactivated.includes(code))){
-                    checklist.done.set(code, date);
+                    checklist.timestamp.set(code, date);
                 }
             });
 
