@@ -13,11 +13,11 @@ extend type Query {
 
 input ChecklistInput {
     _id: ID!
-    code: String!
+    codes: [String!]!
 }
 
 extend type Mutation {
-    check(done: ChecklistInput!): Boolean!
+    check(done: ChecklistInput!): String! # Return date string
     deactivate(deactivate: ChecklistInput!): Boolean!
     activate(activate: ChecklistInput!): Boolean!
 }

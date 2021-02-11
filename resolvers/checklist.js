@@ -35,19 +35,21 @@ export default {
             let checklist = await checklistModel.findOne({_id: args.done._id});
 
             if (!checklist){
-                return false; // change: send error
+                return ""; // change: send error
             }
 
-            // You can't update check state if it's deactivated
-            if (checklist.deactivated.includes(args.done.code)){
-                return false;
-            }
+            let date = Date()
 
-            // Update timestamp
-            checklist.done.set(args.done.code, Date());
+            args.done.codes.forEach(code => {
+                // Update if it's not deactivated
+                if (!(checklist.deactivated.includes(code))){
+                    checklist.done.set(code, date);
+                }
+            });
+
             checklist.save()
-  
-            return true;
+
+            return date;
         },
         /**
          * @param args \{ deactivate: ChecklistInput! \}
