@@ -65,6 +65,7 @@ import 'moment-timezone'
 
 import {
     CHECKLIST_QUERY,
+    CHECK_MUTATION,
 } from '@/graphql/checklist'
 
 export default {
@@ -87,6 +88,34 @@ export default {
         expand: function(){
             this.getChecklistFormat();
         },
+        done: function(next, prev){
+            if (next.length > prev.length){
+                // If Check
+
+                // Get new checked list
+                let newCheck = _.differenceBy(next, prev, 'code');
+                let codes = _.map(newCheck, 'code');
+
+                this.$apollo.mutate({
+                    mutation: CHECK_MUTATION,
+                    variables : {
+                        done:{
+                            _id: this.node.data.checklist,
+                            codes: codes
+                        }
+                    },
+                }).then(res => {
+                    // Update date
+                    newCheck.forEach(element => {
+                        this.setElementDate(element, res.check)
+                    });
+                });
+            }
+            else{
+                // If Uncheck
+                let unCheck = _.differenceBy(prev, next, 'code');
+            }
+        }
     },
     data(){
         return {
