@@ -15,9 +15,12 @@ export default {
             let checklist_object = checklist.toObject();
 
             // change done type (Map to JSON)
-            let done = {};
-            checklist_object.done.forEach((date, code) => {  
-                done[code] = date  
+            let done = [];
+            checklist_object.done.forEach((date, code) => {
+                done.push({
+                    code: code,
+                    date: date
+                })
             });
             checklist_object.done = JSON.stringify(done);
 
