@@ -12,41 +12,41 @@ configure.forEach(conf => {
     const path = conf.path;
     delete conf.path;
 
-    const name = path.split('\/').pop().split('.')[0];
-    const expandName = name + "_expand";
-    
+    const key = conf.code;
+    const expandKey = key + "_expand";
+
     // import json file
-    temp[name] = require(path);
+    temp[key] = require(path);
 
-    domainChecklist[name] = [];
-    pageChecklist[name] = [];
-    componentChecklist[name] = [];
+    domainChecklist[key] = [];
+    pageChecklist[key] = [];
+    componentChecklist[key] = [];
 
-    domainChecklist[expandName] = [];
-    pageChecklist[expandName] = [];
-    componentChecklist[expandName] = [];
+    domainChecklist[expandKey] = [];
+    pageChecklist[expandKey] = [];
+    componentChecklist[expandKey] = [];
 
     // categorize checklist
-    temp[name].forEach(element => {
+    temp[key].forEach(element => {
         const code = element.code;
 
         if (code in vulcode.domainVulcode){
-            domainChecklist[name].push(element);
+            domainChecklist[key].push(element);
 
             // make expand checklist
-            domainChecklist[expandName].push(getExpandList(element, "domain"))
+            domainChecklist[expandKey].push(getExpandList(element, "domain"))
         }
         if (code in vulcode.pageVulcode){
-            pageChecklist[name].push(element);
+            pageChecklist[key].push(element);
 
             // make expand checklist
-            pageChecklist[expandName].push(getExpandList(element, "page"))
+            pageChecklist[expandKey].push(getExpandList(element, "page"))
         }
         if (code in vulcode.componentVulcode){
-            componentChecklist[name].push(element);
+            componentChecklist[key].push(element);
 
             // make expand checklist
-            componentChecklist[expandName].push(getExpandList(element, "component"))
+            componentChecklist[expandKey].push(getExpandList(element, "component"))
         }
     });
 });
