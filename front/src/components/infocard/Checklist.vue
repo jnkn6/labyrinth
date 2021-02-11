@@ -132,6 +132,8 @@ export default {
 
             checklist: [],
             done: [],
+            timestamp: [],
+
             doneFirstWatch: false,
             deactivated: [],
         }
@@ -163,9 +165,10 @@ export default {
                     id: this.node.data.checklist,
                 },
             }).then(res => {
-                this.done = JSON.parse(res.data.checklist.timestamp);
+                this.done = JSON.parse(res.data.checklist.done);
+                this.timestamp = JSON.parse(res.data.checklist.timestamp);
 
-                this.done.forEach(element => {
+                this.timestamp.forEach(element => {
                     this.addDoneDate(this.checklist, element.code, element.date);
                 });
 
