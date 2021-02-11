@@ -8,6 +8,9 @@ const checklistSchema = new mongoose.Schema({
     },
     deactivated: [{
         type: String
+    }],
+    done: [{
+        type: String
     }]
 });
 
