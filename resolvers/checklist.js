@@ -24,6 +24,10 @@ export default {
             });
             checklistObject.timestamp = JSON.stringify(timestamp);
 
+           // change done type (Array to Object)
+            let done = checklistObject.done.map(function(code){return {code: code}});
+            checklistObject.done = JSON.stringify(done);
+
             return checklistObject;
         },
     },
@@ -43,6 +47,7 @@ export default {
             args.done.codes.forEach(code => {
                 // Update if it's not deactivated
                 if (!(checklist.deactivated.includes(code))){
+                    checklist.done.push(code);
                     checklist.timestamp.set(code, date);
                 }
             });
