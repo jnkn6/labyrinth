@@ -24,6 +24,7 @@ input ChecklistInput {
 
 extend type Mutation {
     check(done: ChecklistInput!): CheckResult!
+    uncheck(undo: ChecklistInput!): CheckResult!
     deactivate(deactivate: ChecklistInput!): [String!]!
     activate(activate: ChecklistInput!): [String!]!
 }

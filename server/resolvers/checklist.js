@@ -65,6 +65,35 @@ export default {
             };
         },
         /**
+         * @param args \{ undo: ChecklistInput! \}
+         */
+        uncheck: async (root, args, context) => {
+            let checklist = await checklistModel.findOne({_id: args.undo._id});
+            let success = [];
+
+            if (!checklist){
+                return {
+                    codes: success,
+                    date: ""
+                }; // change: send error
+            }
+
+            args.undo.codes.forEach(code => {
+                // Update if it's not deactivated
+                if (!(checklist.deactivated.includes(code))){
+                    success.push(code);
+                    checklist.done.pull(code);
+                }
+            });
+
+            checklist.save()
+
+            return {
+                codes: success,
+                date: ""
+            };
+        },
+        /**
          * @param args \{ deactivate: ChecklistInput! \}
          */
         deactivate: async (root, args, context) => {
