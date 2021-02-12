@@ -247,8 +247,6 @@ export default {
             });
         },
         onClickDeactivate(item){
-            console.log(item)
-
             this.$apollo.mutate({
                 mutation: DEACTIVATE_MUTATION,
                 variables : {
@@ -258,7 +256,7 @@ export default {
                     }
                 },
             }).then(res => {
-                this.deactivated = res.data.deactivate;
+                this.deactivated = _.union(this.deactivated, res.data.deactivate);
                 item.deactivated = true;
 
                 // force to rerender
