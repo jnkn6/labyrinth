@@ -91,21 +91,22 @@ export default {
          */
         activate: async (root, args, context) => {
             let checklist = await checklistModel.findOne({_id: args.activate._id});
+            let success = [];
 
             if (!checklist){
-                return false; // change: send error
+                return success; // change: send error
             }
 
-            // if it's not deactivated
-            if (!(checklist.deactivated.includes(args.activate.code))){
-                return true;
-            }
+            args.activate.codes.forEach(code => {
+                if (checklist.deactivated.includes(code)){
+                    success.push(code);
+                    checklist.deactivated.pull(code);
+                }
+            });
 
-            checklist.deactivated.pull(args.activate.code)
             checklist.save()
 
-            return true;
-
+            return success;
         },
     },
 }
