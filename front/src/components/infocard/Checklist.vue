@@ -46,6 +46,7 @@
                 selectable
                 selected-color="#ff2a6d"
                 selection-type="leaf"
+                item-disabled="deactivated"
                 dense
                 shaped
                 hoverable
@@ -157,7 +158,27 @@ export default {
                 });
 
                 this.deactivated = res.data.checklist.deactivated;
+                this.deactivated.forEach(code => {
+                    this.addDeactivated(this.checklist, code);
+                });
             });
+        },
+        addDeactivated(parent, code){
+            let child = _.filter(parent, {children: [{code: code}]});
+
+            if (child.length !== 0){
+                child.forEach(element => {
+                    if (element.children){
+                        this.addDeactivated(element.children, code)
+                    }
+                });
+            }
+            else{
+                let child = _.filter(parent, {code: code});
+                child.forEach(element => {
+                    element.deactivated = true;
+                });
+            }
         },
         addDoneDate(parent, code, date){
             let child = _.filter(parent, {children: [{code: code}]});
