@@ -98,7 +98,7 @@ export default {
     },
     watch: {
         node: function(){
-            this.fetchChecklist();
+            this.getChecklistFormat();
             this.doneFirstWatch = false;
         },
         selectedMenu: function(){
@@ -150,6 +150,7 @@ export default {
             api.post(`/checklist/${this.node.type}`, payload)
                 .then(res => {
                     this.checklist = res.data;
+                    this.fetchChecklist()
                 });
         },
         getChecklistMenu(){
@@ -267,10 +268,7 @@ export default {
     },
     created(){
         this.getChecklistMenu();
-        this.getChecklistFormat()
-            .then(() => {
-                this.fetchChecklist();
-            })
+        this.getChecklistFormat();
     },
 }
 </script>
