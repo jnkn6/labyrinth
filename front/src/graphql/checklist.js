@@ -20,6 +20,15 @@ export const CHECK_MUTATION = gql`
     }
 `
 
+export const UNCHECK_MUTATION = gql`
+    mutation uncheck ($undo: ChecklistInput!) {
+        uncheck (undo: $undo) {
+            date
+            codes
+        }
+    }
+`
+
 export const DEACTIVATE_MUTATION = gql`
     mutation deactivate ($deactivate: ChecklistInput!) {
         deactivate (deactivate: $deactivate)
