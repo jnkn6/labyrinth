@@ -39,14 +39,19 @@ export default {
             let checklist = await checklistModel.findOne({_id: args.done._id});
 
             if (!checklist){
-                return ""; // change: send error
+                return {
+                    codes: [],
+                    date: ""
+                }; // change: send error
             }
 
-            let date = Date()
+            let date = Date();
+            let success = [];
 
             args.done.codes.forEach(code => {
                 // Update if it's not deactivated
                 if (!(checklist.deactivated.includes(code))){
+                    success.push(code);
                     checklist.done.push(code);
                     checklist.timestamp.set(code, date);
                 }
@@ -54,7 +59,10 @@ export default {
 
             checklist.save()
 
-            return date;
+            return {
+                codes: success,
+                date: date
+            };
         },
         /**
          * @param args \{ deactivate: ChecklistInput! \}

@@ -8,6 +8,11 @@ type Checklist {
     deactivated: [String!]!
 }
 
+type CheckResult {
+    date: String!
+    codes: [String!]!
+}
+
 extend type Query {
     checklist(id: ID!): Checklist
 }
@@ -18,7 +23,7 @@ input ChecklistInput {
 }
 
 extend type Mutation {
-    check(done: ChecklistInput!): String! # Return date string
+    check(done: ChecklistInput!): CheckResult!
     deactivate(deactivate: ChecklistInput!): Boolean!
     activate(activate: ChecklistInput!): Boolean!
 }
