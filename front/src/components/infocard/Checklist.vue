@@ -84,6 +84,7 @@ import 'moment-timezone'
 import {
     CHECKLIST_QUERY,
     CHECK_MUTATION,
+    UNCHECK_MUTATION,
     ACTIVATE_MUTATION,
     DEACTIVATE_MUTATION,
 } from '@/graphql/checklist'
@@ -125,6 +126,7 @@ export default {
             else{
                 // If Uncheck
                 let unCheck = _.differenceBy(prev, next, 'code');
+                this.onClickUncheck(unCheck);
             }
         }
     },
@@ -246,6 +248,21 @@ export default {
                         this.setElementDate(element, res.data.check.date)
                     }
                 });
+            });
+        },
+        onClickUncheck(unchecked){
+            let codes = _.map(unchecked, 'code');
+
+            this.$apollo.mutate({
+                mutation: UNCHECK_MUTATION,
+                variables : {
+                    undo:{
+                        _id: this.node.data.checklist,
+                        codes: codes
+                    }
+                },
+            }).then(res => {
+ 
             });
         },
         onClickDeactivate(item){
