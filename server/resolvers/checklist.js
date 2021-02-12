@@ -69,20 +69,22 @@ export default {
          */
         deactivate: async (root, args, context) => {
             let checklist = await checklistModel.findOne({_id: args.deactivate._id});
+            let success = [];
 
             if (!checklist){
-                return new Error('404'); // change: send error
+                return success; // change: send error
             }
 
             args.deactivate.codes.forEach(code => {
                 if (!(checklist.deactivated.includes(code))){
+                    success.push(code);
                     checklist.deactivated.push(code);
                 }
             });
 
             checklist.save()
 
-            return checklist.deactivated;
+            return success;
         },
         /**
          * @param args \{ activate: ChecklistInput! \}
