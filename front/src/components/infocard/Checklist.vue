@@ -98,27 +98,9 @@ export default {
             }
             if (next.length > prev.length){
                 // If Check
-
                 // Get new checked list
                 let newCheck = _.differenceBy(next, prev, 'code');
-                let codes = _.map(newCheck, 'code');
-
-                this.$apollo.mutate({
-                    mutation: CHECK_MUTATION,
-                    variables : {
-                        done:{
-                            _id: this.node.data.checklist,
-                            codes: codes
-                        }
-                    },
-                }).then(res => {
-                    // Update date
-                    newCheck.forEach(element => {
-                        if (res.data.check.codes.includes(element.code)){
-                            this.setElementDate(element, res.data.check.date)
-                        }
-                    });
-                });
+                this.onClickCheck(newCheck);
             }
             else{
                 // If Uncheck
@@ -204,6 +186,26 @@ export default {
 
             const dateStr = element.date.format('YYYY-MM-DD HH:mm:ss');
             element.name = element.originalName + " (Last: " + dateStr + ")"
+        },
+        onClickCheck(checked){
+            let codes = _.map(checked, 'code');
+
+            this.$apollo.mutate({
+                mutation: CHECK_MUTATION,
+                variables : {
+                    done:{
+                        _id: this.node.data.checklist,
+                        codes: codes
+                    }
+                },
+            }).then(res => {
+                // Update date
+                checked.forEach(element => {
+                    if (res.data.check.codes.includes(element.code)){
+                        this.setElementDate(element, res.data.check.date)
+                    }
+                });
+            });
         },
     },
     created(){
