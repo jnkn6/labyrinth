@@ -114,7 +114,9 @@ export default {
                 }).then(res => {
                     // Update date
                     newCheck.forEach(element => {
-                        this.setElementDate(element, res.check)
+                        if (res.data.check.codes.includes(element.code)){
+                            this.setElementDate(element, res.data.check.date)
+                        }
                     });
                 });
             }
