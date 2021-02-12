@@ -71,18 +71,18 @@ export default {
             let checklist = await checklistModel.findOne({_id: args.deactivate._id});
 
             if (!checklist){
-                return false; // change: send error
+                return new Error('404'); // change: send error
             }
 
-            // if already deactivated
-            if (checklist.deactivated.includes(args.deactivate.code)){
-                return true;
-            }
+            args.deactivate.codes.forEach(code => {
+                if (!(checklist.deactivated.includes(code))){
+                    checklist.deactivated.push(code);
+                }
+            });
 
-            checklist.deactivated.push(args.deactivate.code)
             checklist.save()
 
-            return true;
+            return checklist.deactivated;
         },
         /**
          * @param args \{ activate: ChecklistInput! \}
