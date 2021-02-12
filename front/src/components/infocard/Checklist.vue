@@ -52,7 +52,23 @@
                 hoverable
                 v-model="done"
                 return-object
-            ></v-treeview>
+            >
+                <template #append="{item}">
+                    <v-btn
+                        v-if="deactivated.includes(item.code)"
+                        icon
+                    >
+                        <v-icon>mdi-eye-check-outline</v-icon>
+                    </v-btn>
+                    <v-btn
+                        v-else
+                        icon
+                        @click="onClickDeactivate(item)"
+                    >
+                        <v-icon>mdi-eye-off-outline </v-icon>
+                    </v-btn>
+                </template>
+            </v-treeview>
         </v-card-text>
     </v-card>
 </template>
@@ -67,6 +83,7 @@ import 'moment-timezone'
 import {
     CHECKLIST_QUERY,
     CHECK_MUTATION,
+    DEACTIVATE_MUTATION,
 } from '@/graphql/checklist'
 
 export default {
@@ -226,6 +243,25 @@ export default {
                         this.setElementDate(element, res.data.check.date)
                     }
                 });
+            });
+        },
+        onClickDeactivate(item){
+            console.log(item)
+
+            this.$apollo.mutate({
+                mutation: DEACTIVATE_MUTATION,
+                variables : {
+                    deactivate:{
+                        _id: this.node.data.checklist,
+                        codes: [item.code]
+                    }
+                },
+            }).then(res => {
+                this.deactivated = res.data.deactivate;
+                item.deactivated = true;
+
+                // force to rerender
+                this.$forceUpdate();
             });
         },
     },
