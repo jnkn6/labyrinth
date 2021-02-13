@@ -1,4 +1,4 @@
-const vulcode = require('./vulcode.json');
+const vulcode = require('./data/vulcode.json');
 
 let domainVulcode = {};
 let pageVulcode = {};
