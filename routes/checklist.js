@@ -1,7 +1,7 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 
-import checklist from '../checklist/checklist'
+import checklist from '../resources/checklist/checklist'
 
 const parser = bodyParser.json()
 

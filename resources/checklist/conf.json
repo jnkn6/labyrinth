@@ -2,6 +2,6 @@
     {
         "name": "OWASP Web Application Security Testing v4.2",
         "code": "wstg_v4_2",
-        "path": "./wstg_v4_2.json"
+        "path": "./data/wstg_v4_2.json"
     }
 ]
