@@ -1,0 +1,52 @@
+[
+    {
+        "code": "form",
+        "name": "Form",
+        "vul": [
+            "input"
+        ],
+        "children": [
+            {
+                "code": "checkbox",
+                "name": "Checkbox"
+            },
+            {
+                "code": "radio-button",
+                "name": "Radio button"
+            },
+            {
+                "code": "select",
+                "name": "Select"
+            },
+            {
+                "code": "switch",
+                "name": "Switch"
+            },
+            {
+                "code": "text",
+                "name": "Free text"
+            },
+            {
+                "code": "link",
+                "name": "URL/path"
+            }
+        ]
+    },
+    {
+        "code": "button",
+        "name": "Button"
+    },
+    {
+        "code": "reflection",
+        "name": "User input reflection",
+        "vul": [
+            "input_xss"
+        ],
+        "children":[
+            {
+                "code": "text",
+                "name": "Text"
+            }
+        ]
+    }
+]
