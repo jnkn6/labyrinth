@@ -4,13 +4,17 @@ import _ from 'lodash'
 const comptype = require('./data/comptype.json');
 
 class NodeType{
-    constructor() {
+    constructor(nodetypes) {
         this.originNodetype = {};
         this.nodetype = {};
         this.nodetypeOrder = {};
+
+        for(const key in nodetypes){
+            this._setNodetype(key, nodetypes[key]);
+        }
     }
 
-    setNodetype(key, nodetype) {
+    _setNodetype(key, nodetype) {
         this.originNodetype[key] = nodetype;
 
         this.nodetype[key] = {};
@@ -98,7 +102,8 @@ class NodeType{
     }
 }
 
-let nodetype = new NodeType();
-nodetype.setNodetype("component", comptype);
+let nodetype = new NodeType({
+    component: comptype,
+});
 
 export default nodetype;
