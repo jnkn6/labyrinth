@@ -1,3 +1,6 @@
+import { vulcode } from '../checklist/vulcode'
+import _ from 'lodash'
+
 const comptype = require('./data/comptype.json');
 
 class NodeType{
@@ -50,6 +53,12 @@ class NodeType{
             if(parentsCode !== ""){
                 this.nodetype[key][code].vul = this.nodetype[key][parentsCode].vul;
             }
+        }
+        
+        // Validate vul type
+        let unvalidVul = _.differenceWith(this.nodetype[key][code].vul, Object.keys(vulcode[key]), _.isEqual);
+        if (unvalidVul.length !== 0){
+            throw( key + " type setting fail: Not valid vul " + JSON.stringify(unvalidVul));
         }
 
         if(element.children){
