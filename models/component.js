@@ -5,6 +5,9 @@ const componentSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    type: [{
+        type: String
+    }],
     domain: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Domain',
