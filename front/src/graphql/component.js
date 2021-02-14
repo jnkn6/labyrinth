@@ -5,6 +5,7 @@ export const ALLCOMPONENTSINFO_QUERY = gql`
         allComponentsInfo(page: $page) {
             _id
             name
+            type
             domain
             page
             parent
@@ -21,6 +22,7 @@ export const CREATECOMPONENT_MUTATION = gql`
         createComponent (component: $component) {
             _id
             name
+            type
             domain
             page
             parent
@@ -37,6 +39,7 @@ export const MODIFYCOMPONENT_MUTATION = gql`
         modifyComponent (component: $component) {
             _id
             name
+            type
             domain
             page
             parent
