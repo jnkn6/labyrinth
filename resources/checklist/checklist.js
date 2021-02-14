@@ -1,4 +1,4 @@
-import vulcode from './vulcode'
+import {originVulcode, vulcode} from './vulcode'
 
 let configure = require('./conf.json');
 
@@ -30,19 +30,19 @@ configure.forEach(conf => {
     temp[key].forEach(element => {
         const code = element.code;
 
-        if (code in vulcode.domainVulcode){
+        if (code in vulcode["domain"]){
             domainChecklist[key].push(element);
 
             // make expand checklist
             domainChecklist[expandKey].push(getExpandList(element, "domain"))
         }
-        if (code in vulcode.pageVulcode){
+        if (code in vulcode["page"]){
             pageChecklist[key].push(element);
 
             // make expand checklist
             pageChecklist[expandKey].push(getExpandList(element, "page"))
         }
-        if (code in vulcode.componentVulcode){
+        if (code in vulcode["component"]){
             componentChecklist[key].push(element);
 
             // make expand checklist
@@ -59,13 +59,13 @@ function getExpandList(element, type){
 
     switch(type){
         case "domain":
-            vulcodeSearch = vulcode.domainVulcode;
+            vulcodeSearch = vulcode["domain"];
             break;
         case "page":
-            vulcodeSearch = vulcode.pageVulcode;
+            vulcodeSearch = vulcode["page"];
             break;
         case "component":
-            vulcodeSearch = vulcode.componentVulcode;
+            vulcodeSearch = vulcode["component"];
             break;
     }
 
@@ -74,7 +74,7 @@ function getExpandList(element, type){
     }
 
     const codes = element.code.split("_");
-    let children = findChildren(vulcode.vulcode, codes);
+    let children = findChildren(originVulcode, codes);
 
     // If no children
     if (!children){
