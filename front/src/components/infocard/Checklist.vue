@@ -4,6 +4,8 @@
             <v-toolbar-title>Checklist</v-toolbar-title>
 
             <v-spacer></v-spacer>
+
+            <!-- Simple/Expand switch -->
             <v-btn-toggle
                 v-model="expand"
                 rounded
@@ -13,6 +15,7 @@
                 <v-btn>Expand</v-btn>
             </v-btn-toggle>
 
+            <!-- Menu for change checklist -->
             <v-menu bottom left>
                 <template v-slot:activator="{ on, attrs }">
                     <v-btn
@@ -37,38 +40,48 @@
         </v-toolbar>
 
         <v-card-text>
-            <v-treeview
-                :key="Math.random()"
-                open-all
-                :items="checklist"
-                item-key="code"
-                selectable
-                selected-color="#ff2a6d"
-                selection-type="leaf"
-                item-disabled="deactivated"
-                dense
-                shaped
-                hoverable
-                v-model="done"
-                return-object
-            >
-                <template #append="{item}">
-                    <v-btn
-                        v-if="deactivated.includes(item.code)"
-                        icon
-                        @click="onClickActivate(item)"
-                    >
-                        <v-icon>mdi-eye-check-outline</v-icon>
-                    </v-btn>
-                    <v-btn
-                        v-else
-                        icon
-                        @click="onClickDeactivate(item)"
-                    >
-                        <v-icon>mdi-eye-off-outline </v-icon>
-                    </v-btn>
-                </template>
-            </v-treeview>
+            <v-container>
+                <v-row>
+                    <v-col>
+                        <nodetype :node="node" @changeNodetype="onChangeNodetype"/>
+
+                        <!-- Checklist treeview -->
+                        <v-treeview
+                            :key="Math.random()"
+                            open-all
+                            :items="checklist"
+                            item-key="code"
+                            selectable
+                            selected-color="#ff2a6d"
+                            selection-type="leaf"
+                            item-disabled="deactivated"
+                            dense
+                            shaped
+                            hoverable
+                            v-model="done"
+                            return-object
+                        >
+                            <template #append="{item}">
+                                <v-btn
+                                    v-if="deactivated.includes(item.code)"
+                                    icon
+                                    @click="onClickActivate(item)"
+                                >
+                                    <v-icon>mdi-eye-check-outline</v-icon>
+                                </v-btn>
+                                <v-btn
+                                    v-else
+                                    icon
+                                    @click="onClickDeactivate(item)"
+                                >
+                                    <v-icon>mdi-eye-off-outline </v-icon>
+                                </v-btn>
+                            </template>
+                        </v-treeview>
+
+                    </v-col>
+                </v-row>
+            </v-container>
         </v-card-text>
     </v-card>
 </template>
@@ -88,7 +101,12 @@ import {
     DEACTIVATE_MUTATION,
 } from '@/graphql/checklist'
 
+import Nodetype from './Nodetype'
+
 export default {
+    components: {
+        Nodetype,
+    },
     name: "Checklist",
     props: {
         node: {
@@ -295,6 +313,10 @@ export default {
                 this.$forceUpdate();
             });
         },
+        onChangeNodetype(selectedType){
+            // get filtered vultype
+            console.log(selectedType)
+        }
     },
     created(){
         this.getChecklistMenu();
