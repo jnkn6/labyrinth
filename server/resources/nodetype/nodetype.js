@@ -31,11 +31,11 @@ class NodeType{
     /**
      * {
      *  component: {
-     *      form: { vul: [input] },
-     *      form_checkbox: { vul: [input] },
-     *      form_file: { vul: ["busl_upload-filetype"] },
-     *      button: {},
-     *      'user-text': { vul: ["input_xss"] }
+     *      form: { name: "Form", vul: [input] },
+     *      form_checkbox: { "name": "Checkbox", vul: [input] },
+     *      form_file: { "name":"File upload", vul: ["busl_upload-filetype"] },
+     *      button: {"name": "Button"},
+     *      'user-text': { "User input reflection", vul: ["input_xss"] }
      *  }
      * }
      */
@@ -77,13 +77,21 @@ class NodeType{
      * {
      *  component: {
      *      "form": [
-     *          "form",
-     *          "form_checkbox",
-     *          "form_select",
+     *          {
+     *              code: "form",
+     *              name: "Form"
+     *          },
+     *          {
+     *              code: "form_checkbox",
+     *              name: "Checkbox"
+     *          },
      *          ...
      *      ],
      *      "button": [
-     *          "button"
+     *          {
+     *              code: "button",
+     *              name: "Button"
+     *          }
      *      ],
      *  }
      * }
@@ -94,7 +102,10 @@ class NodeType{
 
         keys.forEach(code => {
             if(code.startsWith(rootCode)){
-                children.push(code)
+                children.push({
+                    code: code,
+                    name: this.nodetype[key][code].name,
+                })
             }
         });
 
