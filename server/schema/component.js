@@ -4,6 +4,7 @@ export default gql`
 type Component {
     _id: ID!
     name: String!
+    type: [String!]!
     domain: ID!
     page: ID!
     parent: ID
@@ -16,6 +17,7 @@ type Component {
 input ComponentInput {
     _id: ID!
     name: String!
+    type: [String!]!
     domain: ID!
     page: ID!
     parent: ID
