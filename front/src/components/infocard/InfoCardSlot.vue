@@ -16,7 +16,7 @@
             <slot name="editInfo" v-else></slot>
 
             <checklist
-                :isEditing="isEditing"
+                v-if="!isEditing"
                 :node="node"
             />
 

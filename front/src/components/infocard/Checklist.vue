@@ -38,7 +38,6 @@
 
         <v-card-text>
             <v-treeview
-                v-if="!isEditing"
                 :key="Math.random()"
                 open-all
                 :items="checklist"
@@ -92,9 +91,6 @@ import {
 export default {
     name: "Checklist",
     props: {
-        isEditing: {
-            type: Boolean
-        },
         node: {
             type: Object
         }
