@@ -1,10 +1,27 @@
-const vulcode = require('./data/vulcode.json');
+export const originVulcode = require('./data/vulcode.json');
 
-let domainVulcode = {};
-let pageVulcode = {};
-let componentVulcode = {};
+/** Result Example
+ * {
+ *      "component": {
+ *          input: {
+ *              name: "Vulnerability from lack of client input validation"
+ *          },
+ *          input_sqli: {
+ *              name: "Check SQL injection"
+ *          },
+ *          input_sqli_mysql: {
+ *              name: "Check MySQL DB SQL injection"
+ *          }
+ *      }
+ * }
+ */
+export let vulcode = {
+    "domain": {},
+    "page": {},
+    "component": {},
+};
 
-vulcode.forEach(element => {
+originVulcode.forEach(element => {
     parseVulcode(element, "");
 });
 
@@ -18,39 +35,20 @@ function parseVulcode(element, parentsCode){
     }
 
     if (element.scope.includes("domain")){
-        domainVulcode[code] = {
+        vulcode["domain"][code] = {
             name: element.name,
         };
     }
     if (element.scope.includes("page")){
-        pageVulcode[code] = {
+        vulcode["page"][code] = {
             name: element.name,
         };
     }
     if (element.scope.includes("component")){
-        componentVulcode[code] = {
+        vulcode["component"][code] = {
             name: element.name,
         };
     }
 }
 
 
-/** Result Example
- * {
- *      input: {
- *          name: "Vulnerability from lack of client input validation"
- *      },
- *      input_sqli: {
- *          name: "Check SQL injection"
- *      }
- *      input_sqli_mysql: {
- *          name: "Check MySQL DB SQL injection"
- *      }
- * }
- */
-export default {
-    vulcode,
-    domainVulcode,
-    pageVulcode,
-    componentVulcode,
-};
