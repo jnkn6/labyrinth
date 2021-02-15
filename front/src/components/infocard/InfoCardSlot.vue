@@ -82,7 +82,7 @@ import 'filepond-plugin-copy-path/dist/filepond-plugin-copy-path.min.css'
 
 import { ALLIMAGE_QUERY } from '@/graphql/image'
 
-import Checklist from './Checklist'
+import Checklist from './checklist/Checklist'
 
 const FilePond = vueFilePond(
     FilePondPluginFileRename,

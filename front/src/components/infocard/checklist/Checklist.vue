@@ -101,7 +101,7 @@ import {
     DEACTIVATE_MUTATION,
 } from '@/graphql/checklist'
 
-import Nodetype from './Nodetype'
+import Nodetype from '@/components/infocard/Nodetype'
 
 export default {
     components: {
