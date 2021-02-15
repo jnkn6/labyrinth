@@ -51,7 +51,7 @@ export default {
     },
     data(){
         return {
-            selected: [],
+            selected: this.node.data.type,
             types: {},
         }
     },
