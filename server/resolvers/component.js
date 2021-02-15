@@ -1,6 +1,10 @@
+import _ from 'lodash'
+
 import componentModel from '../models/component'
 import pageModel from '../models/page'
 import checklistModel from '../models/checklist'
+
+import nodetype from '../resources/nodetype'
 
 async function getComponentInfo (ids) {
     let components = []
@@ -71,6 +75,14 @@ export default {
          * @param args \{ component: ComponentInput! \}
          */
         modifyComponent: async (root, args, context) => {
+
+            const unvalid = _.differenceWith(args.component.type, Object.keys(nodetype.nodetype["component"]), _.isEqual);
+
+            if (unvalid.length !== 0){
+                // send error
+                return null;
+            }
+
             return await componentModel.findByIdAndUpdate(
                 args.component._id,
                 args.component,
