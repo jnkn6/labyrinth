@@ -71,7 +71,7 @@ export default {
                 // Init timestamp, deactivated
                 // Call directly becuase timestamp/deactivated values are not changed
                 this.updateTimestamp(this.timestamp);
-                this.updateDeactivated(this.deactivated);
+                this.updateDeactivated(this.deactivated, true);
             }
         },
         timestamp: {
@@ -90,8 +90,15 @@ export default {
             if(this.original.length === 0){
                 return;
             }
-            let updated = _.differenceWith(next, prev, _.isEqual);
-            this.updateDeactivated(updated);
+
+            if (next.length > prev.length){
+                let updated = _.differenceWith(next, prev, _.isEqual);
+                this.updateDeactivated(updated, true);
+            }
+            else{
+                let updated = _.differenceWith(prev, next, _.isEqual);
+                this.updateDeactivated(updated, false);
+            }
         },
         done: function(next, prev){
             // Should work after first time
@@ -173,11 +180,11 @@ export default {
                 }
             });
         },
-        updateDeactivated(deactivated){
+        updateDeactivated(deactivated, status){
             deactivated.forEach(element => {
                 let renderItem = _.find(this.renderArray, { code: element })
                 if(renderItem){ // If checklist doesn't inlcude code, skip this.
-                    renderItem.deactivated = true;
+                    renderItem.deactivated = status;
                 }
             });
         },
