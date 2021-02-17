@@ -1,21 +1,18 @@
 <template>
-    <div>
+    <div v-if="selectedNode">
         <domain-info-card
-            v-if="node.type === 'domain'"
+            v-if="selectedNode.type === 'domain'"
             :mode="mode"
-            :node="node"
             @onClose="$emit('onClose')"
         />
         <page-info-card 
-            v-if="node.type === 'page'"
+            v-if="selectedNode.type === 'page'"
             :mode="mode"
-            :node="node"
             @onClose="$emit('onClose')"
         />
         <component-info-card 
-            v-if="node.type === 'component'"
+            v-if="selectedNode.type === 'component'"
             :mode="mode"
-            :node="node"
             @onClose="$emit('onClose')"
         />
     </div>
@@ -28,6 +25,8 @@ import DomainInfoCard from './DomainInfoCard'
 import PageInfoCard from './PageInfoCard'
 import ComponentInfoCard from './ComponentInfoCard'
 
+import { mapState } from 'vuex'
+
 export default {
     name: "InfoCard",
     components: {
@@ -39,9 +38,11 @@ export default {
         mode: {
             type: String
         },
-        node: {
-            type: Object
-        }
     },
+    computed: {
+        ...mapState([
+            'selectedNode',
+        ])
+    }
 }
 </script>

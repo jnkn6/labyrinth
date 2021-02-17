@@ -5,7 +5,6 @@
         @onEdit="onEdit"
         @onCancel="onCancel"
         :isEditing="isEditing"
-        :node="node"
     >
         <div slot="title">{{title}}</div>
         <div slot="readInfo">
@@ -47,16 +46,13 @@ import marked from 'marked'
 import DOMPurify from 'dompurify'
 import Editor from '@/components/Editor'
 
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
     name: "PageInfoCard",
     props: {
         mode: {
             type: String
-        },
-        node: {
-            type: Object
         },
     },
     watch: {
@@ -65,20 +61,22 @@ export default {
                 this.workMode = next;
             }
         },
-        node: {
-            handler(next, prev){
-                this.name = next.data.name;
-                this.path = next.data.path;
-                this.memo = (next.data.memo === null) ? "" : next.data.memo;
+        selectedNode: function (next, prev){
+            if(next.data._id === prev.data._id){
+                return;
+            }
 
-                this.nameModified = next.data.name;
-                this.pathModified = next.data.path;
-                this.memoModified = (next.data.memo === null) ? "" : next.data.memo;
+            this.name = next.data.name;
+            this.path = next.data.path;
+            this.memo = (next.data.memo === null) ? "" : next.data.memo;
 
-                // If mode watcher not triggerd
-                if (this.mode !== this.workMode){
-                    this.workMode = this.mode;
-                }
+            this.nameModified = next.data.name;
+            this.pathModified = next.data.path;
+            this.memoModified = (next.data.memo === null) ? "" : next.data.memo;
+
+            // If mode watcher not triggerd
+            if (this.mode !== this.workMode){
+                this.workMode = this.mode;
             }
         },
     },
@@ -88,18 +86,21 @@ export default {
     },
     data(){
         return {
-            name: this.node.data.name,
-            path: this.node.data.path,
-            memo: (this.node.data.memo === null) ? "" : this.node.data.memo,
+            name: "",
+            path: "",
+            memo: "",
 
             workMode: this.mode,
 
-            nameModified: this.node.data.name,
-            pathModified: this.node.data.path,
-            memoModified: (this.node.data.memo === null) ? "" : this.node.data.memo,
+            nameModified: "",
+            pathModified: "",
+            memoModified: "",
         }
     },
     computed: {
+        ...mapState([
+            'selectedNode',
+        ]),
         title() {
             switch(this.workMode){
                 case modes.EDIT_PAGE:
@@ -121,6 +122,7 @@ export default {
     methods: {
         ...mapActions([
             'modifyPageNode',
+            'setSelectedNode',
         ]),
         onClose(){
             this.$emit('onClose')
@@ -134,7 +136,7 @@ export default {
             this.memo = this.memoModified;
 
             let newPageData = {
-                ...this.node.data,
+                ...this.selectedNode.data,
                 name: this.name,
                 path: this.path,
                 memo: this.memo,
@@ -142,10 +144,11 @@ export default {
 
             this.modifyPageNode({
                 vue: this, 
-                oldNode: this.node,
+                oldNode: this.selectedNode,
                 newPageData: newPageData,
-            }).then(() => {
+            }).then((newNode) => {
                 this.workMode = modes.READ_PAGE_INFO;
+                this.setSelectedNode(newNode);
             });
         },
         onCancel(){
@@ -161,6 +164,15 @@ export default {
         onMemoBlur(val){
             this.memoModified = val;
         },
+    },
+    mounted(){
+        this.name = this.selectedNode.data.name;
+        this.path = this.selectedNode.data.path;
+        this.memo = (this.selectedNode.data.memo === null) ? "" : this.selectedNode.data.memo;
+
+        this.nameModified = this.selectedNode.data.name;
+        this.pathModified = this.selectedNode.data.path;
+        this.memoModified = (this.selectedNode.data.memo === null) ? "" : this.selectedNode.data.memo;
     },
 }
 </script>

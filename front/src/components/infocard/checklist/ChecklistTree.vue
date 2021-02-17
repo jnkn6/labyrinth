@@ -47,26 +47,27 @@ import {
     DEACTIVATE_MUTATION,
 } from '@/graphql/checklist'
 
+import { mapState } from 'vuex'
+
 export default {
     name: "ChecklistTree",
     props: {
-        node: {
-            type: Object
-        },
         original: {
             type: Array
         }
     },
     watch: {
-        node: {
-            handler(next, prev){
-                this.initNode();
-            },
+        selectedNode: function(next, prev){
+            if(next.data._id === prev.data._id){
+                return;
+            }
+
+            this.initNode();
         },
         original: {
             deep: true,
             handler(next){
-                this.initTree(next, this.node);
+                this.initTree(next, this.selectedNode);
 
                 // Init timestamp, deactivated
                 // Call directly becuase timestamp/deactivated values are not changed
@@ -133,6 +134,11 @@ export default {
 
             doneFirstWatch: false,
         }
+    },
+    computed: {
+        ...mapState([
+            'selectedNode',
+        ])
     },
     methods: {
         initNode(){
@@ -208,7 +214,7 @@ export default {
                 mutation: CHECK_MUTATION,
                 variables : {
                     done:{
-                        _id: this.node.data.checklist,
+                        _id: this.selectedNode.data.checklist,
                         codes: codes
                     }
                 },
@@ -242,7 +248,7 @@ export default {
                 mutation: UNCHECK_MUTATION,
                 variables : {
                     undo:{
-                        _id: this.node.data.checklist,
+                        _id: this.selectedNode.data.checklist,
                         codes: codes
                     }
                 },
@@ -255,7 +261,7 @@ export default {
                 mutation: DEACTIVATE_MUTATION,
                 variables : {
                     deactivate:{
-                        _id: this.node.data.checklist,
+                        _id: this.selectedNode.data.checklist,
                         codes: [item.code]
                     }
                 },
@@ -271,7 +277,7 @@ export default {
                 mutation: ACTIVATE_MUTATION,
                 variables : {
                     activate:{
-                        _id: this.node.data.checklist,
+                        _id: this.selectedNode.data.checklist,
                         codes: [item.code]
                     }
                 },
@@ -284,7 +290,7 @@ export default {
         },
     },
     created(){
-        this.initTree(this.original, this.node);
+        this.initTree(this.original, this.selectedNode);
     }
 }
 </script>

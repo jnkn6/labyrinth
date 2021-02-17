@@ -5,7 +5,6 @@
         @onEdit="onEdit"
         @onCancel="onCancel"
         :isEditing="isEditing"
-        :node="node"
     >
         <div slot="title">{{title}}</div>
         <div slot="readInfo">
@@ -43,16 +42,13 @@ import marked from 'marked'
 import DOMPurify from 'dompurify'
 import Editor from '@/components/Editor'
 
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
     name: "ComponentInfoCard",
     props: {
         mode: {
             type: String
-        },
-        node: {
-            type: Object
         },
     },
     watch: {
@@ -61,8 +57,12 @@ export default {
                 this.workMode = next;
             }
         },
-        node: {
+        selectedNode: {
             handler(next, prev){
+                if(next.data._id === prev.data._id){
+                    return;
+                }
+
                 this.name = next.data.name;
                 this.memo = (next.data.memo === null) ? "" : next.data.memo;
 
@@ -82,16 +82,19 @@ export default {
     },
     data(){
         return {
-            name: this.node.data.name,
-            memo: (this.node.data.memo === null) ? "" : this.node.data.memo,
-
             workMode: this.mode,
 
-            nameModified: this.node.data.name,
-            memoModified: (this.node.data.memo === null) ? "" : this.node.data.memo,
+            name: "",
+            memo: "",
+
+            nameModified: "",
+            memoModified: "",
         }
     },
     computed: {
+        ...mapState([
+            'selectedNode',
+        ]),
         title() {
             switch(this.workMode){
                 case modes.EDIT_COMPONENT:
@@ -113,6 +116,7 @@ export default {
     methods: {
         ...mapActions([
             'modifyComponentNode',
+            'setSelectedNode',
         ]),
         onClose(){
             this.$emit('onClose')
@@ -125,17 +129,18 @@ export default {
             this.memo = this.memoModified;
 
             let newComponentData = {
-                ...this.node.data,
+                ...this.selectedNode.data,
                 name: this.name,
                 memo: this.memo,
             };
 
             this.modifyComponentNode({
                 vue: this, 
-                oldNode: this.node,
+                oldNode: this.selectedNode,
                 newComponentData: newComponentData,
-            }).then(() => {
+            }).then((newNode) => {
                 this.workMode = modes.READ_COMPONENT_INFO;
+                this.setSelectedNode(newNode);
             });
         },
         onCancel(){
@@ -150,6 +155,13 @@ export default {
         onMemoBlur(val){
             this.memoModified = val;
         },
+    },
+    mounted(){
+        this.name = this.selectedNode.data.name;
+        this.memo = (this.selectedNode.data.memo === null) ? "" : this.selectedNode.data.memo;
+        
+        this.nameModified = this.selectedNode.data.name;
+        this.memoModified = (this.selectedNode.data.memo === null) ? "" : this.selectedNode.data.memo;
     },
 }
 </script>

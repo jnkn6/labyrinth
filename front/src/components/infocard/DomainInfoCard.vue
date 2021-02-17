@@ -5,7 +5,6 @@
         @onEdit="onEdit"
         @onCancel="onCancel"
         :isEditing="isEditing"
-        :node="node"
     >
         <div slot="title">{{title}}</div>
         <div slot="readInfo">
@@ -44,7 +43,7 @@ import marked from 'marked'
 import DOMPurify from 'dompurify'
 import Editor from '@/components/Editor'
 
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
     name: "DomainInfoCard",
@@ -52,9 +51,6 @@ export default {
         mode: {
             type: String
         },
-        node: {
-            type: Object
-        }
     },
     components: {
         InfoCardSlot,
@@ -66,24 +62,30 @@ export default {
                 this.workMode = next;
             }
         },
-        node: {
-            handler(next, prev){
-                this.url = next.data.url;
-                this.memo = next.data.memo;
-
+        selectedNode: function(next, prev){
+            if(next.data._id === prev.data._id){
+                return;
             }
+
+            this.url = next.data.url;
+            this.memo = next.data.memo;
+
         },
     },
     data(){
         return {
-            url: this.node.data.url,
-            memo: (this.node.data.memo === null) ? "" : this.node.data.memo,
             workMode: this.mode,
 
-            memoModified: (this.node.data.memo === null) ? "" : this.node.data.memo,
+            url: "",
+            memo: "",
+
+            memoModified: "",
         }
     },
     computed: {
+        ...mapState([
+            'selectedNode',
+        ]),
         title() {
             switch(this.workMode){
                 case modes.READ_DOMAIN_INFO:
@@ -104,7 +106,8 @@ export default {
     },
     methods: {
         ...mapActions([
-            'modifyDomainNode'
+            'modifyDomainNode',
+            'setSelectedNode',
         ]),
         onClose(){
             this.$emit('onClose')
@@ -115,16 +118,17 @@ export default {
         onSave(){
             this.memo = this.memoModified;
             let newDomainData = {
-                ...this.node.data,
+                ...this.selectedNode.data,
                 memo: this.memo,
             };
 
             this.modifyDomainNode({
                 vue: this, 
-                oldNode: this.node,
+                oldNode: this.selectedNode,
                 newDomainData: newDomainData,
-            }).then(() => {
+            }).then((newNode) => {
                 this.workMode = modes.READ_DOMAIN_INFO;
+                this.setSelectedNode(newNode);
             });
         },
         onCancel(){
@@ -138,6 +142,12 @@ export default {
         onMemoBlur(val){
             this.memoModified = val;
         },
-    }
+    },
+    mounted(){
+        this.url = this.selectedNode.data.url;
+        this.memo = (this.selectedNode.data.memo === null) ? "" : this.selectedNode.data.memo;
+
+        this.memoModified = (this.selectedNode.data.memo === null) ? "" : this.selectedNode.data.memo;
+    },
 }
 </script>

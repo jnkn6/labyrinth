@@ -44,9 +44,9 @@
             <v-container>
                 <v-row>
                     <v-col>
-                        <nodetype :node="node" @changeNodetype="onChangeNodetype"/>
+                        <nodetype @changeNodetype="onChangeNodetype"/>
 
-                        <checklist-tree v-if="checklist.length !== 0" :node="node" :original="checklist"/>
+                        <checklist-tree v-if="checklist.length !== 0" :original="checklist"/>
                     </v-col>
                 </v-row>
             </v-container>
@@ -60,19 +60,20 @@ import api from '@/api'
 import Nodetype from '@/components/infocard/Nodetype'
 import ChecklistTree from './ChecklistTree'
 
+import { mapState } from 'vuex'
+
 export default {
     components: {
         Nodetype,
         ChecklistTree,
     },
     name: "Checklist",
-    props: {
-        node: {
-            type: Object
-        }
-    },
     watch: {
-        node: function(){
+        selectedNode: function(next, prev){
+            if(next.data._id === prev.data._id){
+                return;
+            }
+
             this.getChecklistFormat();
         },
         selectedMenu: function(){
@@ -91,6 +92,11 @@ export default {
             checklist: [],
         }
     },
+    computed: {
+        ...mapState([
+            'selectedNode',
+        ])
+    },
     methods: {
         async getChecklistFormat(){
             const payload = {
@@ -98,7 +104,7 @@ export default {
                 expand: this.expand
             }
 
-            api.post(`/checklist/${this.node.type}`, payload)
+            api.post(`/checklist/${this.selectedNode.type}`, payload)
                 .then(res => {
                     this.checklist = res.data;
                 });

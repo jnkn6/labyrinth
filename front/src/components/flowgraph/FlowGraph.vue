@@ -21,8 +21,7 @@
             </v-menu>
             <info-card
                 v-if="showInfo"
-                :mode="mode" 
-                :node="selectedNode"
+                :mode="mode"
                 @onClose="onCloseInfo"
             />
         </div>
@@ -57,13 +56,13 @@ export default {
         ]),
         ...mapState([
             'draggingTag',
+            'selectedNode',
         ]),
     },
     data () {
         return {
             showInfo: false,
             mode: null,
-            selectedNode: null,
 
             showNodeMenu: false,
             nodeMenuX: 0,
@@ -74,22 +73,27 @@ export default {
     methods: {
         ...mapActions([
             'createNode',
+            'setSelectedNode',
         ]),
         onDrop (event) {
-            this.createNode({
-                vue: this,
-                type: this.draggingTag,
-                position: {x: event.clientX, y: event.clientY - 48 /* app bar size */}
-            }).then((newNode) => {
-                // Open editor to set info
-                switch(this.draggingTag){
-                    case "page":
-                        this.mode = modes.EDIT_PAGE;
-                }
+            // this.createNode({
+            //     vue: this,
+            //     type: this.draggingTag,
+            //     position: {x: event.clientX, y: event.clientY - 48 /* app bar size */}
+            // }).then((newNode) => {
+            //     // Open editor to set info
+            //     switch(this.draggingTag){
+            //         case "page":
+            //             this.mode = modes.EDIT_PAGE;
+            //             break;
+            //         case "component":
+            //             this.mode = modes.EDIT_COMPONENT;
+            //             break;
+            //     }
 
-                this.selectedNode = newNode;
-                this.showInfo = true;
-            });
+            //     this.selectedNode = newNode;
+            //     this.showInfo = true;
+            // });
 
         },
         onNodeContextMenu(event, element){
@@ -104,9 +108,10 @@ export default {
             // if clicked same node, close info card
             if (this.showInfo && element.id === this.selectedNode.id){
                 this.mode = null;
-                this.selectedNode = null;
-                this.showInfo = false;
-
+                this.setSelectedNode(null)
+                    .then(() => {
+                        this.showInfo = false;
+                    });
                 return;
             }
 
@@ -124,23 +129,31 @@ export default {
         },
         onPageClick(event, element){
             this.mode = modes.READ_PAGE_INFO;
-            this.selectedNode = element;
-            this.showInfo = true;
+            this.setSelectedNode(element)
+                .then(() => {
+                    this.showInfo = true;
+                });
         },
         onDomainClick(event, element){
             this.mode = modes.READ_DOMAIN_INFO;
-            this.selectedNode = element;
-            this.showInfo = true;
+            this.setSelectedNode(element)
+                .then(() => {
+                    this.showInfo = true;
+                });
         },
         onComponentClick(event, element){
             this.mode = modes.READ_COMPONENT_INFO;
-            this.selectedNode = element;
-            this.showInfo = true;
+            this.setSelectedNode(element)
+                .then(() => {
+                    this.showInfo = true;
+                });
         },
         onCloseInfo(){
-            this.showInfo = false;
             this.mode = null;
-            this.selectedNode = null;
+            this.setSelectedNode(null)
+                .then(() => {
+                    this.showInfo = false;
+                });
         }
     },
 
