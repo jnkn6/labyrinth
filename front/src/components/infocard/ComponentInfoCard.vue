@@ -21,6 +21,7 @@
                         v-model="nameModified"
                         label="Component name"
                     />
+                    <nodetype @changeNodetype="onChangeNodetype"/>
 
                     <v-card>
                         <v-card-title>Memo</v-card-title>
@@ -37,6 +38,7 @@
 
 import { modes, modesCategory } from '@/utils/const'
 import InfoCardSlot from './InfoCardSlot'
+import Nodetype from './Nodetype'
 
 import marked from 'marked'
 import DOMPurify from 'dompurify'
@@ -64,9 +66,11 @@ export default {
                 }
 
                 this.name = next.data.name;
+                this.type = next.data.type;
                 this.memo = (next.data.memo === null) ? "" : next.data.memo;
 
                 this.nameModified = next.data.name;
+                this.typeModified = next.data.type;
                 this.memoModified = (next.data.memo === null) ? "" : next.data.memo;
 
                 // If mode watcher not triggerd
@@ -79,15 +83,18 @@ export default {
     components: {
         InfoCardSlot,
         Editor,
+        Nodetype,
     },
     data(){
         return {
             workMode: this.mode,
 
             name: "",
+            type: "",
             memo: "",
 
             nameModified: "",
+            typeModified: "",
             memoModified: "",
         }
     },
@@ -126,11 +133,13 @@ export default {
         },
         onSave(){
             this.name = this.nameModified;
+            this.type = this.typeModified;
             this.memo = this.memoModified;
 
             let newComponentData = {
                 ...this.selectedNode.data,
                 name: this.name,
+                type: this.type,
                 memo: this.memo,
             };
 
@@ -145,6 +154,7 @@ export default {
         },
         onCancel(){
             this.nameModified = this.name;
+            this.typeModified = this.type;
             this.memoModified = this.memo;
 
             this.workMode = modes.READ_COMPONENT_INFO;
@@ -155,12 +165,17 @@ export default {
         onMemoBlur(val){
             this.memoModified = val;
         },
+        onChangeNodetype(selectedType){
+            this.typeModified = selectedType;
+        },
     },
     mounted(){
         this.name = this.selectedNode.data.name;
+        this.type = this.selectedNode.data.type;
         this.memo = (this.selectedNode.data.memo === null) ? "" : this.selectedNode.data.memo;
         
         this.nameModified = this.selectedNode.data.name;
+        this.typeModified = this.selectedNode.data.type;
         this.memoModified = (this.selectedNode.data.memo === null) ? "" : this.selectedNode.data.memo;
     },
 }
