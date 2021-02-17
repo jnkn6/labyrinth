@@ -13,6 +13,7 @@ import {
     PUSH_COMPONENT_NODE,
     UPDATE_COMPONENT_NODE,
     EMPTY_COMPONENT_NODES,
+    SET_SELECTED_NODE,
 } from "./mutations-types";
 
 import Vue from 'vue'
@@ -137,4 +138,7 @@ export default{
             }
         }
     },
+    [SET_SELECTED_NODE](state, node){
+        state.selectedNode = node;
+    }
 }
