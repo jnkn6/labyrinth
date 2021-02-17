@@ -310,7 +310,7 @@ export default {
     },
     modifyDomainNode({commit}, {vue, oldNode, newDomainData}){
         // save Data at DB
-        vue.$apollo.mutate({
+        return vue.$apollo.mutate({
             mutation: MODIFYDOMAIN_MUTATION,
             variables : {
                 domain: newDomainData
@@ -323,12 +323,14 @@ export default {
 
             // update graph
             commit(SET_DOMAIN_NODE, newDomainNode)
+
+            return newDomainNode;
         })
     },
     modifyPageNode({commit}, {vue, oldNode, newPageData}){
 
         // save Data at DB
-        vue.$apollo.mutate({
+        return vue.$apollo.mutate({
             mutation: MODIFYPAGE_MUTATION,
             variables : {
                 page: newPageData
@@ -341,6 +343,8 @@ export default {
 
             // update graph
             commit(UPDATE_PAGE_NODE, newPageNode)
+
+            return newPageNode;
         })
     },
     modifyComponentNode({commit}, {vue, oldNode, newComponentData}){
