@@ -5,4 +5,5 @@ export default{
     edges: {}, // {"targetid":[Edge, Edge, ...], "targetid": [Edge, Edge,...]}
 
     draggingTag: '',
+    selectedNode: null,
 }
