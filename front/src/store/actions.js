@@ -13,6 +13,7 @@ import {
     PUSH_COMPONENT_NODE,
     CLOSE_COMPONENT_NODES,
     EMPTY_COMPONENT_NODES,
+    SET_SELECTED_NODE,
 } from './mutations-types'
 
 import {
@@ -360,5 +361,8 @@ export default {
     },
     setDraggingTag({commit}, name){
         commit(SET_DRAGGING_TAG, name);
+    },
+    setSelectedNode({commit}, node){
+        commit(SET_SELECTED_NODE, node);
     }
 }
