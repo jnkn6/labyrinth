@@ -195,6 +195,7 @@ export default {
                 component: {
                     _id: "new_id",
                     name: "new_component",
+                    type: [],
                     domain: state.domainNode.data._id,
                     page: pageId,
                     parent: parentId,
