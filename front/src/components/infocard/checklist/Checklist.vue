@@ -44,7 +44,7 @@
             <v-container>
                 <v-row>
                     <v-col>
-                        <nodetype @changeNodetype="onChangeNodetype"/>
+                        <nodetype v-if="selectedNode.type === 'component'" @changeNodetype="onChangeNodetype"/>
 
                         <checklist-tree v-if="checklist.length !== 0" :original="checklist"/>
                     </v-col>
