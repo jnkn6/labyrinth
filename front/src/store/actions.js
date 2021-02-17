@@ -345,7 +345,7 @@ export default {
     },
     modifyComponentNode({commit}, {vue, oldNode, newComponentData}){
         // save Data at DB
-        vue.$apollo.mutate({
+        return vue.$apollo.mutate({
             mutation: MODIFYCOMPONENT_MUTATION,
             variables : {
                 component: newComponentData
@@ -358,7 +358,9 @@ export default {
 
             // update graph
             commit(UPDATE_COMPONENT_NODE, newComponentNode)
-        })
+
+            return newComponentNode;
+        }) 
     },
     setDraggingTag({commit}, name){
         commit(SET_DRAGGING_TAG, name);
