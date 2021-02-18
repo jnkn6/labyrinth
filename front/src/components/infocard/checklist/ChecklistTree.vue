@@ -144,7 +144,7 @@ export default {
         initNode(){
             this.doneFirstWatch = false;
         },
-        initTree(original, node){
+        async initTree(original, node){
             if (original.length === 0){
                 return;
             }
@@ -153,9 +153,6 @@ export default {
             this.treeToArray(original, this.originalArray);
 
             this.initRender(original);
-    
-            // Fetch node checklist, Add date info
-            this.fetchChecklist(node);
         },
         initRender(checklist){
             if (!checklist){
@@ -290,7 +287,11 @@ export default {
         },
     },
     created(){
-        this.initTree(this.original, this.selectedNode);
+        this.initTree(this.original, this.selectedNode)
+            .then(() => {
+                // Fetch node checklist, Add date info
+                this.fetchChecklist(this.selectedNode);
+            });
     }
 }
 </script>
