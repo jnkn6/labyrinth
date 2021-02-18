@@ -1,12 +1,44 @@
 import {originVulcode, vulcode} from './vulcode'
 
-let configure = require('./conf.json');
+export let configure = require('./conf.json');
 
-let temp = {};
-
-let domainChecklist = {};
-let pageChecklist = {};
-let componentChecklist = {};
+/** Result Example
+ * {
+ *  component:{
+ *      wstg_v4_2: [
+ *          {
+ *              code: "input_sqli",
+ *              name: "WSTG-INPV-05 Testing for SQL Injection"
+ *              children: [ // if expanded
+ *                  {
+ *                      code: "input_sqli_mysql",
+ *                      name: "Check MySQL DB SQL injection"
+ *                  },
+ *                  {
+ *                      code: "input_sqli_filter-check",
+ *                      name: "Check SQL injection defense",
+ *                      children: [
+ *                          {
+ *                              code: "input_sqli_filter-check_some-filter",
+ *                              name: "This is example"
+ *                          }
+ *                      ]
+ *                  }
+ *              ]
+ *          },
+ *          {
+ *              code: "input_ldap",
+ *              name: "WSTG-INPV-06 Testing for LDAP Injection"
+ *          }
+ *      ]
+ *  }
+ * }
+ */
+export let checklist = {
+    "domain": {},
+    "page": {},
+    "component": {},
+};
 
 configure.forEach(conf => {
     const path = conf.path;
@@ -16,37 +48,37 @@ configure.forEach(conf => {
     const expandKey = key + "_expand";
 
     // import json file
-    temp[key] = require(path);
+    let temp = require(path);
 
-    domainChecklist[key] = [];
-    pageChecklist[key] = [];
-    componentChecklist[key] = [];
+    checklist["domain"][key] = [];
+    checklist["page"][key] = [];
+    checklist["component"][key] = [];
 
-    domainChecklist[expandKey] = [];
-    pageChecklist[expandKey] = [];
-    componentChecklist[expandKey] = [];
+    checklist["domain"][expandKey] = [];
+    checklist["page"][expandKey] = [];
+    checklist["component"][expandKey] = [];
 
     // categorize checklist
-    temp[key].forEach(element => {
+    temp.forEach(element => {
         const code = element.code;
 
         if (code in vulcode["domain"]){
-            domainChecklist[key].push(element);
+            checklist["domain"][key].push(element);
 
             // make expand checklist
-            domainChecklist[expandKey].push(getExpandList(element, "domain"))
+            checklist["domain"][expandKey].push(getExpandList(element, "domain"))
         }
         if (code in vulcode["page"]){
-            pageChecklist[key].push(element);
+            checklist["page"][key].push(element);
 
             // make expand checklist
-            pageChecklist[expandKey].push(getExpandList(element, "page"))
+            checklist["page"][expandKey].push(getExpandList(element, "page"))
         }
         if (code in vulcode["component"]){
-            componentChecklist[key].push(element);
+            checklist["component"][key].push(element);
 
             // make expand checklist
-            componentChecklist[expandKey].push(getExpandList(element, "component"))
+            checklist["component"][expandKey].push(getExpandList(element, "component"))
         }
     });
 });
@@ -121,41 +153,3 @@ function parseChildred(children, type, code){
 
     return result;
 }
-
-
-/** Result Example
- * {
- *      wstg_v4_2: [
- *          {
- *              code: "input_sqli",
- *              name: "WSTG-INPV-05 Testing for SQL Injection"
- *              children: [ // if expanded
- *                  {
- *                      code: "input_sqli_mysql",
- *                      name: "Check MySQL DB SQL injection"
- *                  },
- *                  {
- *                      code: "input_sqli_filter-check",
- *                      name: "Check SQL injection defense",
- *                      children: [
- *                          {
- *                              code: "input_sqli_filter-check_some-filter",
- *                              name: "This is example"
- *                          }
- *                      ]
- *                  }
- *              ]
- *          },
- *          {
- *              code: "input_ldap",
- *              name: "WSTG-INPV-06 Testing for LDAP Injection"
- *          }
- *      ]
- * }
- */
-export default {
-    domainChecklist,
-    pageChecklist,
-    componentChecklist,
-    configure,
-};
