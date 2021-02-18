@@ -4,7 +4,6 @@
             <react-flow-graph
                 :elements="graphElements"
                 :onElementClick="onElementClick"
-                :onDrop="onDrop"
                 :onNodeContextMenu="onNodeContextMenu"
             />
             <v-menu
@@ -55,7 +54,6 @@ export default {
             'graphElements',
         ]),
         ...mapState([
-            'draggingTag',
             'selectedNode',
         ]),
     },
@@ -75,27 +73,6 @@ export default {
             'createNode',
             'setSelectedNode',
         ]),
-        onDrop (event) {
-            // this.createNode({
-            //     vue: this,
-            //     type: this.draggingTag,
-            //     position: {x: event.clientX, y: event.clientY - 48 /* app bar size */}
-            // }).then((newNode) => {
-            //     // Open editor to set info
-            //     switch(this.draggingTag){
-            //         case "page":
-            //             this.mode = modes.EDIT_PAGE;
-            //             break;
-            //         case "component":
-            //             this.mode = modes.EDIT_COMPONENT;
-            //             break;
-            //     }
-
-            //     this.selectedNode = newNode;
-            //     this.showInfo = true;
-            // });
-
-        },
         onNodeContextMenu(event, element){
             event.preventDefault();
             this.nodeMenuX = event.clientX;

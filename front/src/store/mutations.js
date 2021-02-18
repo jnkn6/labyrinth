@@ -7,7 +7,6 @@ import {
     EMPTY_PAGE_NODES,
     SET_DOMAIN_NODE,
     PUSH_PAGE_NODE,
-    SET_DRAGGING_TAG,
     UPDATE_PAGE_NODE,
     CLOSE_COMPONENT_NODES,
     PUSH_COMPONENT_NODE,
@@ -110,9 +109,6 @@ export default{
 
         // If first open
         Vue.set(state.componentNodes, pageId, [componentNode]);
-    },
-    [SET_DRAGGING_TAG](state, name){
-        state.draggingTag = name;
     },
     [UPDATE_PAGE_NODE](state, newPageNode){
         for (let i = 0; i< state.pageNodes.length; i++){

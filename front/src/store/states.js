@@ -4,6 +4,5 @@ export default{
     componentNodes: {}, // {"sourcePageid":[ComponentNodeInfo, ComponentNodeInfo, ...]}
     edges: {}, // {"targetid":[Edge, Edge, ...], "targetid": [Edge, Edge,...]}
 
-    draggingTag: '',
     selectedNode: null,
 }

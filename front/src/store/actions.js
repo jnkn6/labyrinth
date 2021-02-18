@@ -7,7 +7,6 @@ import {
     EMPTY_PAGE_NODES,
     SET_DOMAIN_NODE,
     PUSH_PAGE_NODE,
-    SET_DRAGGING_TAG,
     UPDATE_PAGE_NODE,
     UPDATE_COMPONENT_NODE,
     PUSH_COMPONENT_NODE,
@@ -365,9 +364,6 @@ export default {
 
             return newComponentNode;
         }) 
-    },
-    setDraggingTag({commit}, name){
-        commit(SET_DRAGGING_TAG, name);
     },
     setSelectedNode({commit}, node){
         commit(SET_SELECTED_NODE, node);
