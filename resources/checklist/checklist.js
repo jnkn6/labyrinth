@@ -84,24 +84,11 @@ configure.forEach(conf => {
 });
 
 
-function getExpandList(element, type){
+function getExpandList(element, key){
 
-    let vulcodeSearch = {}
     let result = {...element};
 
-    switch(type){
-        case "domain":
-            vulcodeSearch = vulcode["domain"];
-            break;
-        case "page":
-            vulcodeSearch = vulcode["page"];
-            break;
-        case "component":
-            vulcodeSearch = vulcode["component"];
-            break;
-    }
-
-    if (!(element.code in vulcodeSearch)){
+    if (!(element.code in vulcode[key])){
         return result;
     }
 
@@ -113,7 +100,7 @@ function getExpandList(element, type){
         return result;
     }
 
-    result.children = parseChildred(children, type, element.code);
+    result.children = parseChildred(children, key, element.code);
     return result;
 }
 
@@ -134,19 +121,19 @@ function findChildren(parents, codes){
     }
 }
 
-function parseChildred(children, type, code){
+function parseChildred(children, key, code){
     let result = [];
 
     children.forEach(child => {
         const newCode = code + "_" + child.code;
         let parsed = {};
-        if(child.scope.includes(type)){
+        if(child.scope.includes(key)){
             parsed.code = newCode;
             parsed.name = child.name;
         }
 
         if(child.children){
-            parsed.children = parseChildred(child.children, type, newCode);
+            parsed.children = parseChildred(child.children, key, newCode);
         }
         result.push(parsed);
     });
