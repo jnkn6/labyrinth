@@ -1,7 +1,11 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 
-import { checklist, configure } from '../resources/checklist/checklist'
+import {
+    checklist,
+    configure,
+    getFilteredChecklist,
+} from '../resources/checklist/checklist'
 
 const parser = bodyParser.json()
 
@@ -16,6 +20,7 @@ router.post('/:key', parser, (req, res) => {
 
     const name = req.body.name;
     const expand = req.body.expand;
+    const vulFilter = req.body.vulFilter;
 
     if (!key || !name){
         return res.status(404).send("Checklist not found.");
@@ -25,17 +30,19 @@ router.post('/:key', parser, (req, res) => {
         return res.status(404).send("Checklist not found.");
     }
 
-    let result = {};
+    let result = [];
 
-    if (expand){
+    if (vulFilter.length === 0 && expand){
         result = JSON.stringify(checklist[key][name + "_expand"])
     }
-    else{
+    else if (vulFilter.length === 0){
         result = JSON.stringify(checklist[key][name])
+    }
+    else {
+        result = getFilteredChecklist(key, name, expand, vulFilter);
     }
 
     return res.send(result)
 });
-
 
 export default router;
