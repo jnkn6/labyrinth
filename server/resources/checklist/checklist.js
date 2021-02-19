@@ -1,4 +1,5 @@
 import {originVulcode, vulcode} from './vulcode'
+import _ from 'lodash'
 
 export let configure = require('./conf.json');
 
@@ -139,4 +140,74 @@ function parseChildred(children, key, code){
     });
 
     return result;
+}
+
+function getExpandFiltered(parent, vulFilter){
+    let result = []; // list to stay
+
+    parent.forEach(element => {
+        if(element.children){
+            let childResult = getExpandFiltered(element.children, vulFilter);
+
+            if(childResult.length !==0){
+                result.push(element); // include parent
+            }
+
+            // remove not included children
+            element.children = childResult;
+        }
+ 
+        let vul = _.filter(vulFilter, (code) => {
+            if(element.code.startsWith(code)){ // if same or child
+                return true;
+            }
+        });
+
+        if(vul.length !== 0){
+            result.push(element); // include same/child
+        }
+
+    });
+
+    result = _.uniqBy(result, 'code'); // remove duplicate element
+    return result;
+}
+
+export function getFilteredChecklist(key, name, expand, vulFilter){
+    let result = [];
+
+    if (!key || !name){
+        return result;
+    }
+
+    if(!checklist[key] || !checklist[key][name]){
+        return result;
+    }
+
+    let original = expand ? checklist[key][name + "_expand"] : checklist[key][name];
+    original = JSON.parse(JSON.stringify(original)) // deep copy
+
+    vulFilter.forEach(code => {
+        // find item & children
+        if(!expand){
+            let children = _.filter(original, (element) => {
+                if(element.code.startsWith(code)){
+                    return true;
+                }
+            });
+
+            if(children.length !== 0){
+                result = result.concat(children);
+            }
+        }
+        else{
+            // find parent, if exist, include parent~child tree
+            result = getExpandFiltered(original, vulFilter);
+        }
+    });
+
+    result = _.uniqBy(result, 'code'); // remove duplicate element
+
+    return result;
+    
 }
