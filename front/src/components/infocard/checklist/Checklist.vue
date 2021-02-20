@@ -148,7 +148,15 @@ export default {
             api.post('/nodetype/vul', payload)
                 .then(res => {
                     this.vulFilter = res.data;
-                });
+                })
+                .catch(err => {
+
+                    if(this.vulFilter === null){ // Watch trigger not work case
+                        this.getChecklistFormat();
+                    }
+
+                    this.vulFilter = null;
+                })
         },
         onChangeNodetype(selectedType){
             this.getVulfilter(selectedType);
