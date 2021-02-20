@@ -114,11 +114,10 @@ export default{
         // If first open
         Vue.set(state.componentNodes, pageId, [componentNode]);
     },
-    [UPDATE_PAGE_NODE](state, newPageNode){
+    [UPDATE_PAGE_NODE](state, node){
         for (let i = 0; i< state.pageNodes.length; i++){
-            if (state.pageNodes[i].id === newPageNode.id){
-                state.pageNodes.splice(i, 1);
-                state.pageNodes.push(newPageNode);
+            if (state.pageNodes[i].id === node.id){
+                Vue.set(state.pageNodes, i, node);
                 break;
             }
         }

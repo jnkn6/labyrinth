@@ -321,22 +321,19 @@ export default {
             commit(SET_DOMAIN_NODE, node)
         })
     },
-    modifyPageNode({commit}, {vue, oldNode, newPageData}){
+    modifyPageNode({commit}, {vue, node, data}){
 
         // save Data at DB
         vue.$apollo.mutate({
             mutation: MODIFYPAGE_MUTATION,
             variables : {
-                page: newPageData
+                page: data
             },
         }).then(res => {
-            let newPageNode = {
-                ...oldNode,
-                data: res.data.modifyPage,
-            };
+            node.data = res.data.modifyPage;
 
             // update graph
-            commit(UPDATE_PAGE_NODE, newPageNode)
+            commit(UPDATE_PAGE_NODE, node)
 
         })
     },

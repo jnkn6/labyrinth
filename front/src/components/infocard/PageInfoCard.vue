@@ -144,8 +144,8 @@ export default {
 
             this.modifyPageNode({
                 vue: this, 
-                oldNode: this.node,
-                newPageData: newPageData,
+                node: this.node,
+                data: newPageData,
             }).then(() => {
                 this.workMode = modes.READ_PAGE_INFO;
             });
