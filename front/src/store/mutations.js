@@ -12,7 +12,6 @@ import {
     PUSH_COMPONENT_NODE,
     UPDATE_COMPONENT_NODE,
     EMPTY_COMPONENT_NODES,
-    SET_SELECTED_NODE,
 } from "./mutations-types";
 
 import Vue from 'vue'
@@ -20,7 +19,12 @@ import _ from "lodash"
 
 export default{
     [SET_DOMAIN_NODE](state, domainNode){
-        state.domainNode = domainNode;
+        if(state.domainNode && state.domainNode.id === domainNode.id){
+            Vue.set(state, 'domainNode', domainNode);
+        }
+        else{
+            state.domainNode = domainNode;
+        }
     },
     [EMPTY_PAGE_NODES](state){
         state.pageNodes = [];

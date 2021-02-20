@@ -124,8 +124,8 @@ export default {
 
             this.modifyDomainNode({
                 vue: this, 
-                oldNode: this.node,
-                newDomainData: newDomainData,
+                node: this.node,
+                data: newDomainData,
             }).then(() => {
                 this.workMode = modes.READ_DOMAIN_INFO;
             });
