@@ -12,6 +12,7 @@ export default (props) => {
     const graphStyles = {
         width: "100%",
         height: (window.innerHeight*(0.6)).toString() + "px",
+        borderBottom: "1px dotted grey"
     }
     return (
         <ReactFlow
