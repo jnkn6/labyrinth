@@ -49,8 +49,8 @@ export default {
                 return;
             }
 
-            this.getNodetypes();
-            this.selected = [...next.data.type];
+            this.getNodetypes(next);
+            this.selected = next.data.type;
         },
     },
     data(){
@@ -60,8 +60,8 @@ export default {
         }
     },
     methods: {
-        async getNodetypes(){
-            api.post(`/nodetype/${this.node.type}`)
+        getNodetypes(node){
+            api.post(`/nodetype/${node.type}`)
                 .then(res => {
                     this.types = res.data;
                 });
@@ -71,7 +71,7 @@ export default {
         }
     },
     created(){
-        this.getNodetypes()
+        this.getNodetypes(this.node)
     },
 }
 </script>
