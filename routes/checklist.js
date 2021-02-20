@@ -32,10 +32,10 @@ router.post('/:key', parser, (req, res) => {
 
     let result = [];
 
-    if (vulFilter.length === 0 && expand){
+    if (!vulFilter && expand){
         result = JSON.stringify(checklist[key][name + "_expand"])
     }
-    else if (vulFilter.length === 0){
+    else if (!vulFilter){
         result = JSON.stringify(checklist[key][name])
     }
     else {
