@@ -15,6 +15,16 @@
                 <v-btn>Expand</v-btn>
             </v-btn-toggle>
 
+            <!-- Filter On/Off switch -->
+            <v-btn-toggle
+                v-model="filter"
+                rounded
+                dense
+            >
+                <v-btn>No Filter</v-btn>
+                <v-btn>Filter</v-btn>
+            </v-btn-toggle>
+
             <!-- Menu for change checklist -->
             <v-menu bottom left>
                 <template v-slot:activator="{ on, attrs }">
@@ -44,9 +54,9 @@
             <v-container>
                 <v-row>
                     <v-col>
-                        <nodetype v-if="selectedNode.type === 'component'" @changeNodetype="onChangeNodetype"/>
+                        <nodetype v-if="selectedNode.type === 'component' && filter" @changeNodetype="onChangeNodetype"/>
 
-                        <checklist-tree v-if="checklist.length !== 0" :original="checklist"/>
+                        <checklist-tree v-if="checklist.length !== 0" :original="checklist" />
                     </v-col>
                 </v-row>
             </v-container>
@@ -82,6 +92,14 @@ export default {
         expand: function(){
             this.getChecklistFormat();
         },
+        filter: function(next){
+            if(next === 0){
+                this.vulFilter = null;
+            }
+            else{
+                this.getVulfilter(this.selectedNode.data.type);
+            }
+        },
         vulFilter: function(){
             this.getChecklistFormat();
         },
@@ -91,6 +109,7 @@ export default {
             selectedMenu: "wstg_v4_2",
             checkMenu: [],
             expand: 1,
+            filter: 1,
 
             checklist: [],
             vulFilter: null,
