@@ -63,6 +63,11 @@ export default {
             }
 
             this.initNode();
+            this.initTree(this.original, next)
+                .then(() => {
+                    // Fetch node checklist, Add date info
+                    this.fetchChecklist(next);
+                });
         },
         original: {
             deep: true,
