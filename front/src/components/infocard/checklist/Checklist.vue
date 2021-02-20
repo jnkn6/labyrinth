@@ -54,9 +54,17 @@
             <v-container>
                 <v-row>
                     <v-col>
-                        <nodetype v-if="selectedNode.type === 'component' && filter" @changeNodetype="onChangeNodetype"/>
+                        <nodetype
+                            v-if="node.type === 'component' && filter"
+                            @changeNodetype="onChangeNodetype"
+                            :node="node"
+                        />
 
-                        <checklist-tree v-if="checklist.length !== 0" :original="checklist" />
+                        <checklist-tree
+                            v-if="checklist.length !== 0"
+                            :original="checklist"
+                            :node="node"
+                        />
                     </v-col>
                 </v-row>
             </v-container>
@@ -70,16 +78,19 @@ import api from '@/api'
 import Nodetype from '@/components/infocard/Nodetype'
 import ChecklistTree from './ChecklistTree'
 
-import { mapState } from 'vuex'
-
 export default {
+    name: "Checklist",
     components: {
         Nodetype,
         ChecklistTree,
     },
-    name: "Checklist",
+    props: {
+        node: {
+            type: Object
+        },
+    },
     watch: {
-        selectedNode: function(next, prev){
+        node: function(next, prev){
             if(next.data._id === prev.data._id){
                 return;
             }
@@ -96,7 +107,7 @@ export default {
                 this.vulFilter = null;
             }
             else{
-                this.getVulfilter(this.selectedNode.data.type);
+                this.getVulfilter(this.node.data.type);
             }
         },
         vulFilter: function(){
@@ -114,11 +125,6 @@ export default {
             vulFilter: null,
         }
     },
-    computed: {
-        ...mapState([
-            'selectedNode',
-        ])
-    },
     methods: {
         async getChecklistFormat(){
             const payload = {
@@ -127,7 +133,7 @@ export default {
                 vulFilter: this.vulFilter,
             }
 
-            api.post(`/checklist/${this.selectedNode.type}`, payload)
+            api.post(`/checklist/${this.node.type}`, payload)
                 .then(res => {
                     this.checklist = res.data;
                 });
@@ -152,7 +158,7 @@ export default {
             }
 
             const payload = {
-                key: this.selectedNode.type,
+                key: this.node.type,
                 checklist: this.selectedMenu,
                 nodetype: nodetype,
             };
@@ -176,7 +182,7 @@ export default {
     },
     created(){
         this.getChecklistMenu();
-        this.getVulfilter(this.selectedNode.data.type);
+        this.getVulfilter(this.node.data.type);
     },
 }
 </script>

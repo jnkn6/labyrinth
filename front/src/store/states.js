@@ -3,6 +3,4 @@ export default{
     pageNodes: [],
     componentNodes: {}, // {"sourcePageid":[ComponentNodeInfo, ComponentNodeInfo, ...]}
     edges: {}, // {"targetid":[Edge, Edge, ...], "targetid": [Edge, Edge,...]}
-
-    selectedNode: null,
 }

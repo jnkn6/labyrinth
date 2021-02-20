@@ -35,12 +35,16 @@
 <script>
 
 import api from '@/api'
-import { mapState } from 'vuex'
 
 export default {
     name: "Nodetype",
+    props: {
+        node: {
+            type: Object
+        },
+    },
     watch: {
-        selectedNode: function (next, prev){
+        node: function (next, prev){
             if(next.data._id === prev.data._id){
                 return;
             }
@@ -51,18 +55,13 @@ export default {
     },
     data(){
         return {
-            selected: [],
+            selected: this.node.data.type,
             types: {},
         }
     },
-    computed: {
-        ...mapState([
-            'selectedNode',
-        ])
-    },
     methods: {
         async getNodetypes(){
-            api.post(`/nodetype/${this.selectedNode.type}`)
+            api.post(`/nodetype/${this.node.type}`)
                 .then(res => {
                     this.types = res.data;
                 });
@@ -74,8 +73,5 @@ export default {
     created(){
         this.getNodetypes()
     },
-    mounted(){
-        this.selected = [...this.selectedNode.data.type];
-    }
 }
 </script>

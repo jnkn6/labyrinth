@@ -5,6 +5,7 @@
         @onEdit="onEdit"
         @onCancel="onCancel"
         :isEditing="isEditing"
+        :node="node"
     >
         <div slot="title">{{title}}</div>
         <div slot="readInfo">
@@ -46,13 +47,16 @@ import marked from 'marked'
 import DOMPurify from 'dompurify'
 import Editor from '@/components/Editor'
 
-import { mapActions, mapState } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
     name: "PageInfoCard",
     props: {
         mode: {
             type: String
+        },
+        node: {
+            type: Object
         },
     },
     watch: {
@@ -61,7 +65,7 @@ export default {
                 this.workMode = next;
             }
         },
-        selectedNode: function (next, prev){
+        node: function (next, prev){
             if(next.data._id === prev.data._id){
                 return;
             }
@@ -86,21 +90,18 @@ export default {
     },
     data(){
         return {
-            name: "",
-            path: "",
-            memo: "",
-
             workMode: this.mode,
 
-            nameModified: "",
-            pathModified: "",
-            memoModified: "",
+            name: this.node.data.name,
+            path: this.node.data.path,
+            memo: (this.node.data.memo === null) ? "" : this.node.data.memo,
+
+            nameModified: this.node.data.name,
+            pathModified: this.node.data.path,
+            memoModified: (this.node.data.memo === null) ? "" : this.node.data.memo,
         }
     },
     computed: {
-        ...mapState([
-            'selectedNode',
-        ]),
         title() {
             switch(this.workMode){
                 case modes.EDIT_PAGE:
@@ -122,7 +123,6 @@ export default {
     methods: {
         ...mapActions([
             'modifyPageNode',
-            'setSelectedNode',
         ]),
         onClose(){
             this.$emit('onClose')
@@ -136,7 +136,7 @@ export default {
             this.memo = this.memoModified;
 
             let newPageData = {
-                ...this.selectedNode.data,
+                ...this.node.data,
                 name: this.name,
                 path: this.path,
                 memo: this.memo,
@@ -144,11 +144,10 @@ export default {
 
             this.modifyPageNode({
                 vue: this, 
-                oldNode: this.selectedNode,
+                oldNode: this.node,
                 newPageData: newPageData,
-            }).then((newNode) => {
+            }).then(() => {
                 this.workMode = modes.READ_PAGE_INFO;
-                this.setSelectedNode(newNode);
             });
         },
         onCancel(){
@@ -164,15 +163,6 @@ export default {
         onMemoBlur(val){
             this.memoModified = val;
         },
-    },
-    mounted(){
-        this.name = this.selectedNode.data.name;
-        this.path = this.selectedNode.data.path;
-        this.memo = (this.selectedNode.data.memo === null) ? "" : this.selectedNode.data.memo;
-
-        this.nameModified = this.selectedNode.data.name;
-        this.pathModified = this.selectedNode.data.path;
-        this.memoModified = (this.selectedNode.data.memo === null) ? "" : this.selectedNode.data.memo;
     },
 }
 </script>

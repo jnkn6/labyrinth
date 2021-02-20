@@ -134,7 +134,4 @@ export default{
             }
         }
     },
-    [SET_SELECTED_NODE](state, node){
-        state.selectedNode = node;
-    }
 }

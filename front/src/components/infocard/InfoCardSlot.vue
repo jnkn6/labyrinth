@@ -15,7 +15,7 @@
             <slot name="readInfo" v-if="!isEditing"></slot>
             <slot name="editInfo" v-else></slot>
 
-            <checklist v-if="!isEditing" />
+            <checklist v-if="!isEditing" :node="node"/>
 
             <file-pond
                 v-if="isEditing"
@@ -81,8 +81,6 @@ import { ALLIMAGE_QUERY } from '@/graphql/image'
 
 import Checklist from './checklist/Checklist'
 
-import { mapState } from 'vuex'
-
 const FilePond = vueFilePond(
     FilePondPluginFileRename,
     FilePondPluginImagePreview,
@@ -99,21 +97,19 @@ export default {
         isEditing: {
             type: Boolean
         },
+        node: {
+            type: Object
+        },
     },
     data() {
         return {
             images: [],
         };
     },
-    computed: {
-        ...mapState([
-            'selectedNode'
-        ]),
-    },
     methods: {
         fileRenameFunction(file){
             let name = window.prompt('Enter new filename')
-            return this.selectedNode.data._id + '_' + name + file.extension;
+            return this.node.data._id + '_' + name + file.extension;
         },
         handleFilePondInit: function() {
             let images = [];
@@ -122,7 +118,7 @@ export default {
             this.$apollo.query({
             query: ALLIMAGE_QUERY,
                 variables : {
-                    id: this.selectedNode.data._id
+                    id: this.node.data._id
                 },
             }).then(res => {
                 res.data.allImages.forEach(element => {

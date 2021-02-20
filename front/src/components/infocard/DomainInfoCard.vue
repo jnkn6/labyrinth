@@ -5,6 +5,7 @@
         @onEdit="onEdit"
         @onCancel="onCancel"
         :isEditing="isEditing"
+        :node="node"
     >
         <div slot="title">{{title}}</div>
         <div slot="readInfo">
@@ -43,13 +44,16 @@ import marked from 'marked'
 import DOMPurify from 'dompurify'
 import Editor from '@/components/Editor'
 
-import { mapActions, mapState } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
     name: "DomainInfoCard",
     props: {
         mode: {
             type: String
+        },
+        node: {
+            type: Object
         },
     },
     components: {
@@ -62,7 +66,7 @@ export default {
                 this.workMode = next;
             }
         },
-        selectedNode: function(next, prev){
+        node: function(next, prev){
             if(next.data._id === prev.data._id){
                 return;
             }
@@ -76,16 +80,13 @@ export default {
         return {
             workMode: this.mode,
 
-            url: "",
-            memo: "",
+            url: this.node.data.url,
+            memo: (this.node.data.memo === null) ? "" : this.node.data.memo,
 
-            memoModified: "",
+            memoModified: (this.node.data.memo === null) ? "" : this.node.data.memo,
         }
     },
     computed: {
-        ...mapState([
-            'selectedNode',
-        ]),
         title() {
             switch(this.workMode){
                 case modes.READ_DOMAIN_INFO:
@@ -107,7 +108,6 @@ export default {
     methods: {
         ...mapActions([
             'modifyDomainNode',
-            'setSelectedNode',
         ]),
         onClose(){
             this.$emit('onClose')
@@ -118,17 +118,16 @@ export default {
         onSave(){
             this.memo = this.memoModified;
             let newDomainData = {
-                ...this.selectedNode.data,
+                ...this.node.data,
                 memo: this.memo,
             };
 
             this.modifyDomainNode({
                 vue: this, 
-                oldNode: this.selectedNode,
+                oldNode: this.node,
                 newDomainData: newDomainData,
-            }).then((newNode) => {
+            }).then(() => {
                 this.workMode = modes.READ_DOMAIN_INFO;
-                this.setSelectedNode(newNode);
             });
         },
         onCancel(){
@@ -142,12 +141,6 @@ export default {
         onMemoBlur(val){
             this.memoModified = val;
         },
-    },
-    mounted(){
-        this.url = this.selectedNode.data.url;
-        this.memo = (this.selectedNode.data.memo === null) ? "" : this.selectedNode.data.memo;
-
-        this.memoModified = (this.selectedNode.data.memo === null) ? "" : this.selectedNode.data.memo;
     },
 }
 </script>

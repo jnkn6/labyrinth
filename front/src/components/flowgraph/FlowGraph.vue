@@ -21,6 +21,7 @@
             <info-card
                 v-if="showInfo"
                 :mode="mode"
+                :node="selectedNode"
                 @onClose="onCloseInfo"
             />
         </div>
@@ -33,7 +34,7 @@ import InfoCard from '@/components/infocard/InfoCard'
 import ReactFlowGraph from './ReactFlowGraph'
 import NodeMenu from './NodeMenu'
 
-import { mapState, mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 import { modes } from '@/utils/const'
 
@@ -53,14 +54,12 @@ export default {
         ...mapGetters ([
             'graphElements',
         ]),
-        ...mapState([
-            'selectedNode',
-        ]),
     },
     data () {
         return {
             showInfo: false,
             mode: null,
+            selectedNode: null,
 
             showNodeMenu: false,
             nodeMenuX: 0,
@@ -71,7 +70,6 @@ export default {
     methods: {
         ...mapActions([
             'createNode',
-            'setSelectedNode',
         ]),
         onNodeContextMenu(event, element){
             event.preventDefault();
@@ -85,10 +83,8 @@ export default {
             // if clicked same node, close info card
             if (this.showInfo && element.id === this.selectedNode.id){
                 this.mode = null;
-                this.setSelectedNode(null)
-                    .then(() => {
-                        this.showInfo = false;
-                    });
+                this.selectedNode = null;
+                this.showInfo = false;
                 return;
             }
 
@@ -106,31 +102,23 @@ export default {
         },
         onPageClick(event, element){
             this.mode = modes.READ_PAGE_INFO;
-            this.setSelectedNode(element)
-                .then(() => {
-                    this.showInfo = true;
-                });
+            this.selectedNode = element;
+            this.showInfo = true;
         },
         onDomainClick(event, element){
             this.mode = modes.READ_DOMAIN_INFO;
-            this.setSelectedNode(element)
-                .then(() => {
-                    this.showInfo = true;
-                });
+            this.selectedNode = element;
+            this.showInfo = true;
         },
         onComponentClick(event, element){
             this.mode = modes.READ_COMPONENT_INFO;
-            this.setSelectedNode(element)
-                .then(() => {
-                    this.showInfo = true;
-                });
+            this.selectedNode = element;
+            this.showInfo = true;
         },
         onCloseInfo(){
+            this.showInfo = false;
             this.mode = null;
-            this.setSelectedNode(null)
-                .then(() => {
-                    this.showInfo = false;
-                });
+            this.selectedNode = null;
         }
     },
 
