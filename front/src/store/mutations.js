@@ -122,17 +122,16 @@ export default{
             }
         }
     },
-    [UPDATE_COMPONENT_NODE](state, newComponentNode){
-        const pageId = newComponentNode.data.page;
+    [UPDATE_COMPONENT_NODE](state, node){
+        const pageId = node.data.page;
         if (!(pageId in state.componentNodes)){
             console.log("No node to update. Please add node first.")
             return;
         }
 
         for (let i = 0; i< state.componentNodes[pageId].length; i++){
-            if (state.componentNodes[pageId][i].id === newComponentNode.id){
-                state.componentNodes[pageId].splice(i, 1);
-                state.componentNodes[pageId].push(newComponentNode);
+            if (state.componentNodes[pageId][i].id === node.id){
+                Vue.set(state.componentNodes[pageId], i, node);
                 break;
             }
         }

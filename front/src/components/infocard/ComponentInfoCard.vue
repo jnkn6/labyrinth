@@ -148,8 +148,8 @@ export default {
 
             this.modifyComponentNode({
                 vue: this, 
-                oldNode: this.node,
-                newComponentData: newComponentData,
+                node: this.node,
+                data: newComponentData,
             }).then(() => {
                 this.workMode = modes.READ_COMPONENT_INFO;
             });

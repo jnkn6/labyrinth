@@ -337,21 +337,18 @@ export default {
 
         })
     },
-    modifyComponentNode({commit}, {vue, oldNode, newComponentData}){
+    modifyComponentNode({commit}, {vue, node, data}){
         // save Data at DB
         vue.$apollo.mutate({
             mutation: MODIFYCOMPONENT_MUTATION,
             variables : {
-                component: newComponentData
+                component: data
             },
         }).then(res => {
-            let newComponentNode = {
-                ...oldNode,
-                data: res.data.modifyComponent,
-            };
+            node.data = res.data.modifyComponent;
 
             // update graph
-            commit(UPDATE_COMPONENT_NODE, newComponentNode)
+            commit(UPDATE_COMPONENT_NODE, node)
 
         }) 
     },
