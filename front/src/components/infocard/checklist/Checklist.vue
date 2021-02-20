@@ -139,8 +139,9 @@ export default {
                 });
         },
         getVulfilter(nodetype){
-            // No filter set
-            if(nodetype.length === 0){
+            // If no type (now domain, page node don't have type)
+            // or no filter set
+            if(!nodetype || nodetype.length === 0){
                 if(this.vulFilter === null){ // Watch trigger not work case
                     this.getChecklistFormat();
                 }
