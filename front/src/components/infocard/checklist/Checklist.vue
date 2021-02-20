@@ -82,6 +82,9 @@ export default {
         expand: function(){
             this.getChecklistFormat();
         },
+        vulFilter: function(){
+            this.getChecklistFormat();
+        },
     },
     data(){
         return {
@@ -90,6 +93,7 @@ export default {
             expand: 1,
 
             checklist: [],
+            vulFilter: null,
         }
     },
     computed: {
@@ -101,7 +105,8 @@ export default {
         async getChecklistFormat(){
             const payload = {
                 name: this.selectedMenu,
-                expand: this.expand
+                expand: this.expand,
+                vulFilter: this.vulFilter,
             }
 
             api.post(`/checklist/${this.selectedNode.type}`, payload)
@@ -115,14 +120,24 @@ export default {
                     this.checkMenu = res.data;
                 });
         },
+        getVulfilter(nodetype){
+            const payload = {
+                key: this.selectedNode.type,
+                checklist: this.selectedMenu,
+                nodetype: nodetype,
+            };
+            api.post('/nodetype/vul', payload)
+                .then(res => {
+                    this.vulFilter = res.data;
+                });
+        },
         onChangeNodetype(selectedType){
-            // get filtered vultype
-            console.log(selectedType)
+            this.getVulfilter(selectedType);
         }
     },
     created(){
         this.getChecklistMenu();
-        this.getChecklistFormat();
+        this.getVulfilter(this.selectedNode.data.type);
     },
 }
 </script>
