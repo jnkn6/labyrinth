@@ -83,8 +83,7 @@ export default {
             if(next.data._id === prev.data._id){
                 return;
             }
-
-            this.getChecklistFormat();
+            this.getVulfilter(next.data.type);
         },
         selectedMenu: function(){
             this.getChecklistFormat();
@@ -140,6 +139,17 @@ export default {
                 });
         },
         getVulfilter(nodetype){
+            // No filter set
+            if(nodetype.length === 0){
+                if(this.vulFilter === null){ // Watch trigger not work case
+                    this.getChecklistFormat();
+                }
+                else{
+                    this.vulFilter = null;
+                }
+                return;
+            }
+
             const payload = {
                 key: this.selectedNode.type,
                 checklist: this.selectedMenu,
@@ -154,9 +164,10 @@ export default {
                     if(this.vulFilter === null){ // Watch trigger not work case
                         this.getChecklistFormat();
                     }
-
-                    this.vulFilter = null;
-                })
+                    else{
+                        this.vulFilter = null;
+                    }
+                });
         },
         onChangeNodetype(selectedType){
             this.getVulfilter(selectedType);
