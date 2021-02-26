@@ -1,5 +1,95 @@
 [
     {
+        "code": "info-disclosure",
+        "name": "Find vulnerability from leaked infomation, opend data",
+        "scope": "domain",
+        "children": [
+            {
+                "code": "osint",
+                "name": "Find sensitive information by OSINT",
+                "scope": "domain",
+                "children": [
+                    {
+                        "code": "search-engine",
+                        "name": "Find sensitive information at search engine",
+                        "scope": "domain"
+                    },
+                    {
+                        "code": "git",
+                        "name": "Find sensitive information at github, gitlab, etc",
+                        "scope": "domain"
+                    },
+                    {
+                        "code": "shodan",
+                        "name": "Find sensitive information at Shodan",
+                        "scope": "domain"
+                    },
+                    {
+                        "code": "sns",
+                        "name": "Find sensitive information at SNS",
+                        "scope": "domain"
+                    }
+                ]
+            },
+            {
+                "code": "fingerprint",
+                "name": "Fingerprint server elements",
+                "scope": "domain",
+                "children": [
+                    {
+                        "code": "server",
+                        "name": "Fingerprint server",
+                        "scope": "domain"
+                    },
+                    {
+                        "code": "framework",
+                        "name": "Fingerprint web framework",
+                        "scope": "domain"
+                    },
+                    {
+                        "code": "app",
+                        "name": "Fingerprint web application",
+                        "scope": "domain"
+                    }
+                ]
+            },
+            {
+                "code": "metafile",
+                "name": "Find common meta files that includes sensitive information",
+                "scope": "domain",
+                "children": [
+                    {
+                        "code": "robots",
+                        "name": "Find robots.txt and find sensitive path",
+                        "scope": "domain"
+                    },
+                    {
+                        "code": "sourcemap",
+                        "name": "Find sourcemap of javascript and find sensitive information",
+                        "scope": "domain, page"
+                    }
+                ]
+            },
+            {
+                "code": "web-content",
+                "name": "Find javascript file that includes sensitive information",
+                "scope": "page",
+                "children": [
+                    {
+                        "code": "html",
+                        "name": "Find HTML file that includes sensitive information",
+                        "scope": "page"
+                    },
+                    {
+                        "code": "js",
+                        "name": "Find javascript file that includes sensitive information",
+                        "scope": "page"
+                    }
+                ]
+            }
+        ]
+    },
+    {
         "code": "input",
         "name": "Find vulnerability from lack of client input validation",
         "scope": "page, component",
