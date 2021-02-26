@@ -1,7 +1,7 @@
 [
     {
         "code": "input",
-        "name": "Vulnerability from lack of client input validation",
+        "name": "Find vulnerability from lack of client input validation",
         "scope": "page, component",
         "children": [
             {
@@ -9,11 +9,6 @@
                 "name": "Check XSS",
                 "scope": "page, component",
                 "children": [
-                    {
-                        "code": "filter-check",
-                        "name": "Check XSS defense",
-                        "scope": "page, component"
-                    },
                     {
                         "code": "filter-bypass",
                         "name": "Find the way to bypass XSS defense",
@@ -37,23 +32,28 @@
                 "scope": "page, component",
                 "children": [
                     {
-                        "code": "filter-check",
-                        "name": "Check SQL injection defense",
-                        "scope": "page, component"
-                    },
-                    {
                         "code": "filter-bypass",
                         "name": "Find the way to bypass SQL injection defense",
                         "scope": "page, component"
                     },
                     {
                         "code": "oracle",
-                        "name": "Check Oracle DB SQL injection",
+                        "name": "Check Oracle PL/SQL injection",
                         "scope": "page, component"
                     },
                     {
                         "code": "mysql",
-                        "name": "Check MySQL DB SQL injection",
+                        "name": "Check MySQL SQL injection",
+                        "scope": "page, component"
+                    },
+                    {
+                        "code": "postgre",
+                        "name": "Check PostgreSQL injection",
+                        "scope": "page, component"     
+                    },
+                    {
+                        "code": "nosql",
+                        "name": "Check NoSQL injection",
                         "scope": "page, component"
                     }
                 ]
