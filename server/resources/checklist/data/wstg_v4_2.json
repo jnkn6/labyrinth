@@ -1,4 +1,29 @@
 [
+
+    {
+        "name": "WSTG-INFO-01 Conduct Search Engine Discovery Reconnaissance for Information Leakage",
+        "code": "info-disclosure_osint"
+    },
+    {
+        "name": "WSTG-INFO-02 Fingerprint Web Server",
+        "code": "info-disclosure_fingerprint_server"
+    },
+    {
+        "name": "WSTG-INFO-03 Review Webserver Metafiles for Information Leakage",
+        "code": "info-disclosure_metafile"
+    },
+    {
+        "name": "WSTG-INFO-05 Review Webpage Content for Information Leakage",
+        "code": "info-disclosure_web-content"
+    },
+    {
+        "name": "WSTG-INFO-08 Fingerprint Web Application Framework",
+        "code": "info-disclosure_fingerprint_framework"
+    },
+    {
+        "name": "WSTG-INFO-09 Fingerprint Web Application",
+        "code": "info-disclosure_fingerprint_app"
+    },
     {
         "name": "WSTG-INPV-01 Testing for Reflected Cross Site Scripting",
         "code": "input_xss_reflected"
