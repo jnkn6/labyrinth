@@ -58,51 +58,39 @@ export default {
         },
     },
     watch: {
-        node: function(next, prev){
-            if(next.data._id === prev.data._id){
-                return;
-            }
-
-            this.initNode();
-            this.initTree(this.original, next)
-                .then(() => {
-                    // Fetch node checklist, Add date info
-                    this.fetchChecklist(next);
-                });
-        },
         original: {
             deep: true,
             handler(next){
-                this.initTree(next, this.node);
-
-                // Init timestamp, deactivated
-                // Call directly becuase timestamp/deactivated values are not changed
-                this.updateTimestamp(this.timestamp);
-                this.updateDeactivated(this.deactivated, true);
+                this.initNode();
+                this.initTree(next, this.node).then(() => {
+                    // Fetch node checklist, Add date info
+                    this.fetchChecklist(this.node);
+                });
             }
         },
-        timestamp: {
-            handler(next, prev){
-                // Should called after render
-                if(this.original.length === 0){
-                    return;
-                }
-
-                let updated = _.differenceBy(next, prev, 'date');
-                this.updateTimestamp(updated);
-            }
-        },
-        deactivated: function(next, prev){
+        timestamp: function(next){
             // Should called after render
             if(this.original.length === 0){
                 return;
             }
 
-            if (next.length > prev.length){
+            this.updateTimestamp(next);
+        },
+        deactivated: function(next, prev){
+
+            // Should called after render
+            if(this.original.length === 0){
+                return;
+            }
+
+            if (next.length > prev.length){ // When checklist item deactivated
                 let updated = _.differenceWith(next, prev, _.isEqual);
                 this.updateDeactivated(updated, true);
             }
-            else{
+            else if(next.length === prev.length) { // When filter, expand option changed
+                this.updateDeactivated(next, true);
+            }
+            else{ // When checklist item activated
                 let updated = _.differenceWith(prev, next, _.isEqual);
                 this.updateDeactivated(updated, false);
             }
@@ -114,6 +102,7 @@ export default {
                 return;
             }
 
+            // This code is not excuted when expand/filter changed -> becuase of doneFirstWatch
             if (next.length > prev.length){
                 // If Check
                 // Get new checked list
