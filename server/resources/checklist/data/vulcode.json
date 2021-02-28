@@ -64,6 +64,11 @@
                         "scope": "domain"
                     },
                     {
+                        "code": "cross-domain",
+                        "name": "Find Crossdomain.xml or Clientaccesspolicy.xml and find wrong configuration",
+                        "scope": "domain"
+                    },
+                    {
                         "code": "sourcemap",
                         "name": "Find sourcemap of javascript and find sensitive information",
                         "scope": "domain, page"
@@ -78,14 +83,152 @@
                     {
                         "code": "html",
                         "name": "Find HTML file that includes sensitive information",
-                        "scope": "page"
+                        "scope": "page",
+                        "children": [
+                            {
+                                "code": "secret",
+                                "name": "Find secret at HTML",
+                                "scope": "page"
+                            },
+                            {
+                                "code": "infra-url",
+                                "name": "Find related infra URL at HTML",
+                                "scope": "page"
+                            }
+                        ]
                     },
                     {
                         "code": "js",
                         "name": "Find javascript file that includes sensitive information",
-                        "scope": "page"
+                        "scope": "page",
+                        "children": [
+                            {
+                                "code": "secret",
+                                "name": "Find secret at javascript",
+                                "scope": "page"
+                            },
+                            {
+                                "code": "infra-url",
+                                "name": "Find related infra URL at javascript",
+                                "scope": "page"
+                            }
+                        ]
                     }
                 ]
+            }
+        ]
+    },
+    {
+        "code": "conf",
+        "name": "Find vulnerability from wrong configuration",
+        "scope": "domain",
+        "children": [
+            {
+                "code": "infra",
+                "name": "Find wrong network infrastructure configuration",
+                "scope": "domain",
+                "children": [
+                    {
+                        "code": "known-vul",
+                        "name": "Test known vulnerabilities of network infra",
+                        "scope": "domain"
+                    },
+                    {
+                        "code": "admin-tool",
+                        "name": "Access administrative Tools of network infra",
+                        "scope": "domain"
+                    }
+                ]
+            },
+            {
+                "code": "app-platform",
+                "name": "Find wrong app platform configuration",
+                "scope": "domain",
+                "children": [
+                    {
+                        "code": "known-vul",
+                        "name": "Test known vulnerabilities of app platform",
+                        "scope": "domain"
+                    },
+                    {
+                        "code": "known-path",
+                        "name": "Access default/common paths of app platform",
+                        "scope": "domain"
+                    }
+                ]
+            },
+            {
+                "code": "permission",
+                "name": "Find wrong file permission",
+                "scope": "domain",
+                "children": [
+                    {
+                        "code": "backup",
+                        "name": "Access old backup file",
+                        "scope": "domain"
+                    },
+                    {
+                        "code": "common-file",
+                        "name": "Access common, famouse files",
+                        "scope": "domain"
+                    },
+                    {
+                        "code": "extension",
+                        "name": "Access different file extension",
+                        "scope": "domain, page, component"
+                    }
+                ]
+            },
+            {
+                "code": "admin-page",
+                "name": "Access admin page of network infra & app",
+                "scope": "domain"
+            },
+            {
+                "code": "subdoamin-takeover",
+                "name": "Find takeoverable subdomain",
+                "scope": "domain"
+            },
+            {
+                "code": "cloud",
+                "name": "Find wrong cloud configuration",
+                "scope": "domain",
+                "children": [
+                    {
+                        "code": "aws",
+                        "name": "Find wrong AWS configuration",
+                        "scope": "domain"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "code": "http",
+        "name": "Find wrong HTTP response",
+        "scope": "page, component",
+        "children": [
+            {
+                "code": "method",
+                "name": "Check various HTTP method",
+                "scope": "page, component",
+                "children": [
+                    {
+                        "code": "types",
+                        "name": "Change HTTP method to bypass restriction",
+                        "scope": "page, component"
+                    },
+                    {
+                        "code": "override",
+                        "name": "Change HTTP method by overriding headers",
+                        "scope": "page, component"
+                    }
+                ]
+            },
+            {
+                "code": "hsts",
+                "name": "Check HTTP Strict Transport Security header",
+                "scope": "page, component"
             }
         ]
     },

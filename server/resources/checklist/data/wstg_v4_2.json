@@ -25,6 +25,50 @@
         "code": "info-disclosure_fingerprint_app"
     },
     {
+        "name": "WSTG-CONF-01 Test Network Infrastructure Configuration",
+        "code": "conf_infra"
+    },
+    {
+        "name": "WSTG-CONF-02 Test Application Platform Configuration",
+        "code": "conf_app-platform"
+    },
+    {
+        "name": "WSTG-CONF-03 Test File Extensions Handling for Sensitive Information",
+        "code": "conf_permission_extension"
+    },
+    {
+        "name": "WSTG-CONF-04 Review Old Backup and Unreferenced Files for Sensitive Information",
+        "code": "conf_permission_backup"
+    },
+    {
+        "name": "WSTG-CONF-05 Enumerate Infrastructure and Application Admin Interfaces",
+        "code": "conf_admin-page"
+    },
+    {
+        "name": "WSTG-CONF-06 Test HTTP Methods",
+        "code": "http_method"
+    },
+    {
+        "name": "WSTG-CONF-07 Test HTTP Strict Transport Security",
+        "code": "http_hsts"
+    },
+    {
+        "name": "WSTG-CONF-08 Test RIA Cross Domain Policy",
+        "code": "info-disclosure_metafile_cross-domain"
+    },
+    {
+        "name": "WSTG-CONF-09 Test File Permission",
+        "code": "conf_permission"
+    },
+    {
+        "name": "WSTG-CONF-10 Test for Subdomain Takeover",
+        "code": "conf_subdoamin-takeover"
+    },
+    {
+        "name": "WSTG-CONF-11 Test Cloud Storage",
+        "code": "conf_cloud"
+    },
+    {
         "name": "WSTG-INPV-01 Testing for Reflected Cross Site Scripting",
         "code": "input_xss_reflected"
     },
