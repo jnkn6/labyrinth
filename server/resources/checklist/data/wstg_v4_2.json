@@ -69,6 +69,26 @@
         "code": "conf_cloud"
     },
     {
+        "name": "WSTG-IDNT-01 Test Role Definitions",
+        "code": "account_privilege"
+    },
+    {
+        "name": "WSTG-IDNT-02 Test User Registration Process",
+        "code": "account_registration"
+    },
+    {
+        "name": "WSTG-IDNT-03 Test Account Provisioning Process",
+        "code": "account_provisioning"
+    },
+    {
+        "name": "WSTG-IDNT-04 Testing for Account Enumeration and Guessable User Account",
+        "code": "account_enum"
+    },
+    {
+        "name": "WSTG-IDNT-05 Testing for Weak or Unenforced Username Policy",
+        "code": "account_enum"
+    },
+    {
         "name": "WSTG-INPV-01 Testing for Reflected Cross Site Scripting",
         "code": "input_xss_reflected"
     },

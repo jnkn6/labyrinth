@@ -233,6 +233,52 @@
         ]
     },
     {
+        "code": "account",
+        "name": "Find account register/access feature bug",
+        "scope": "page, component",
+        "children": [
+            {
+                "code": "register",
+                "name": "Bypass account registration restriction",
+                "scope": "page, component",
+                "children": [
+                    {
+                        "code": "captcha",
+                        "name": "Bypass account registration captcha",
+                        "scope": "page, component"
+                    },
+                    {
+                        "code": "verification",
+                        "name": "Bypass email/phone/identity verification for registration",
+                        "scope": "page, component"
+                    }
+                ]
+            },
+            {
+                "code": "provisioning",
+                "name": "Find which roles are able to provision user and check exception",
+                "scope": "page, component",
+                "children": [
+                    {
+                        "code": "verification",
+                        "name": "Bypass verification for provisioning",
+                        "scope": "page, component"
+                    }
+                ]
+            },
+            {
+                "code": "enum",
+                "name": "Check if enumerate accounts",
+                "scope": "page, component"
+            },
+            {
+                "code": "privilege",
+                "name": "Identify account roles and try to escalate",
+                "scope": "page, component"
+            }
+        ]
+    },
+    {
         "code": "input",
         "name": "Find vulnerability from lack of client input validation",
         "scope": "page, component",
