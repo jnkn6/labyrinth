@@ -89,6 +89,46 @@
         "code": "account_enum"
     },
     {
+        "name": "WSTG-ATHN-01 Testing for Credentials Transported over an Encrypted Channel",
+        "code": "encryption_unencrypted"
+    },
+    {
+        "name": "WSTG-ATHN-02 Testing for Default Credentials",
+        "code": "account_default"
+    },
+    {
+        "name": "WSTG-ATHN-03 Testing for Weak Lock Out Mechanism",
+        "code": "account_login_lockout"
+    },
+    {
+        "name": "WSTG-ATHN-04 Testing for Bypassing Authentication Schema",
+        "code": "account_privilege_escalation"
+    },
+    {
+        "name": "WSTG-ATHN-05 Testing for Vulnerable Remember Password",
+        "code": "account_login_remember"
+    },
+    {
+        "name": "WSTG-ATHN-06 Testing for Browser Cache Weaknesses",
+        "code": "cache_browser"
+    },
+    {
+        "name": "WSTG-ATHN-07 Testing for Weak Password Policy",
+        "code": "account_register_password-policy"
+    },
+    {
+        "name": "WSTG-ATHN-08 Testing for Weak Security Question Answer",
+        "code": "account_register_security-question"
+    },
+    {
+        "name": "WSTG-ATHN-09 Testing for Weak Password Change or Reset Functionalities",
+        "code": "account_restore_password"
+    },
+    {
+        "name": "WSTG-ATHN-10 Testing for Weaker Authentication in Alternative Channel",
+        "code": "account_login_alternative"
+    },
+    {
         "name": "WSTG-INPV-01 Testing for Reflected Cross Site Scripting",
         "code": "input_xss_reflected"
     },

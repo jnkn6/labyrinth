@@ -251,6 +251,16 @@
                         "code": "verification",
                         "name": "Bypass email/phone/identity verification for registration",
                         "scope": "page, component"
+                    },
+                    {
+                        "code": "password-policy",
+                        "name": "Check if user can use weak password",
+                        "scope": "page, component"
+                    },
+                    {
+                        "code": "security-question",
+                        "name": "Check if user can use weak password",
+                        "scope": "page, component"
                     }
                 ]
             },
@@ -267,6 +277,62 @@
                 ]
             },
             {
+                "code": "login",
+                "name": "Check the login feature is",
+                "scope": "page, component",
+                "children": [
+                    {
+                        "code": "lockout",
+                        "name": "Check the lock out machanism protecting bruteforce and try to bypass it",
+                        "scope": "page, component",
+                        "children": [
+                            {
+                                "code": "unlock",
+                                "name": "Try to unlock account",
+                                "scope": "page, component"
+                            },
+                            {
+                                "code": "bypass",
+                                "name": "Bypass lock out machanism",
+                                "scope": "page, component"
+                            }
+                        ]
+                    },
+                    {
+                        "code": "remember",
+                        "name": "Check remember feature if ID/password/token is safely stored or not",
+                        "scope": "domain"
+                    },
+                    {
+                        "code": "2fa",
+                        "name": "Check vulnerability from 2FA",
+                        "scope": "page, component"
+                    },
+                    {
+                        "code": "alternative",
+                        "name": "Check weaker authentication in alternative channel",
+                        "scope": "page, component"
+                    }
+                ]
+            },
+            {
+                "code": "restore",
+                "name": "Find vulnerability from find, reset id/password feature",
+                "scope": "page, component",
+                "children":[
+                    {
+                        "code": "id",
+                        "name": "Find vulnerability from find id/email feature",
+                        "scope": "page, component"
+                    },
+                    {
+                        "code": "password",
+                        "name": "Find vulnerability from account password setting change feature",
+                        "scope": "page, component"
+                    }
+                ]
+            },
+            {
                 "code": "enum",
                 "name": "Check if enumerate accounts",
                 "scope": "page, component"
@@ -274,7 +340,19 @@
             {
                 "code": "privilege",
                 "name": "Identify account roles and try to escalate",
-                "scope": "page, component"
+                "scope": "page, component",
+                "children":[
+                    {
+                        "code": "escalation",
+                        "name": "Check if enumerate accounts",
+                        "scope": "page, component"
+                    }
+                ]
+            },
+            {
+                "code": "default",
+                "name": "Try to use default account, password",
+                "scope": "domain"
             }
         ]
     },
@@ -336,6 +414,57 @@
                         "scope": "page, component"
                     }
                 ]
+            }
+        ]
+    },
+    {
+        "code": "encryption",
+        "name": "Find vulnerability from encryption",
+        "scope": "domain, page, component",
+        "children": [
+            {
+                "code": "tls",
+                "name": "Find weak TLS",
+                "scope": "domain"
+            },
+            {
+                "code": "padding-oracle",
+                "name": "Find padding oracle",
+                "scope": "page, component"
+            },
+            {
+                "code": "unencrypted",
+                "name": "Check if sensitive information is unencrypted",
+                "scope": "page, component"
+            },
+            {
+                "code": "weak-encryption",
+                "name": "Check if using weak encryption algorithm",
+                "scope": "domain, page, component"
+            }
+        ]
+    },
+    {
+        "code": "cache",
+        "name": "Find vulnerability from cache feature",
+        "scope": "domain, page, component",
+        "children": [
+            {
+                "code": "browser",
+                "name": "Check if sensitive infomation is cached at browser cache",
+                "scope": "page, component"
+            }
+        ]
+    },
+    {
+        "code": "busl",
+        "name": "Find vulnerability from Business logic error",
+        "scope": "domain, page, component",
+        "children": [
+            {
+                "code": "upload-filetype",
+                "name": "Upload unexpected file type",
+                "scope": "component"
             }
         ]
     }
