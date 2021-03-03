@@ -1,5 +1,4 @@
 [
-
     {
         "name": "WSTG-INFO-01 Conduct Search Engine Discovery Reconnaissance for Information Leakage",
         "code": "info-disclosure_osint"
@@ -127,6 +126,22 @@
     {
         "name": "WSTG-ATHN-10 Testing for Weaker Authentication in Alternative Channel",
         "code": "account_login_alternative"
+    },
+    {
+        "name": "WSTG-ATHZ-01 Testing Directory Traversal File Include",
+        "code": "conf_permission_dir-traversal"
+    },
+    {
+        "name": "WSTG-ATHZ-02 Testing for Bypassing Authorization Schema",
+        "code": "account_privilege_escalation"
+    },
+    {
+        "name": "WSTG-ATHZ-03 Testing for Privilege Escalation",
+        "code": "account_privilege_escalation"
+    },
+    {
+        "name": "WSTG-ATHZ-04 Testing for Insecure Direct Object References",
+        "code": "account_privilege_escalation_idor"
     },
     {
         "name": "WSTG-INPV-01 Testing for Reflected Cross Site Scripting",

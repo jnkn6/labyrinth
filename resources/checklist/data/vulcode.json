@@ -175,7 +175,12 @@
                     {
                         "code": "extension",
                         "name": "Access different file extension",
-                        "scope": "domain, page, component"
+                        "scope": "domain, page"
+                    },
+                    {
+                        "code": "dir-traversal",
+                        "name": "Access not intended files by directory traversal",
+                        "scope": "page"
                     }
                 ]
             },
@@ -345,7 +350,19 @@
                     {
                         "code": "escalation",
                         "name": "Check if enumerate accounts",
-                        "scope": "page, component"
+                        "scope": "page, component",
+                        "children":[
+                            {
+                                "code": "idor",
+                                "name": "Check insecure direct object reference",
+                                "scope": "page, component"
+                            },
+                            {
+                                "code": "url-traversal",
+                                "name": "Try URL traversal to escalate priviledge",
+                                "scope": "page"
+                            }
+                        ]
                     }
                 ]
             },
