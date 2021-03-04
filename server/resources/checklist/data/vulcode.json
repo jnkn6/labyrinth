@@ -234,6 +234,26 @@
                 "code": "hsts",
                 "name": "Check HTTP Strict Transport Security header",
                 "scope": "page, component"
+            },
+            {
+                "code": "hpp",
+                "name": "Check HTTP parameter pollution",
+                "scope": "page"
+            },
+            {
+                "code": "splitting",
+                "name": "Check HTTP response splitting",
+                "scope": "page, component"
+            },
+            {
+                "code": "smuggling",
+                "name": "Check HTTP request smuggling",
+                "scope": "page, component"
+            },
+            {
+                "code": "hosti",
+                "name": "Check HOST header injection",
+                "scope": "page, component"
             }
         ]
     },
@@ -475,6 +495,68 @@
                         "scope": "page, component"
                     }
                 ]
+            },
+            {
+                "code": "ldapi",
+                "name": "Check LDAP Injection",
+                "scope": "page, component"
+            },
+            {
+                "code": "xmli",
+                "name": "Check XML Injection",
+                "scope": "page, component"
+            },
+            {
+                "code": "ssii",
+                "name": "Check SSI Injection",
+                "scope": "page, component"
+            },
+            {
+                "code": "xpathi",
+                "name": "Check XPath Injection",
+                "scope": "page, component"
+            },
+            {
+                "code": "imap-smtpi",
+                "name": "Check IMAP/SMTP Injection",
+                "scope": "page, component"
+            },
+            {
+                "code": "codei",
+                "name": "Check Code Injection",
+                "scope": "page, component",
+                "children": [
+                    {
+                        "code": "local-file-inclusion",
+                        "name": "Check Local File Inclusion",
+                        "scope": "page, component"
+                    },
+                    {
+                        "code": "remote-file-inclusion",
+                        "name": "Check Remote File Inclusion",
+                        "scope": "page, component"
+                    }
+                ]
+            },
+            {
+                "code": "commandi",
+                "name": "Check Command Injection",
+                "scope": "page, component"
+            },
+            {
+                "code": "formatstri",
+                "name": "Check Format String Injection",
+                "scope": "page, component"
+            },
+            {
+                "code": "ssti",
+                "name": "Check Server-side Template Injection",
+                "scope": "page, component"
+            },
+            {
+                "code": "ssrf",
+                "name": "Check Server-Side Request Forgery",
+                "scope": "page, component"
             }
         ]
     },
