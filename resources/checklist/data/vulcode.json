@@ -115,6 +115,18 @@
                         ]
                     }
                 ]
+            },
+            {
+                "code": "error",
+                "name": "Find error message that includes sensitive information",
+                "scope": "page, component",
+                "children": [
+                    {
+                        "code": "stacktrace",
+                        "name": "Find error message that includes stacktrace",
+                        "scope": "page, component"
+                    }
+                ]
             }
         ]
     },
