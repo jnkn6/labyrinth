@@ -254,5 +254,21 @@
     {
         "name": "WSTG-ERRH-02 Testing for Stack Traces",
         "code": "info-disclosure_error_stacktrace"
+    },
+    {
+        "name": "WSTG-CRYP-01 Testing for Weak Transport Layer Security",
+        "code": "encryption_tls"
+    },
+    {
+        "name": "WSTG-CRYP-02 Testing for Padding Oracle",
+        "code": "encryption_padding-oracle"
+    },
+    {
+        "name": "WSTG-CRYP-03 Testing for Sensitive Information Sent via Unencrypted Channels",
+        "code": "encryption_unencrypted"
+    },
+    {
+        "name": "WSTG-CRYP-04 Testing for Weak Encryption",
+        "code": "encryption_weak-encryption"
     }
 ]
