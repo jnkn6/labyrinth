@@ -144,6 +144,38 @@
         "code": "account_privilege_escalation_idor"
     },
     {
+        "name": "WSTG-SESS-01 Testing for Session Management Schema",
+        "code": "session"
+    },
+    {
+        "name": "WSTG-SESS-02 Testing for Cookies Attributes",
+        "code": "session_cookie"
+    },
+    {
+        "name": "WSTG-SESS-03 Testing for Session Fixation",
+        "code": "session_fixation"
+    },
+    {
+        "name": "WSTG-SESS-04 Testing for Exposed Session Variables",
+        "code": "session_exposed"
+    },
+    {
+        "name": "WSTG-SESS-06 Testing for Logout Functionality",
+        "code": "session_expire_logout"
+    },
+    {
+        "name": "WSTG-SESS-07 Testing Session Timeout",
+        "code": "session_expire_timeout"
+    },
+    {
+        "name": "WSTG-SESS-08 Testing for Session Puzzling",
+        "code": "session_puzzling"
+    },
+    {
+        "name": "WSTG-SESS-09 Testing for Session Hijacking",
+        "code": "http_hsts"
+    },
+    {
         "name": "WSTG-INPV-01 Testing for Reflected Cross Site Scripting",
         "code": "input_xss_reflected"
     },

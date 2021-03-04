@@ -374,6 +374,50 @@
         ]
     },
     {
+        "code": "session",
+        "name": "Find vulnerability from session management",
+        "scope": "domain",
+        "children": [
+            {
+                "code": "cookie",
+                "name": "Check session cookie options",
+                "scope": "page, component"
+            },
+            {
+                "code": "fixation",
+                "name": "Check session fixation",
+                "scope": "page, component"
+            },
+            {
+                "code": "exposed",
+                "name": "Check if session is exposed at GET query, using HTTP, cached, can be reused",
+                "scope": "page, component"
+            },
+            {
+                "code": "expire",
+                "name": "Check session expire feature",
+                "scope": "page, component",
+                "children": [
+                    {
+                        "code": "logout",
+                        "name": "Check session expired when logout",
+                        "scope": "page, component"
+                    },
+                    {
+                        "code": "timeout",
+                        "name": "Check session expired when timeout",
+                        "scope": "domain"
+                    }
+                ]
+            },
+            {
+                "code": "puzzling",
+                "name": "Check session puzzling",
+                "scope": "page, component"
+            }
+        ]
+    },
+    {
         "code": "input",
         "name": "Find vulnerability from lack of client input validation",
         "scope": "page, component",
