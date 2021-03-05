@@ -266,6 +266,11 @@
                 "code": "hosti",
                 "name": "Check HOST header injection",
                 "scope": "page, component"
+            },
+            {
+                "code": "cors",
+                "name": "Check CORS setting is secure",
+                "scope": "page, component"
             }
         ]
     },
@@ -473,6 +478,11 @@
                         "code": "stored",
                         "name": "Check Stored XSS",
                         "scope": "page, component"
+                    },
+                    {
+                        "code": "dom",
+                        "name": "Check DOM-Based XSS",
+                        "scope": "page, component"
                     }
                 ]
             },
@@ -568,6 +578,36 @@
             {
                 "code": "ssrf",
                 "name": "Check Server-Side Request Forgery",
+                "scope": "page, component"
+            },
+            {
+                "code": "htmli",
+                "name": "Check HTML injection",
+                "scope": "page, component"
+            },
+            {
+                "code": "open-redir",
+                "name": "Check Open redirect",
+                "scope": "page, component"
+            },
+            {
+                "code": "cssi",
+                "name": "Check CSS injection",
+                "scope": "page, component"
+            },
+            {
+                "code": "resourcei",
+                "name": "Check Resource injection",
+                "scope": "page, component"
+            },
+            {
+                "code": "xsf",
+                "name": "Check Cross-Site Flashing",
+                "scope": "page, component"
+            },
+            {
+                "code": "xssi",
+                "name": "Check Cross Site Script Inclusion",
                 "scope": "page, component"
             }
         ]
@@ -667,6 +707,60 @@
                         "scope": "page, component"
                     }
                 ]
+            }
+        ]
+    },
+    {
+        "code": "clickjacking",
+        "name": "Check click jacking is available",
+        "scope": "page, component"
+    },
+    {
+        "code": "websocket",
+        "name": "Find vulnerability from web socket",
+        "scope": "page, component",
+        "children": [
+            {
+                "code": "encryption",
+                "name": "Check web socket is encrypted",
+                "scope": "page, component"
+            }
+        ]
+    },
+    {
+        "code": "web-messaging",
+        "name": "Find vulnerability from web messaging",
+        "scope": "page, component"
+    },
+    {
+        "code": "browser",
+        "name": "Find sensitive data in browser storage",
+        "scope": "page, component",
+        "children": [
+            {
+                "code": "local",
+                "name": "Check if sensitive infomation is in browser local storage",
+                "scope": "page, component"
+            },
+            {
+                "code": "session",
+                "name": "Check if sensitive infomation is in browser session storage",
+                "scope": "page, component"
+            },
+            {
+                "code": "indexed-db",
+                "name": "Check if sensitive infomation is in browser indexed DB",
+                "scope": "page, component"
+            },
+            {
+                "code": "cookie",
+                "name": "Check if sensitive infomation is in browser cookie",
+                "scope": "page, component"
+            },
+            {
+                "code": "cache",
+                "name": "Check if sensitive infomation is cached at browser cache",
+                "scope": "page, component"
             }
         ]
     }
