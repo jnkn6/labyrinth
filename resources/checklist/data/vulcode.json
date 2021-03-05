@@ -763,5 +763,17 @@
                 "scope": "page, component"
             }
         ]
+    },
+    {
+        "code": "api",
+        "name": "Find vulnerability at API",
+        "scope": "page, component",
+        "children": [
+            {
+                "code": "graphql",
+                "name": "Check GraqlQL API vulnerability",
+                "scope": "page, component"
+            }
+        ]
     }
 ]
