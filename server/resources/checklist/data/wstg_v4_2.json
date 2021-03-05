@@ -306,5 +306,57 @@
     {
         "name": "WSTG-BUSL-09 Test Upload of Malicious Files",
         "code": "busl_upload_malicious"
+    },
+    {
+        "name": "WSTG-CLNT-01 Testing for DOM-Based Cross Site Scripting",
+        "code": "input_xss_dom"
+    },
+    {
+        "name": "WSTG-CLNT-02 Testing for JavaScript Execution",
+        "code": "input_xss_dom"
+    },
+    {
+        "name": "WSTG-CLNT-03 Testing for HTML Injection",
+        "code": "input_htmli"
+    },
+    {
+        "name": "WSTG-CLNT-04 Testing for Client-side URL Redirect",
+        "code": "input_open-redir"
+    },
+    {
+        "name": "WSTG-CLNT-05 Testing for CSS Injection",
+        "code": "input_cssi"
+    },
+    {
+        "name": "WSTG-CLNT-06 Testing for Client-side Resource Manipulation",
+        "code": "input_resourcei"
+    },
+    {
+        "name": "WSTG-CLNT-07 Testing Cross Origin Resource Sharing",
+        "code": "http_cors"
+    },
+    {
+        "name": "WSTG-CLNT-08 Testing for Cross Site Flashing",
+        "code": "input_xsf"
+    },
+    {
+        "name": "WSTG-CLNT-09 Testing for Clickjacking",
+        "code": "clickjacking"
+    },
+    {
+        "name": "WSTG-CLNT-10 Testing WebSockets",
+        "code": "websocket"
+    },
+    {
+        "name": "WSTG-CLNT-11 Testing Web Messaging",
+        "code": "web-messaging"
+    },
+    {
+        "name": "WSTG-CLNT-12 Testing Browser Storage",
+        "code": "browser"
+    },
+    {
+        "name": "WSTG-CLNT-13 Testing for Cross Site Script Inclusion",
+        "code": "input_xssi"
     }
 ]
