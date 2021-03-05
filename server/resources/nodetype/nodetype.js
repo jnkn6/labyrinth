@@ -33,7 +33,7 @@ class NodeType{
      *  component: {
      *      form: { name: "Form", vul: [input] },
      *      form_checkbox: { "name": "Checkbox", vul: [input] },
-     *      form_file: { "name":"File upload", vul: ["busl_upload-filetype"] },
+     *      form_file: { "name":"File upload", vul: ["busl_upload"] },
      *      button: {"name": "Button"},
      *      'user-text': { "User input reflection", vul: ["input_xss"] }
      *  }
