@@ -614,12 +614,59 @@
     {
         "code": "busl",
         "name": "Find vulnerability from Business logic error",
-        "scope": "domain, page, component",
+        "scope": "page, component",
         "children": [
             {
-                "code": "upload-filetype",
-                "name": "Upload unexpected file type",
-                "scope": "component"
+                "code": "data-val",
+                "name": "Check business logic data validation",
+                "scope": "page, component"
+            },
+            {
+                "code": "forge",
+                "name": "Check the response when forge requests",
+                "scope": "page, component"
+            },
+            {
+                "code": "integrity",
+                "name": "Try to forge hidden field or intended value",
+                "scope": "page, component"
+            },
+            {
+                "code": "timing",
+                "name": "Get information from process timing",
+                "scope": "page, component"
+            },
+            {
+                "code": "limit",
+                "name": "Try to bypass limit",
+                "scope": "page, component"
+            },
+            {
+                "code": "workflow",
+                "name": "Try to bypass workflow",
+                "scope": "page, component"
+            },
+            {
+                "code": "misuse",
+                "name": "Check the defense against application misuse and bypass it",
+                "scope": "page, component"
+            },
+            {
+                "code": "upload",
+                "name": "Upload unexpected file",
+                "scope": "page, component",
+                "children": [
+                    {
+                        "code": "filetype",
+                        "name": "Upload unexpected file type",
+                        "scope": "page, component"
+                    },
+                    {
+                        "code": "malicious",
+                        "name": "Upload malicious file",
+                        "scope": "page, component"
+                    }
+                ]
             }
         ]
     }

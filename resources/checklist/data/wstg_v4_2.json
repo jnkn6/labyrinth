@@ -270,5 +270,41 @@
     {
         "name": "WSTG-CRYP-04 Testing for Weak Encryption",
         "code": "encryption_weak-encryption"
+    },
+    {
+        "name": "WSTG-BUSL-01 Test Business Logic Data Validation",
+        "code": "busl_data-val"
+    },
+    {
+        "name": "WSTG-BUSL-02 Test Ability to Forge Requests",
+        "code": "busl_forge"
+    },
+    {
+        "name": "WSTG-BUSL-03 Test Integrity Checks",
+        "code": "busl_integrity"
+    },
+    {
+        "name": "WSTG-BUSL-04 Test for Process Timing",
+        "code": "busl_timing"
+    },
+    {
+        "name": "WSTG-BUSL-05 Test Number of Times a Function Can Be Used Limits",
+        "code": "busl_limit"
+    },
+    {
+        "name": "WSTG-BUSL-06 Testing for the Circumvention of Work Flows",
+        "code": "busl_workflow"
+    },
+    {
+        "name": "WSTG-BUSL-07 Test Defenses Against Application Misuse",
+        "code": "busl_misuse"
+    },
+    {
+        "name": "WSTG-BUSL-08 Test Upload of Unexpected File Types",
+        "code": "busl_upload_filetype"
+    },
+    {
+        "name": "WSTG-BUSL-09 Test Upload of Malicious Files",
+        "code": "busl_upload_malicious"
     }
 ]
