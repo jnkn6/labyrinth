@@ -358,5 +358,9 @@
     {
         "name": "WSTG-CLNT-13 Testing for Cross Site Script Inclusion",
         "code": "input_xssi"
+    },
+    {
+        "name": "WSTG-APIT-01 Testing GraphQL",
+        "code": "api_graphql"
     }
 ]
