@@ -5,23 +5,39 @@
     },
     {
         "name": "WSTG-INFO-02 Fingerprint Web Server",
-        "code": "info-disclosure_fingerprint_server"
+        "code": "info-disclosure_fingerprint_server_webserver"
     },
     {
         "name": "WSTG-INFO-03 Review Webserver Metafiles for Information Leakage",
         "code": "info-disclosure_metafile"
     },
     {
+        "name": "WSTG-INFO-04 Enumerate Applications on Webserver",
+        "code": "fingerprint_server"
+    },
+    {
         "name": "WSTG-INFO-05 Review Webpage Content for Information Leakage",
         "code": "info-disclosure_web-content"
     },
     {
+        "name": "WSTG-INFO-06 Identify Application Entry Points",
+        "code": "attack-surface_entry-point"
+    },
+    {
+        "name": "WSTG-INFO-07 Map Execution Paths Through Application",
+        "code": "attack-surface"
+    },
+    {
         "name": "WSTG-INFO-08 Fingerprint Web Application Framework",
-        "code": "info-disclosure_fingerprint_framework"
+        "code": "info-disclosure_fingerprint_app"
     },
     {
         "name": "WSTG-INFO-09 Fingerprint Web Application",
         "code": "info-disclosure_fingerprint_app"
+    },
+    {
+        "name": "WSTG-INFO-10 Map Application Architecture",
+        "code": "fingerprint"
     },
     {
         "name": "WSTG-CONF-01 Test Network Infrastructure Configuration",
@@ -160,6 +176,10 @@
         "code": "session_exposed"
     },
     {
+        "name": "WSTG-SESS-05 Testing for Cross Site Request Forgery",
+        "code": "input_csrf"
+    },
+    {
         "name": "WSTG-SESS-06 Testing for Logout Functionality",
         "code": "session_expire_logout"
     },
@@ -228,12 +248,20 @@
         "code": "input_formatstri"
     },
     {
+        "name": "WSTG-INPV-14 Testing for Incubated Vulnerability",
+        "code": "input"
+    },
+    {
         "name": "WSTG-INPV-15-1 Testing for HTTP Splitting",
         "code": "http_splitting"
     },
     {
         "name": "WSTG-INPV-15-2 Testing for HTTP Smuggling",
         "code": "http_smuggling"
+    },
+    {
+        "name": "WSTG-INPV-16 Testing for HTTP Incoming Requests",
+        "code": "privacy_tracker"
     },
     {
         "name": "WSTG-INPV-17 Testing for Host Header Injection",
