@@ -645,8 +645,8 @@
         "scope": "domain, page, component",
         "children": [
             {
-                "code": "browser",
-                "name": "Check if sensitive infomation is cached at browser cache",
+                "code": "poisoning",
+                "name": "Check web cache poisoning",
                 "scope": "page, component"
             }
         ]
