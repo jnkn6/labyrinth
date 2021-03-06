@@ -109,7 +109,7 @@
     },
     {
         "name": "WSTG-ATHN-06 Testing for Browser Cache Weaknesses",
-        "code": "cache_browser"
+        "code": "browser_cache"
     },
     {
         "name": "WSTG-ATHN-07 Testing for Weak Password Policy",
