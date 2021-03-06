@@ -1,7 +1,7 @@
 [
     {
         "code": "info-disclosure",
-        "name": "Find vulnerability from leaked infomation, opend data",
+        "name": "Find vulnerability from leaked infomation, opened data",
         "scope": "domain",
         "children": [
             {
@@ -39,16 +39,28 @@
                     {
                         "code": "server",
                         "name": "Fingerprint server",
-                        "scope": "domain"
-                    },
-                    {
-                        "code": "framework",
-                        "name": "Fingerprint web framework",
-                        "scope": "domain"
+                        "scope": "domain",
+                        "children": [
+                            {
+                                "code": "webserver",
+                                "name": "Fingerprint web server",
+                                "scope": "domain"
+                            },
+                            {
+                                "code": "port",
+                                "name": "Fingerprint web server ports",
+                                "scope": "domain"
+                            },
+                            {
+                                "code": "subdomain",
+                                "name": "Find subdomain which shares same server",
+                                "scope": "domain"
+                            }
+                        ]
                     },
                     {
                         "code": "app",
-                        "name": "Fingerprint web application",
+                        "name": "Fingerprint web app, web framework",
                         "scope": "domain"
                     }
                 ]
@@ -127,6 +139,28 @@
                         "scope": "page, component"
                     }
                 ]
+            }
+        ]
+    },
+    {
+        "code": "attack-surface",
+        "name": "Find attack surface",
+        "scope": "domain, page, component",
+        "children": [
+            {
+                "code": "entry-point",
+                "name": "Find application entry point",
+                "scope": "page, component"
+            },
+            {
+                "code": "dataflow",
+                "name": "Observe data flow, taint analysis",
+                "scope": "page, component"
+            },
+            {
+                "code": "race",
+                "name": "Check race condition",
+                "scope": "page, component"
             }
         ]
     },
@@ -386,7 +420,7 @@
                 "children":[
                     {
                         "code": "escalation",
-                        "name": "Check if enumerate accounts",
+                        "name": "Check if escalate accounts privilege",
                         "scope": "page, component",
                         "children":[
                             {
@@ -396,7 +430,7 @@
                             },
                             {
                                 "code": "url-traversal",
-                                "name": "Try URL traversal to escalate priviledge",
+                                "name": "Try URL traversal to escalate privilege",
                                 "scope": "page"
                             }
                         ]
@@ -459,6 +493,11 @@
         "name": "Find vulnerability from lack of client input validation",
         "scope": "page, component",
         "children": [
+            {
+                "code": "csrf",
+                "name": "Check CSRF vulnerability",
+                "scope": "page, component"
+            },
             {
                 "code": "xss",
                 "name": "Check XSS",
@@ -772,6 +811,23 @@
             {
                 "code": "graphql",
                 "name": "Check GraqlQL API vulnerability",
+                "scope": "page, component"
+            }
+        ]
+    },
+    {
+        "code": "privacy",
+        "name": "Find violation of privacy",
+        "scope": "page, component",
+        "children": [
+            {
+                "code": "tracker",
+                "name": "Check if sensitive information is sended to tracker",
+                "scope": "page, component"
+            },
+            {
+                "code": "gdpr",
+                "name": "Find violation of GDPR",
                 "scope": "page, component"
             }
         ]
