@@ -125,19 +125,22 @@ function findChildren(parents, codes){
 function parseChildred(children, key, code){
     let result = [];
 
-    children.forEach(child => {
-        const newCode = code + "_" + child.code;
-        let parsed = {};
-        if(child.scope.includes(key)){
-            parsed.code = newCode;
-            parsed.name = child.name;
-        }
+    for(let i = 0; i< children.length; i++){
+        const newCode = code + "_" + children[i].code;
 
-        if(child.children){
-            parsed.children = parseChildred(child.children, key, newCode);
+        if(!children[i].scope.includes(key)){
+            continue;
+        }
+        let parsed = {
+            code: newCode,
+            name: children[i].name
+        };
+
+        if(children[i].children){
+            parsed.children = parseChildred(children[i].children, key, newCode);
         }
         result.push(parsed);
-    });
+    }
 
     return result;
 }
