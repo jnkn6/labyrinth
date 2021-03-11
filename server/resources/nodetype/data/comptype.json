@@ -72,5 +72,42 @@
                 ]
             }
         ]
+    },
+    {
+        "code": "api",
+        "name": "API",
+        "vul":[
+            "api",
+            "input_ssrf"
+        ],
+        "children": [
+            {
+                "code": "rest",
+                "name": "REST API",
+                "vul":[
+                    "api_rest",
+                    "input_ssrf",
+                    "input"
+                ]
+            },
+            {
+                "code": "graphql",
+                "name": "GraphQL",
+                "vul":[
+                    "api_graphql",
+                    "input_ssrf",
+                    "input"
+                ]
+            },
+            {
+                "code": "grpc",
+                "name": "gRPC",
+                "vul":[
+                    "api_grpc",
+                    "input_ssrf",
+                    "input"
+                ]
+            }
+        ]
     }
 ]
