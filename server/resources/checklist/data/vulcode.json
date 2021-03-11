@@ -206,7 +206,7 @@
             {
                 "code": "permission",
                 "name": "Find wrong file permission",
-                "scope": "domain",
+                "scope": "domain, page",
                 "children": [
                     {
                         "code": "backup",
