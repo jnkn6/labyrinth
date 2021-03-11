@@ -29,6 +29,14 @@
             {
                 "code": "link",
                 "name": "URL/path"
+            },
+            {
+                "code": "file",
+                "name":"File upload",
+                "vul": [
+                    "input",
+                    "busl_upload"
+                ]
             }
         ]
     },
