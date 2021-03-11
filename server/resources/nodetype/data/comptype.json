@@ -109,5 +109,33 @@
                 ]
             }
         ]
+    },
+    {
+        "code": "limit",
+        "name": "Limit",
+        "children": [
+            {
+                "code": "privilege",
+                "name": "account privilege limit",
+                "vul": [
+                    "account_privilege"
+                ]
+            },
+            {
+                "code": "rate",
+                "name": "Rate limit",
+                "vul": [
+                    "busl_misuse"
+                ]
+            },
+            {
+                "code": "count",
+                "name": "Number of times limit",
+                "vul": [
+                    "busl_limit",
+                    "attack-surface_race"
+                ]
+            }
+        ]
     }
 ]
