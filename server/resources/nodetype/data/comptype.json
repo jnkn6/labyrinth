@@ -54,6 +54,22 @@
             {
                 "code": "text",
                 "name": "Text"
+            },
+            {
+                "code": "file",
+                "name": "File",
+                "vul": [
+                    "input_xss",
+                    "busl_upload"
+                ]
+            },
+            {
+                "code": "link",
+                "name": "Link",
+                "vul": [
+                    "input_xss",
+                    "clickjacking"
+                ]
             }
         ]
     }
